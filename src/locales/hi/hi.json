@@ -1,0 +1,539 @@
+{
+	"login": {
+		"mainTitle": "लॉग इन करें",
+		"mainTitleDescription": "स्वागत! लॉगिन करने के लिए नीचे अपना ईमेल और पासवर्ड दर्ज करें",
+		"placeholderForMail": "ईमेल दर्ज करें",
+		"placeholForPassword": "पास वर्ड दर्ज करें",
+		"placeholForRepeatPassword": "पासवर्ड दोहराएं",
+		"rememberMe": "मुझे याद रखें",
+		"forgot": "पासवर्ड भूल गए?",
+		"create": "नया पासवर्ड बनाएं",
+		"inputButton": "लॉग इन करें",
+		"forgotButton": "रीसेट लिंक भेजें",
+		"forgotTitleDescription": "अपना ईमेल दर्ज करें और हम आपको आपका पासवर्ड रीसेट करने के लिए लिंक भेजेंगे",
+		"newPasswordTitleDescription": "लॉग इन करने के लिए कृपया एक मजबूत पासवर्ड बनाएं",
+		"infoTitleMain": "अपने मेल पर जाएँ",
+		"infoTitleDescription": "आपका पासवर्ड बदलने के लिए एक लिंक आपके ईमेल पर भेज दिया गया है",
+		"noSuchUserExists": "ऐसा कोई उपयोगकर्ता मौजूद नहीं है"
+	},
+
+	"header": {
+		"exit": "लॉग आउट",
+		"experentia": "एक्सपेरेंटिया",
+		"addButtonBoockings": "बुकिंग",
+		"addButtonService": "नई सेवा"
+	},
+
+	"sidebar": {
+		"Bookings": "बुकिंग के",
+		"Requests": "अनुरोध",
+		"SupportChat": "समर्थन चैट",
+		"ServiceSettings": "सेवा सेटिंग्स",
+		"Notifications": "सूचनाएं",
+		"BookingHistory": "बुकिंग इतिहास",
+		"HotelSettings": "समायोजन",
+		"HowToUse": "कैसे इस्तेमाल करे",
+		"food": "भोजन",
+		"drinks": "पेय",
+		"cleaning": "सफाई",
+		"laundry": "धोने लायक कपड़े",
+		"houseKeeping": "गृह व्यवस्था",
+		"gadgetRepairing": "गैजेट रिपेयरिंग",
+		"bedding": "बिस्तर",
+		"local": "स्थानीय",
+		"taxi": "टैक्सी",
+		"reminder": "अनुस्मारक",
+		"message": "संदेश",
+		"about": "के बारे में",
+		"services": "सेवाएं",
+		"roomTypes": "कमरे के प्रकार",
+		"rooms": "कमरा",
+		"wiFi": "वाई - फाई",
+		"usefulContacts": "उपयोगी संपर्क",
+		"addons": "ऐड-ऑन",
+		"subscription": "अंशदान"
+	},
+
+	"bookings": {
+		"main": "बुकिंग के",
+		"titleForGuest": "अतिथि",
+		"titleForRoom": "कमरा",
+		"titleForBookingDates": "बुकिंग तिथियां",
+		"titleForCheckIn": "चेक इन",
+		"titleForCheckOut": "चेक आउट",
+		"titleForAction": "गतिविधि",
+		"titleForName": "नाम",
+		"titleForPhoneBookingDates": "बुकिंग तिथियां",
+		"titleForAccommodationType": "आवास का प्रकार",
+		"titleForRoomType": "कमरे जैसा",
+		"titleForRoomNumber": "रूम नंबर",
+		"invoce": "चालान (पीडीएफ)",
+		"titleAddNewBookings": "नई बुकिंग",
+		"titleEditBookings": "संपादन करना",
+
+		"placeholderForPhoneBookingDatesIn": "चेक इन",
+		"placeholderForPhoneBookingDatesOut": "चेक आउट",
+		"placeholderForBookingSelect": "चुनना",
+		"placeholderForPhoneNumber": "फ़ोन नंबर",
+
+		"searchPlaceholderByGues": "अतिथि फोन",
+		"searchPlaceholderByRoom": "रूम नंबर",
+		"Book": "किताब",
+		"saveText": "Save",
+
+		"dellBookingTitle": "क्या आप वाकई इस बुकिंग को हटा रहे हैं?",
+		"dellBookingContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellBookingSucces": "बुकिंग हटाई गई!",
+
+		"createdBookingSucces": "एक नई बुकिंग बनाई!",
+		"created": "बनाया था",
+		"updateBookingSuccess": "बुकिंग अपडेट की गई!",
+		"checkOutBookingSuccess": "बुकिंग चेक आउट",
+		"updated": "अद्यतन",
+		"NoResults": "कोई परिणाम नहीं"
+	},
+
+	"notifications": {
+		"main": "सूचनाएं",
+		"newNotifications": "नई अधिसूचना",
+		"titleForDate": "तिथि और समय",
+		"titleForImage": "छवि",
+		"titleForTitle": "शीर्षक",
+		"titleForMessage": "संदेश",
+		"titleForAction": "गतिविधि",
+		"titleForSent": "भेज दिया",
+		"placeholderForTitle": "अधिसूचना शीर्षक",
+		"placeholderForMessage": "अपना संदेश यहां दर्ज करें",
+		"dellNotificationsTitle": "क्या आप वाकई इस अधिसूचना को हटा रहे हैं?",
+		"dellNotificationsContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे।",
+		"dellNotificationsSuccess": "अधिसूचना हटाई गई!",
+		"createdNotificationSuccess": "एक नया नोटिफिकेशन बनाया!"
+	},
+
+	"bookingsHistory": {
+		"main": "बुकिंग इतिहास",
+		"titleForGuest": "अतिथि",
+		"titleForRoom": "कमरा",
+		"titleForBookingDates": "बुकिंग तिथियां",
+		"titleForCheckIn": "चेक इन",
+		"titleForCheckOut": "चेक आउट",
+		"titleForAction": "गतिविधि",
+		"titleForName": "नाम",
+		"titleForPhoneBookingDates": "बुकिंग तिथियां",
+		"titleForAccommodationType": "आवास का प्रकार",
+		"titleForRoomType": "कमरे जैसा",
+		"titleForRoomNumber": "रूम नंबर",
+		"invoce": "चालान (पीडीएफ)",
+		"titleAddNewBookings": "बुकिंग",
+		"titleEditBookings": "संपादन करना",
+
+		"placeholderForPhoneBookingDatesIn": "चेक इन",
+		"placeholderForPhoneBookingDatesOut": "चेक आउट",
+		"placeholderForBookingSelect": "Select",
+		"placeholderForPhoneNumber": "फ़ोन नंबर",
+
+		"searchPlaceholderByGues": "अतिथि फोन",
+		"searchPlaceholderByRoom": "रूम नंबर",
+		"Book": "किताब",
+		"saveText": "बचाना",
+
+		"dellBookingTitle": "क्या आप वाकई इस बुकिंग को हटा रहे हैं?",
+		"dellBookingContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellBookingSucces": "बुकिंग हटाई गई!",
+
+		"createdBookingSucces": "एक नई बुकिंग बनाई!",
+		"created": "बनाया था",
+		"updateBookingSuccess": "बुकिंग अपडेट की गई!",
+		"checkOutBookingSuccess": "बुकिंग चेक आउट",
+		"updated": "अद्यतन",
+		"NoResults": "कोई परिणाम नहीं"
+	},
+
+	"standart": {
+		"main": "स्टैंडआर्ट",
+		"addNewServiceItem": "नई सेवा आइटम",
+		"titleForName": "नाम",
+		"titleForPrice": "कीमत",
+		"titleForStatus": "दर्जा",
+		"titleForAction": "गतिविधि",
+		"activeStatus": "सक्रिय",
+		"notActiveStatus": "अक्रिय",
+		"dellStandartTitle": "क्या आप वाकई इस सेवा आइटम को हटा रहे हैं?",
+		"dellStandartContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellStandartSucces": "सेवा स्टैंडआर्ट हटाया गया!",
+		"createdStandartSucces": "एक सेवा स्टैंडआर्ट बनाया!",
+		"updateStandartSuccess": "सेवा मानक अद्यतन!",
+		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!"
+	},
+
+	"menu": {
+		"main": "मेन्यू",
+		"addNewCategory": "नई श्रेणी",
+		"titleForName": "नाम",
+		"titleForStatus": "दर्जा",
+		"titleForAction": "गतिविधि",
+		"activeStatus": "सक्रिय",
+		"notActiveStatus": "अक्रिय",
+		"dellCategoryTitle": "क्या आप वाकई इस श्रेणी को हटा रहे हैं?",
+		"dellCategoryContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellCategorySucces": "श्रेणी हटाई गई!",
+		"createdCategorySucces": "एक नई श्रेणी बनाई!",
+		"updateCategorySuccess": "श्रेणी अपडेट की गई!",
+		"itemCannotBeDeleted": "इस आइटम को हटाना असंभव है क्योंकि इसमें अन्य आइटम शामिल हैं",
+		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!"
+	},
+
+	"dish": {
+		"titleForImage": "छवि",
+		"newDish": "नई डिश",
+		"titleForName": "नाम",
+		"titleForDishFeatures": "डिश विशेषताएं",
+		"titleForVegetarian": "शाकाहारी",
+		"titleForDescription": "विवरण",
+		"titleForPrice": "कीमत",
+		"titleForIncludingTax": "कर सहित",
+		"titleForStatus": "दर्जा",
+		"titleForAddons": "ऐड-ऑन",
+		"titleForAction": "गतिविधि",
+
+		"placeholderForDescription": "सामग्री का वर्णन करें",
+		"placeholderForName": "पकवान का नाम",
+		"placeholderForAddons": "नाम दर्ज"
+	},
+
+	"attractions": {
+		"newAttraction": "नया आकर्षण",
+		"titleForName": "नाम",
+		"titleForDishFeatures": "डिश विशेषताएं",
+		"titleForVegetarian": "शाकाहारी",
+		"titleForDescription": "विवरण",
+		"titleForPrice": "कीमत",
+		"titleForIncludingTax": "कर सहित",
+		"titleForStatus": "दर्जा",
+		"titleForAddons": "ऐड-ऑन",
+		"titleForAction": "गतिविधि",
+		"dellAttractionTitle": "क्या आप वाकई इस आकर्षण आइटम को हटा रहे हैं?",
+		"dellAttractionContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellAttractionSucces": "सेवा आकर्षण हटाया गया!",
+
+		"updateAttractionSuccess": "आकर्षण अद्यतन",
+		"createdAttractionSucces": "एक नया आकर्षण बनाया",
+		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!",
+		"placeholderForDescription": "सामग्री का वर्णन करें",
+		"placeholderForName": "पकवान का नाम",
+		"placeholderForAddons": "नाम दर्ज"
+	},
+
+	"settings": {
+		"main": "सेवा सेटिंग्स",
+		"about": {
+			"placeholderForCountry": "देश",
+			"placeholderForState": "राज्य",
+			"placeholderForCity": "शहर",
+			"placeholderForName": "संपत्ति का नाम",
+			"placeholderForDescription": "अपनी संपत्ति का वर्णन करें",
+			"placeholderForAddress": "संपत्ति का पता",
+			"placeholderForPropertyType": "संपत्ति का प्रकार चुनें",
+			"placeholderForCurrency": "मुद्रा चुनें",
+			"placeholderForPhoneNumber": "फ़ोन नंबर",
+			"placeholderForEmail": "ईमेल",
+			"placeholderForAdminEmail": "व्यवस्थापक ईमेल दर्ज करें",
+			"placeholderForAdminName": "व्यवस्थापक नाम दर्ज करें",
+			"placeholderForSubscription": "नहीं",
+
+			"titleForName": "नाम",
+			"titleForDescription": "विवरण",
+			"titleForAddress": "पता",
+			"titleForPropertyType": "सम्पत्ती के प्रकार",
+			"titleForCurrency": "मुद्रा",
+			"titleForEmail": "ईमेल",
+			"titleForSubscription": "अंशदान",
+			"titleForStatus": "दर्जा",
+			"titleForPhoneNumber": "फ़ोन नंबर",
+			"titleForRating": "रेटिंग",
+			"titleForAction": "गतिविधि",
+			"titleAddNewProperties": "संपत्ति जोड़ें",
+			"titleAbout": "के बारे में",
+			"titleForLogo": "प्रतीक चिन्ह",
+			"titleForGalery": "गैलरी (4 आइटम तक)",
+
+			"activeStatus": "सक्रिय",
+			"notActiveStatus": "अक्रिय",
+
+			"updatePropertySuccess": "संपत्ति अद्यतन",
+			"updated": "अद्यतन"
+		},
+		"roomTypes": {
+			"main": "कमरे के प्रकार",
+			"titleForName": "नाम",
+			"titleForAction": "गतिविधि",
+			"placeholderForName": "कमरे के प्रकार का नाम",
+			"newCategory": "नया प्रकार",
+			"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!",
+
+			"dellRoomTypesTitle": "क्या आप वाकई इस प्रकार के कमरे को हटा रहे हैं?",
+			"dellRoomTypesContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+			"dellRoomTypesSucces": "कमरे का प्रकार हटाया गया!",
+
+			"createdRoomTypesSucces": "एक नया प्रकार बनाया!",
+			"updateRoomTypesSuccess": "कमरे का प्रकार अपडेट किया गया!"
+		},
+		"wifi": {
+			"main": "वाई - फाई",
+			"titleForName": "नाम",
+			"titleForAction": "गतिविधि",
+			"titleForPassword": "पासवर्ड",
+			"newCategory": "नया वाई-फाई स्पॉट",
+
+			"placeholderForPassword": "वाईफ़ाई पासवर्ड",
+			"placeholderForWiFiName": "वाईफाई नाम",
+
+			"dellWiFiTitle": "क्या आप वाकई इस वाई-फ़ाई स्पॉट को हटा रहे हैं?",
+			"dellWiFiContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+			"dellWiFiSucces": "वाई-फ़ाई स्पॉट हटाया गया!",
+
+			"createdWiFiSucces": "एक नया वाई-फाई स्थान बनाया!",
+			"updateWiFiSuccess": "वाई-फ़ाई स्पॉट अपडेट किया गया!"
+		},
+		"rooms": {
+			"main": "कमरा",
+			"titleForName": "नाम",
+			"titleForAction": "गतिविधि",
+			"titleForRoomNumber": "रूम नंबर",
+			"titleForAccommodationType": "आवास का प्रकार",
+			"titleForRoomType": "कमरे जैसा",
+			"titleForWiFi": "वाई - फाई",
+			"titleForStatus": "दर्जा",
+			"newCategory": "नया कमरा",
+			"titleAddNewRoom": "कमरा जोड़ें",
+			"titleEditRoom": "संपादन करना",
+			"titleForGalery": "गैलरी (4 आइटम तक)",
+
+			"placeholderForPassword": "वाईफ़ाई पासवर्ड",
+			"placeholderForWiFiName": "वाईफाई नाम",
+			"placeholderForRoomNumber": "रूम नंबर",
+			"placeholderForAccommodationType": "आवास का प्रकार",
+			"placeholderForWiFi": "वाई - फाई",
+			"placeholderForRoomType": "कमरे जैसा",
+			"searchPlaceholderForBookings": "रूम नंबर",
+
+			"dellRoomTitle": "क्या आप वाकई इस कमरे को हटा रहे हैं?",
+			"dellRoomContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+			"dellRoomSucces": "कमरा हटा दिया गया!",
+			"createdRoomSucces": "एक नया कमरा बनाया!",
+			"updateRoomSuccess": "कमरा अपडेट किया गया!"
+		},
+
+		"usefulContacts": {
+			"main": "उपयोगी संपर्क",
+			"titleForName": "नाम",
+			"titleForAction": "गतिविधि",
+			"titleForPhoneNumber": "फ़ोन नंबर",
+			"newUsefulContact": "नया कॉन्ट्रैक्ट",
+			"placeholderContactName": "संपर्क नाम",
+			"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!",
+
+			"dellUsefulContactTitle": "क्या आप वाकई इस संपर्क को हटा रहे हैं?",
+			"dellUsefulContactContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे।",
+			"dellUsefulContactSucces": "संपर्क हटाया गया!",
+
+			"createdUsefulContactSucces": "एक नया संपर्क बनाया!",
+			"updateUsefulContactSuccess": "संपर्क अपडेट किया गया!"
+		},
+
+		"addons": {
+			"main": "ऐड-ऑन",
+			"titleForName": "नाम",
+			"titleForAction": "गतिविधि",
+			"titleForPrice": "कीमत",
+			"newAddon": "नया एडन",
+			"placeholderAddonName": "एडऑन नाम",
+
+			"dellAddonTitle": "क्या आप वाकई इस ऐडऑन को हटा रहे हैं?",
+			"dellAddonContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे।",
+			"dellAddonSucces": "ऐडऑन हटा दिया गया!",
+
+			"createdAddonSucces": "एक नया ऐडऑन बनाया!",
+			"updateAddonSuccess": "एडऑन अपडेट किया गया!"
+		},
+
+		"subscription": {
+			"main": "अंशदान",
+			"titleForName": "नाम",
+			"titleForAction": "गतिविधि",
+			"titleForRoomNumber": "रूम नंबर",
+			"titleForAccommodationType": "आवास का प्रकार",
+			"titleForRoomType": "कमरे जैसा",
+			"titleForWiFi": "वाई - फाई",
+			"titleForStatus": "दर्जा",
+			"newCategory": "नया कमरा",
+
+			"placeholderForPassword": "वाईफ़ाई पासवर्ड",
+			"placeholderForWiFiName": "वाईफाई नाम",
+			"placeholderForRoomNumber": "रूम नंबर",
+			"placeholderForAccommodationType": "आवास का प्रकार",
+			"placeholderForWiFi": "वाई - फिट",
+			"placeholderForRoomType": "कमरे जैसा",
+
+			"cancelSubscription": "सदस्यता रद्द",
+			"dellSubTitle": "क्या आप वाकई वर्तमान सदस्यता रद्द कर रहे हैं?",
+			"dellSubContent": "जब तक आप एक नई सदस्यता नहीं खरीदते तब तक व्यवस्थापक पैनल तक पहुंच अवरुद्ध रहेगी",
+			"dellSubSucces": "वाई-फ़ाई स्पॉट हटाया गया!",
+
+			"createdSubSucces": "एक नया वाई-फाई स्थान बनाया!",
+			"updateSubSuccess": "वाई-फ़ाई स्पॉट अपडेट किया गया!"
+		},
+		"notification": {
+			"addPlsGallery": "गैलरी में कृपया फोटो जोड़ें",
+			"addPlsLogo": "कृपया लोगो जोड़ें",
+			"roomErr": "इस नंबर वाला कमरा पहले से मौजूद है"
+		}
+	},
+
+	"users": {
+		"main": "उपयोगकर्ताओं",
+		"searchPlaceholderForUsers": "फोन नंबर दर्ज",
+		"searchEnterButton": "खोज",
+
+		"titleForName": "पूरा नाम",
+		"titleForFirstName": "नाम",
+		"titleForLastName": "उपनाम",
+		"titleForAddress": "पता",
+		"titleForEmail": "ईमेल",
+		"titleForPhoneNumber": "फ़ोन नंबर",
+		"titleForCreated": "बनाया था",
+		"titleForAction": "गतिविधि",
+
+		"dellUserTitle": "क्या आप वाकई इस उपयोगकर्ता को हटा रहे हैं?",
+		"dellUserContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellUserSucces": "उपयोगकर्ता हटा दिया गया",
+
+		"created": "बनाया था",
+		"updated": "अद्यतन"
+	},
+
+	"services": {
+		"main": "सेवाएं",
+		"titleForName": "नाम",
+		"titleForDescription": "विवरण",
+		"titleForIcon": "आइकन",
+		"titleAddNewService": "सेवा जोड़ें",
+		"titleEditService": "संपादन करना",
+		"titleForAction": "गतिविधि",
+		"titleForStatus": "दर्जा",
+
+		"activeStatus": "सक्रिय",
+		"notActiveStatus": "अक्रिय",
+
+		"titleForServiceType": "सेवा प्रकार",
+		"titleForPropertyType": "सम्पत्ती के प्रकार",
+		"titleForTax": "टैक्स सेट करें",
+		"titleForBgImg": "पृष्ठभूमि छवि",
+		"titleForATST": "समय निर्धारित करने की क्षमता",
+
+		"placeholderForName": "सेवा का नाम",
+		"placeholderForDescription": "संक्षिप्त वर्णन",
+		"placeholderForServiceType": "टाइप",
+		"placeholderForBgImg": "अपलोड करने के लिए छवि को इस क्षेत्र में क्लिक करें या खींचें",
+		"placeholderForATST": "क्षमता चुनें",
+
+		"dellServicesTitle": "क्या आप वाकई इस सेवा को हटा रहे हैं?",
+		"dellServicesContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellServicesSucces": "सेवा हटाई गई!",
+
+		"createdServicesSucces": "एक नई सेवा बनाई!",
+		"created": "बनाया था",
+		"updateServicesSuccess": "सेवा अपडेट की गई!",
+		"updated": "अद्यतन",
+
+		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!"
+	},
+
+	"requests": {
+		"main": "अनुरोध",
+		"titleForGuest": "अतिथि",
+		"titleForRoom": "कमरा",
+		"titleForCheckIn": "चेक इन",
+		"titleForCheckOut": "चेक आउट",
+		"titleForAction": "गतिविधि",
+		"titleForName": "नाम",
+		"titleForPhoneBookingDates": "बुकिंग तिथियां",
+		"titleForAccommodationType": "आवास का प्रकार",
+		"titleForRoomType": "कमरे जैसा",
+		"titleForRoomNumber": "रूम नंबर",
+		"invoce": "चालान (पीडीएफ)",
+		"titleEditBookings": "संपादन करना",
+		"titleService": "सेवा",
+		"titleForStatus": "दर्जा",
+
+		"dellRequestsTitle": "क्या आप वाकई इस अनुरोध को हटा रहे हैं?",
+		"dellRequestsContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellRequestsSucces": "अनुरोध हटा दिए गए!",
+
+		"updateRequestsSuccess": "अनुरोध अपडेट किए गए!"
+	},
+	"supportChat": {
+		"writeMessage": "एक सन्देश लिखिए...",
+		"supportEmpty": "यह एक सहायता है जहां आप अपने मेहमानों के साथ चैट कर सकते हैं"
+	},
+
+	"message": {
+		"notCorrectEmail": "ईमेल सही नहीं है",
+		"notCorrectName": "सही नाम नहीं",
+		"errorFillAllFields": "सभी फ़ील्ड आवश्यक हैं",
+		"noSuchUserExists": "ऐसा कोई उपयोगकर्ता मौजूद नहीं है",
+		"incorrectPassword": "गलत पासवर्ड",
+		"noInternetConnection": "कोई इंटरनेट कनेक्शन नहीं"
+	},
+
+	"modal": {
+		"okText": "जोड़ें",
+		"saveText": "बचाना",
+		"cancelText": "रद्द करना",
+
+		"okDell": "हाँ",
+		"cancelDell": "नहीं",
+
+		"checkOut": "चेक आउट"
+	},
+
+	"button": {
+		"titleForSave": "बचाना",
+		"titleForDell": "मिटाना",
+
+		"searchEnterButton": "खोज",
+		"resetEnterButton": "रीसेट",
+		"BackHome": "घर वापस"
+	},
+
+	"pagination": {
+		"paginationTotal": "कुल",
+		"paginationItems": "सामान"
+	},
+
+	"tooltip": {
+		"tooltipServiceTypes": "सेवा के प्रकार",
+		"tooltipMenu": "मेन्यू",
+		"tooltipMenuText": "श्रेणियों के साथ संपत्ति रेस्तरां मेनू को अनुकूलित करना",
+		"tooltipStandart": "स्टैंडआर्ट",
+		"tooltipStandartText": "सभी बेस रूम सेवाओं के लिए उपयुक्त",
+		"tooltipTaxi": "टैक्सी",
+		"tooltipTaxiText": "टैक्सी सेवाओं के लिए उपयुक्त",
+		"tooltipAttraction": "आकर्षण",
+		"tooltipAttractionText": "आस-पास के आकर्षण या संपत्ति में किसी अन्य मनोरंजन सेवा का वर्णन करने के लिए उपयुक्त",
+
+		"tooltipATST": "समय निर्धारित करने की क्षमता",
+		"tooltipATSTtext": "आप निर्दिष्ट कर सकते हैं कि सेवा कब की जा सकती है",
+		"tooltipASAP": "जितनी जल्दी हो सके",
+		"tooltipASAPtext": "अनुरोध तुरंत संसाधित किया गया",
+		"tooltipTimeOnly": "केवल समय",
+		"tooltipTimeOnlyText": "अतिथि समय चुन सकते हैं",
+		"tooltipDateAndTime": "तिथि और समय",
+		"tooltipDateAndTimeText": "अतिथि समय और तारीख का चयन कर सकते हैं",
+		"tooltipNo": "नहीं",
+		"tooltipNoText": "चुनने की संभावना नहीं"
+	},
+	"404": {
+		"text": "क्षमा करें, हमें वह पृष्ठ नहीं मिला।"
+	}
+}

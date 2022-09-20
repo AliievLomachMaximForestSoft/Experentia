@@ -1,0 +1,546 @@
+{
+	"login": {
+		"mainTitle": "Log In",
+		"mainTitleDescription": "Welcome! Enter your email and password below to login",
+		"placeholderForMail": "Enter email",
+		"placeholForPassword": "Enter password",
+		"placeholForRepeatPassword": "Repeat password",
+		"rememberMe": "Remember Me",
+		"forgot": "Forgot password?",
+		"create": "Create New Password",
+		"inputButton": "Log In",
+		"forgotButton": "Send Reset Link",
+		"forgotTitleDescription": "Enter your email and we`ll send you link to reset your password",
+		"newPasswordTitleDescription": "Please create a strong password to login",
+		"infoTitleMain": "Visit your mail",
+		"infoTitleDescription": "A link to change your password has been sent to your email",
+		"noSuchUserExists": "No such user exists"
+	},
+
+	"header": {
+		"exit": "Log Out",
+		"experentia": "Experentia",
+		"addButtonBoockings": "Booking",
+		"addButtonService": "New Service"
+	},
+
+	"sidebar": {
+		"Bookings": "Bookings",
+		"Requests": "Requests",
+		"SupportChat": "Support Chat",
+		"ServiceSettings": "Service Settings",
+		"Notifications": "Notifications",
+		"BookingHistory": "Booking History",
+		"HotelSettings": "Settings",
+		"HowToUse": "How to Use",
+		"food": "Food",
+		"drinks": "Drinks",
+		"cleaning": "Cleaning",
+		"laundry": "Laundry",
+		"houseKeeping": "House Keeping",
+		"gadgetRepairing": "Gadget Repairing",
+		"bedding": "Bedding",
+		"local": "Local",
+		"taxi": "Taxi",
+		"reminder": "Reminder",
+		"message": "Message",
+		"about": "About",
+		"services": "Services",
+		"roomTypes": "Room Types",
+		"rooms": "Rooms",
+		"wiFi": "Wi-Fi",
+		"usefulContacts": "Useful Contacts",
+		"addons": "Addons",
+		"subscription": "Subscription"
+	},
+
+	"bookings": {
+		"main": "Bookings",
+		"titleForGuest": "Guest",
+		"titleForRoom": "Room",
+		"titleForBookingDates": "Booking Dates",
+		"titleForCheckIn": "Check In",
+		"titleForCheckOut": "Check Out",
+		"titleForAction": "Action",
+		"titleForName": "Name",
+		"titleForPhoneBookingDates": "Booking Dates",
+		"titleForAccommodationType": "Accommodation Type",
+		"titleForRoomType": "Room Type",
+		"titleForRoomNumber": "Room Number",
+		"invoce": "Invoce (pdf)",
+		"titleAddNewBookings": "New Booking",
+		"titleEditBookings": "Edit",
+
+		"placeholderForPhoneBookingDatesIn": "Check In",
+		"placeholderForPhoneBookingDatesOut": "Check Out",
+		"placeholderForBookingSelect": "Select",
+		"placeholderForPhoneNumber": "Phone number",
+
+		"searchPlaceholderByGues": "Guest phone",
+		"searchPlaceholderByRoom": "Room number",
+		"Book": "Book",
+		"saveText": "Save",
+
+		"dellBookingTitle": "Are you sure delete this booking?",
+		"dellBookingContent": "All data will be deleted and you will not be able to recover it",
+		"dellBookingSucces": "Booking deleted!",
+
+		"createdBookingSucces": "Created a new booking!",
+		"created": "Created",
+		"updateBookingSuccess": "Booking updated!",
+		"checkOutBookingSuccess": "Booking chek out",
+		"updated": "Updated",
+		"NoResults": "No Results"
+	},
+
+	"notifications": {
+		"main": "Notifications",
+		"newNotifications": "New Notification",
+		"titleForDate": "Date and Time",
+		"titleForImage": "Image",
+		"titleForTitle": "Title",
+		"titleForMessage": "Message",
+		"titleForAction": "Action",
+		"titleForSent": "Sent",
+		"placeholderForTitle": "Notification title",
+		"placeholderForMessage": "Enter your message here",
+		"dellNotificationsTitle": "Are you sure delete this notification?",
+		"dellNotificationsContent": "All data will be deleted and you will not be able to recover it.",
+		"dellNotificationsSuccess": "Notification deleted!",
+		"createdNotificationSuccess": "Created a new notification!"
+	},
+
+	"bookingsHistory": {
+		"main": "Bookings History",
+		"titleForGuest": "Guest",
+		"titleForRoom": "Room",
+		"titleForBookingDates": "Booking Dates",
+		"titleForCheckIn": "Check In",
+		"titleForCheckOut": "Check Out",
+		"titleForAction": "Action",
+		"titleForName": "Name",
+		"titleForPhoneBookingDates": "Booking Dates",
+		"titleForAccommodationType": "Accommodation Type",
+		"titleForRoomType": "Room Type",
+		"titleForRoomNumber": "Room Number",
+		"invoce": "Invoce (pdf)",
+		"titleAddNewBookings": "New Booking",
+		"titleEditBookings": "Edit",
+
+		"placeholderForPhoneBookingDatesIn": "Check In",
+		"placeholderForPhoneBookingDatesOut": "Check Out",
+		"placeholderForBookingSelect": "Select",
+		"placeholderForPhoneNumber": "Phone number",
+
+		"searchPlaceholderByGues": "Guest phone",
+		"searchPlaceholderByRoom": "Room number",
+		"Book": "Book",
+		"saveText": "Save",
+
+		"dellBookingTitle": "Are you sure delete this booking?",
+		"dellBookingContent": "All data will be deleted and you will not be able to recover it",
+		"dellBookingSucces": "Booking deleted!",
+
+		"createdBookingSucces": "Created a new booking!",
+		"created": "Created",
+		"updateBookingSuccess": "Booking updated!",
+		"checkOutBookingSuccess": "Booking chek out",
+		"updated": "Updated",
+		"NoResults": "No Results"
+	},
+
+	"standart": {
+		"main": "Standart",
+		"addNewServiceItem": "New Service Item",
+		"titleForName": "Name",
+		"titleForPrice": "Price",
+		"titleForStatus": "Status",
+		"titleForAction": "Action",
+		"activeStatus": "Active",
+		"notActiveStatus": "Not Active",
+		"dellStandartTitle": "Are you sure delete this service item?",
+		"dellStandartContent": "All data will be deleted and you will not be able to recover it",
+		"dellStandartSucces": "Service standart deleted!",
+		"createdStandartSucces": "Created a service standart!",
+		"updateStandartSuccess": "Service standart updated!",
+		"indexUpdateSucces": "Index updated successfully!"
+	},
+
+	"menu": {
+		"main": "Menu",
+		"addNewCategory": "New Category",
+		"titleForName": "Name",
+		"titleForStatus": "Status",
+		"titleForAction": "Action",
+		"activeStatus": "Active",
+		"notActiveStatus": "Not Active",
+		"dellCategoryTitle": "Are you sure delete this category?",
+		"dellCategoryContent": "All data will be deleted and you will not be able to recover it",
+		"dellCategorySucces": "Category deleted!",
+		"createdCategorySucces": "Created a new category!",
+		"updateCategorySuccess": "Category updated!",
+		"itemCannotBeDeleted": "It is impossible delete this item because it contain others items",
+		"indexUpdateSucces": "Index updated successfully!"
+	},
+
+	"dish": {
+		"titleForImage": "Image",
+		"newDish": "New Dish",
+		"titleForName": "Name",
+		"titleForDishFeatures": "Dish Features",
+		"titleForVegetarian": "Vegetarian",
+		"titleForDescription": "Description",
+		"titleForPrice": "Price",
+		"titleForIncludingTax": "Including tax",
+		"titleForStatus": "Status",
+		"titleForAddons": "Addons",
+		"titleForAction": "Action",
+
+		"placeholderForAddonName": "Enter name",
+		"placeholderForDescription": "Describe the ingredients",
+		"placeholderForName": "Dish name",
+		"placeholderForAddons": "Enter name"
+	},
+
+	"attractions": {
+		"newAttraction": "New Attraction",
+		"titleForName": "Name",
+		"titleForDishFeatures": "Dish Features",
+		"titleForVegetarian": "Vegetarian",
+		"titleForDescription": "Description",
+		"titleForPrice": "Price",
+		"titleForIncludingTax": "Including tax",
+		"titleForStatus": "Status",
+		"titleForAddons": "Addons",
+		"titleForAction": "Action",
+		"dellAttractionTitle": "Are you sure delete this attraction item?",
+		"dellAttractionContent": "All data will be deleted and you will not be able to recover it",
+		"dellAttractionSucces": "Service attraction deleted!",
+
+		"updateAttractionSuccess": "Attraction update",
+		"createdAttractionSucces": "Created a new attraction",
+		"indexUpdateSucces": "Index updated successfully!",
+		"placeholderForDescription": "Describe the attraction",
+		"placeholderForName": "Attraction name",
+		"placeholderForAddress": "Attraction address"
+	},
+
+	"settings": {
+		"main": "Service Settings",
+		"about": {
+			"placeholderForCountry": "Country",
+			"placeholderForState": "State",
+			"placeholderForCity": "City",
+			"placeholderForName": "Property name",
+			"placeholderForDescription": "Describe your property",
+			"placeholderForAddress": "Property address",
+			"placeholderForPropertyType": "Select property type",
+			"placeholderForCurrency": "Select currency",
+			"placeholderForPhoneNumber": "Phone number",
+			"placeholderForEmail": "Email",
+			"placeholderForAdminEmail": "Enter admin email",
+			"placeholderForAdminName": "Enter admin name",
+			"placeholderForSubscription": "No",
+
+			"titleForName": "Name",
+			"titleForDescription": "Description",
+			"titleForAddress": "Address",
+			"titleForPropertyType": "Property Type",
+			"titleForCurrency": "Currency",
+			"titleForEmail": "Email",
+			"titleForSubscription": "Subscription",
+			"titleForStatus": "Status",
+			"titleForPhoneNumber": "Phone Number",
+			"titleForRating": "Rating",
+			"titleForAction": "Action",
+			"titleAddNewProperties": "Add Property",
+			"titleAbout": "About",
+			"titleForLogo": "Logo",
+			"titleForGalery": "Galery (up to 4 items)",
+
+			"activeStatus": "Active",
+			"notActiveStatus": "Not Active",
+
+			"updatePropertySuccess": "Property updated",
+			"updated": "Updated"
+		},
+		"roomTypes": {
+			"main": "Room Types",
+			"titleForName": "Name",
+			"titleForAction": "Action",
+			"placeholderForName": "Room type name",
+			"newCategory": "New Type",
+			"indexUpdateSucces": "Index updated successfully!",
+
+			"dellRoomTypesTitle": "Are you sure delete this room type?",
+			"dellRoomTypesContent": "All data will be deleted and you will not be able to recover it",
+			"dellRoomTypesSucces": "Room type deleted!",
+
+			"createdRoomTypesSucces": "Created a new type!",
+			"updateRoomTypesSuccess": "Room type updated!"
+		},
+		"wifi": {
+			"main": "Wi-Fi",
+			"titleForName": "Name",
+			"titleForAction": "Action",
+			"titleForPassword": "Password",
+			"newCategory": "New Wi-Fi Spot",
+
+			"placeholderForPassword": "Wi-Fi password",
+			"placeholderForWiFiName": "WiFi name",
+
+			"dellWiFiTitle": "Are you sure delete this Wi-Fi spot?",
+			"dellWiFiContent": "All data will be deleted and you will not be able to recover it",
+			"dellWiFiSucces": "Wi-Fi spot deleted!",
+
+			"createdWiFiSucces": "Created a new Wi-Fi spot!",
+			"updateWiFiSuccess": "Wi-Fi spot updated!",
+			"itemCannotBeDeleted": "This element cannot be deleted because it is used by other elements."
+		},
+		"rooms": {
+			"main": "Rooms",
+			"titleForName": "Name",
+			"titleForAction": "Action",
+			"titleForRoomNumber": "Room Number",
+			"titleForAccommodationType": "Accommodation Type",
+			"titleForRoomType": "Room Type",
+			"titleForWiFi": "Wi-Fi",
+			"titleForStatus": "Status",
+			"newCategory": "New Room",
+			"titleAddNewRoom": "Add Room",
+			"titleEditRoom": "Edit",
+			"titleForGalery": "Galery (up to 4 items)",
+
+			"placeholderForPassword": "Wi-Fi password",
+			"placeholderForWiFiName": "WiFi name",
+			"placeholderForRoomNumber": "Room Number",
+			"placeholderForAccommodationType": "Accommodation Type",
+			"placeholderForWiFi": "Wi-Fi",
+			"placeholderForRoomType": "Room Type",
+			"searchPlaceholderForBookings": "Room number",
+
+			"dellRoomTitle": "Are you sure delete this room?",
+			"dellRoomContent": "All data will be deleted and you will not be able to recover it",
+			"dellRoomSucces": "Room deleted!",
+			"createdRoomSucces": "Created a new room!",
+			"updateRoomSuccess": "Room updated!",
+
+			"maximumRooms": "You already have the maximum number of rooms for the purchased subscription package"
+		},
+
+		"usefulContacts": {
+			"main": "Useful Contacts",
+			"titleForName": "Name",
+			"titleForAction": "Action",
+			"titleForPhoneNumber": "Phone Number",
+			"newUsefulContact": "New Contact",
+			"placeholderContactName": "Contact name",
+			"indexUpdateSucces": "Index updated successfully!",
+
+			"dellUsefulContactTitle": "Are you sure delete this contact?",
+			"dellUsefulContactContent": "All data will be deleted and you will not be able to recover it.",
+			"dellUsefulContactSucces": "Contact deleted!",
+
+			"createdUsefulContactSucces": "Created a new contact!",
+			"updateUsefulContactSuccess": "Contact updated!"
+		},
+
+		"addons": {
+			"main": "Addons",
+			"titleForName": "Name",
+			"titleForAction": "Action",
+			"titleForPrice": "Price",
+			"newAddon": "New Addon",
+			"placeholderAddonName": "Addon name",
+
+			"dellAddonTitle": "Are you sure delete this addon?",
+			"dellAddonContent": "All data will be deleted and you will not be able to recover it.",
+			"dellAddonSucces": "Addon deleted!",
+
+			"createdAddonSucces": "Created a new addon!",
+			"updateAddonSuccess": "Addon updated!",
+
+			"itemCannotBeDeleted": "This element cannot be deleted because it is used by other elements."
+		},
+
+		"subscription": {
+			"main": "Subscription",
+			"titleForName": "Name",
+			"titleForAction": "Action",
+			"titleForRoomNumber": "Room Number",
+			"titleForAccommodationType": "Accommodation Type",
+			"titleForRoomType": "Room Type",
+			"titleForWiFi": "Wi-Fi",
+			"titleForStatus": "Status",
+			"newCategory": "New Room",
+
+			"placeholderForPassword": "Wi-Fi password",
+			"placeholderForWiFiName": "WiFi name",
+			"placeholderForRoomNumber": "Room Number",
+			"placeholderForAccommodationType": "Accommodation Type",
+			"placeholderForWiFi": "Wi-Fi",
+			"placeholderForRoomType": "Room Type",
+
+			"cancelSubscription": "Cancel Subscription",
+			"dellSubTitle": "Are you sure cancel current subscription?",
+			"dellSubContent": "Access to the admin panel will be blocked until you buy a new subscription",
+			"dellSubSucces": "Wi-Fi spot deleted!",
+
+			"createdSubSucces": "Created a new Wi-Fi spot!",
+			"updateSubSuccess": "Wi-Fi spot updated!"
+		},
+		"notification": {
+			"addPlsGallery": "Add please photo to gallery",
+			"addPlsLogo": "Add please logo",
+			"roomErr": "Room with this number already exists"
+		}
+	},
+
+	"users": {
+		"main": "Users",
+		"searchPlaceholderForUsers": "Enter phone number",
+		"searchEnterButton": "Search",
+
+		"titleForName": "Full Name",
+		"titleForFirstName": "Name",
+		"titleForLastName": "Last Name",
+		"titleForAddress": "Address",
+		"titleForEmail": "Email",
+		"titleForPhoneNumber": "Phone Number",
+		"titleForCreated": "Created",
+		"titleForAction": "Action",
+
+		"dellUserTitle": "Are you sure delete this user?",
+		"dellUserContent": "All data will be deleted and you will not be able to recover it",
+		"dellUserSucces": "User deleted",
+
+		"created": "Created",
+		"updated": "Updated"
+	},
+
+	"services": {
+		"main": "Services",
+		"titleForName": "Name",
+		"titleForDescription": "Description",
+		"titleForIcon": "Icon",
+		"titleAddNewService": "Add Service",
+		"titleEditService": "Edit",
+		"titleForAction": "Action",
+		"titleForStatus": "Status",
+
+		"activeStatus": "Active",
+		"notActiveStatus": "Not active",
+
+		"titleForServiceType": "Service Type",
+		"titleForPropertyType": "Property Type",
+		"titleForTax": "Set a tax",
+		"titleForBgImg": "Background Image",
+		"titleForATST": "Ability to set time",
+
+		"placeholderForName": "Service name",
+		"placeholderForDescription": "Short description",
+		"placeholderForServiceType": "Type",
+		"placeholderForBgImg": "Click or drag image to this area to upload",
+		"placeholderForATST": "Choose ability",
+
+		"dellServicesTitle": "Are you sure delete this service?",
+		"dellServicesContent": "All data will be deleted and you will not be able to recover it",
+		"dellServicesSucces": "Service deleted!",
+
+		"createdServicesSucces": "Created a new service!",
+		"created": "Created",
+		"updateServicesSuccess": "Service updated!",
+		"updated": "Updated",
+
+		"indexUpdateSucces": "Index updated successfully!"
+	},
+
+	"requests": {
+		"main": "Requests",
+		"titleForGuest": "Guest",
+		"titleForRoom": "Room",
+		"titleForCheckIn": "Check In",
+		"titleForCheckOut": "Check Out",
+		"titleForAction": "Action",
+		"titleForName": "Name",
+		"titleForPhoneBookingDates": "Booking Dates",
+		"titleForAccommodationType": "Accommodation Type",
+		"titleForRoomType": "Room Type",
+		"titleForRoomNumber": "Room Number",
+		"invoce": "Invoce (pdf)",
+		"titleEditBookings": "Edit",
+		"titleService": "Service",
+		"titleForStatus": "Status",
+
+		"dellRequestsTitle": "Are you sure delete this Requests?",
+		"dellRequestsContent": "All data will be deleted and you will not be able to recover it",
+		"dellRequestsSucces": "Requests deleted!",
+
+		"updateRequestsSuccess": "Requests updated!"
+	},
+	"supportChat": {
+		"writeMessage": "Write a message...",
+		"supportEmpty": "This is a support where you can chat with your guests",
+		"searchPlaceholderForChat": "User Name"
+	},
+
+	"message": {
+		"notCorrectEmail": "Not correct email",
+		"notCorrectName": "Not correct name",
+		"errorFillAllFields": "All fields are required",
+		"noSuchUserExists": "No such user exists",
+		"incorrectPassword": "Incorrect password",
+		"noInternetConnection": "No internet connection"
+	},
+
+	"modal": {
+		"okText": "Add",
+		"saveText": "Save",
+		"cancelText": "Cancel",
+
+		"okDell": "Yes",
+		"cancelDell": "No",
+
+		"checkOut": "Check Out"
+	},
+
+	"button": {
+		"titleForSave": "Save",
+		"titleForDell": "Delete",
+
+		"searchEnterButton": "Search",
+		"resetEnterButton": "Reset",
+		"BackHome": "Back Home"
+	},
+
+	"pagination": {
+		"paginationTotal": "Total",
+		"paginationItems": "items"
+	},
+
+	"tooltip": {
+		"tooltipServiceTypes": "Service Types",
+		"tooltipMenu": "Menu",
+		"tooltipMenuText": "Customizing the property restaurant menu with categories",
+		"tooltipStandart": "Standart",
+		"tooltipStandartText": "Suitable for all base room services",
+		"tooltipTaxi": "Taxi",
+		"tooltipTaxiText": "Suitable for taxi services",
+		"tooltipAttraction": "Attraction",
+		"tooltipAttractionText": "Suitable for describing attractions near or any other entertainment service in the property",
+
+		"tooltipATST": "Ability to set time",
+		"tooltipATSTtext": "You can specify when the service can be performed",
+		"tooltipASAP": "As soon as possible",
+		"tooltipASAPtext": "Request processed immediately",
+		"tooltipTimeOnly": "Time Only",
+		"tooltipTimeOnlyText": "Guest can select time",
+		"tooltipDateAndTime": "Date and Time",
+		"tooltipDateAndTimeText": "Guest can select time and date",
+		"tooltipNo": "No",
+		"tooltipNoText": "Not possibility to choose"
+	},
+	"404": {
+		"text": "Sorry, we couldn`t find that page."
+	}
+}
