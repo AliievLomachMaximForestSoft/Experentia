@@ -1,6 +1,11 @@
-import { authorizationToken } from '../utils/token'
+import {
+	dellAxios,
+	getAxios,
+	postAxios,
+	putAxios,
+	patchAxios,
+} from '../utils/axios'
 const GET_CATEGORY_ITEMS = 'GET_CATEGORY_ITEMS'
-const GET_CATEGORY_ITEM = 'GET_CATEGORY_ITEM'
 const DELL_CATEGORY_ITEMS = 'DELL_CATEGORY_ITEMS'
 const IS_CREATE_CATEGORY_ITEM = 'IS_CREATE_CATEGORY_ITEM'
 const IS_CREATE_UPDATE_ITEM = 'IS_CREATE_UPDATE_ITEM'
@@ -8,167 +13,54 @@ const IS_UPDATE_INDEX_CATEGORY_ITEMS = 'IS_UPDATE_INDEX_CATEGORY_ITEMS'
 const LOADING_CATEGORY_ITEMS = 'LOADING_CATEGORY_ITEMS'
 const URL = process.env.REACT_APP_URL
 
-export const getAllCategoryItems = (id) => (dispatch) => {
+export const getAllCategoryItems = (id) => async (dispatch) => {
 	dispatch(loadingCategoryItems(true))
 	const url = `${URL}/admin/services/menu/categories/${Number(id)}`
-
-	try {
-		fetch(url, {
-			method: 'GET',
-			mode: 'cors',
-			headers: {
-				accept: '*/*',
-				Authorization: `Bearer ${authorizationToken}`,
-			},
-			credentials: 'include',
-		})
-			.then((res) => {
-				return res.json()
-			})
-			.then((categoryItems) => {
-				dispatch(getCategoryItems(categoryItems))
-				dispatch(isCreateCategoryItem(false))
-				dispatch(isUpdateCategoryItem(false))
-				dispatch(loadingCategoryItems(false))
-			})
-	} catch (error) {
-		dispatch(loadingCategoryItems(false))
-	}
+	const response = await getAxios(url, dispatch)
+	dispatch(getCategoryItems(response.data))
+	dispatch(isCreateCategoryItem(false))
+	dispatch(isUpdateCategoryItem(false))
+	dispatch(loadingCategoryItems(false))
 }
 
-export const createCategory = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingCategoryItems(true))
-		const url = `${URL}/admin/services/menu/categories`
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((res) => {
-					dispatch(loadingCategoryItems(false))
-					dispatch(isCreateCategoryItem(true))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingCategoryItems(false))
-		}
-	}
+export const createCategory = (data) => async (dispatch) => {
+	dispatch(loadingCategoryItems(true))
+	const url = `${URL}/admin/services/menu/categories`
+	await postAxios(url, data, dispatch)
+	dispatch(loadingCategoryItems(false))
+	dispatch(isCreateCategoryItem(true))
 }
 
-export const dellCategoryItem = (id, message) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/services/menu/category${id}`
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode === 500) {
-						message()
-					} else {
-						dispatch(deleteCategoryItems(true))
-					}
-				})
-		} catch (error) {}
-	}
+export const dellCategoryItem = (id, message) => async (dispatch) => {
+	const url = `${URL}/admin/services/menu/category${id}`
+	await dellAxios(url, dispatch, message)
+	dispatch(deleteCategoryItems(true))
 }
 
-export const updateCategoryItem = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingCategoryItems(true))
-		const url = `${URL}/admin/services/menu/category`
-		try {
-			fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					dispatch(isUpdateCategoryItem(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingCategoryItems(false))
-		}
-	}
+export const updateCategoryItem = (data) => async (dispatch) => {
+	dispatch(loadingCategoryItems(true))
+	const url = `${URL}/admin/services/menu/category`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateCategoryItem(true))
 }
 
-export const updateIndexCategoryIndex = (data, value, id) => {
-	return async (dispatch) => {
+export const updateIndexCategoryIndex =
+	(data, value, id) => async (dispatch) => {
 		const url = `${URL}/admin/services/menu/categories/order`
-		try {
-			fetch(url, {
-				method: 'PATCH',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (!value) dispatch(isUpdateIndexCategoryItems(true))
-					return res.json()
-				})
-				.then((res) => {
-					dispatch(deleteCategoryItems(false))
-					dispatch(isUpdateIndexCategoryItems(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-		}
+		await patchAxios(url, data, dispatch)
+		if (!value) dispatch(isUpdateIndexCategoryItems(true))
+		dispatch(deleteCategoryItems(false))
+		dispatch(isUpdateIndexCategoryItems(false))
 	}
-}
 
-const loadingCategoryItems = (boolean) => {
-	return {
-		type: LOADING_CATEGORY_ITEMS,
-		payload: boolean,
-	}
-}
+const loadingCategoryItems = (boolean) => ({
+	type: LOADING_CATEGORY_ITEMS,
+	payload: boolean,
+})
 
 const getCategoryItems = (categoryItems) => ({
 	type: GET_CATEGORY_ITEMS,
 	payload: categoryItems,
-})
-
-const getCategoryItemDetails = (categoryItem) => ({
-	type: GET_CATEGORY_ITEM,
-	payload: categoryItem,
 })
 
 const deleteCategoryItems = (deleteCategoryItem) => ({
@@ -193,7 +85,6 @@ const isUpdateIndexCategoryItems = (categoryItems) => ({
 
 const InitialState = {
 	categoryItems: '',
-	categoryItemsDatails: '',
 	categoryItemsSearch: '',
 	deleteCategoryItems: false,
 	isUpdateCategoryItems: false,
@@ -205,8 +96,6 @@ export const categoryItemsReducer = (state = InitialState, action) => {
 	switch (action.type) {
 		case GET_CATEGORY_ITEMS:
 			return { ...state, categoryItems: action.payload, loading: false }
-		case GET_CATEGORY_ITEM:
-			return { ...state, categoryItemsDatails: action.payload, loading: false }
 		case DELL_CATEGORY_ITEMS:
 			return { ...state, deleteCategoryItems: action.payload, loading: false }
 		case IS_CREATE_CATEGORY_ITEM:

@@ -1,6 +1,12 @@
-import { authorizationToken } from '../utils/token'
+import {
+	dellAxios,
+	getAxios,
+	postAxios,
+	putAxios,
+	patchAxios,
+} from '../utils/axios'
+
 const GET_SERVICES = 'GET_SERVICES'
-const ERROR_SERVICE = 'ERROR_SERVICE'
 const LOADING_SERVOCES = 'LOADING_SERVOCES'
 const LOADING_DETAILS_SERVICE = 'LOADING_DETAILS_SERVICE'
 const LOADING_ICON = 'LOADING_ICON'
@@ -18,302 +24,102 @@ const INDEX_DEL_SERVICE = 'INDEX_DEL_SERVICE'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllServices = () => {
-	return async (dispatch) => {
-		dispatch(loadingServices(true))
-		const url = `${URL}/admin/property/services`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((services) => {
-					dispatch(getServices(services))
-					dispatch(errorServices(''))
-					dispatch(isCreateService(false))
-					dispatch(isUpdateService(false))
-					dispatch(loadingServices(false))
-					dispatch(setBackgroundURL('undefined'))
-					dispatch(setIconURL('undefined'))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingServices(false))
-			dispatch(errorServices('error'))
-		}
-	}
+export const getAllServices = () => async (dispatch) => {
+	dispatch(loadingServices(true))
+	const url = `${URL}/admin/property/services`
+	const response = await getAxios(url, dispatch)
+	dispatch(getServices(response.data))
+	dispatch(isCreateService(false))
+	dispatch(isUpdateService(false))
+	dispatch(loadingServices(false))
+	dispatch(setBackgroundURL('undefined'))
+	dispatch(setIconURL('undefined'))
 }
 
-export const createService = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingServices(true))
-		const url = `${URL}/admin/property/services`
-
-		try {
-			const response = fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isCreateService(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingServices(false))
-			dispatch(errorServices('error'))
-		}
-	}
+export const createService = (data) => async (dispatch) => {
+	dispatch(loadingServices(true))
+	const url = `${URL}/admin/property/services`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateService(true))
 }
 
 export const updateService = (data) => {
-	console.log('data', data)
 	if (data.abilityToSetTime.length === 0) data.abilityToSetTime = ['no']
 	return async (dispatch) => {
 		dispatch(loadingServices(true))
 		const url = `${URL}/admin/property/service`
-
-		try {
-			const response = fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isUpdateService(true))
-					dispatch(loadingServices(false))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingServices(false))
-			dispatch(errorServices('error'))
-		}
+		await putAxios(url, data, dispatch)
+		dispatch(isUpdateService(true))
+		dispatch(loadingServices(false))
 	}
 }
 
-export const updateIndexServices = (data, value) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/services/order`
-
-		try {
-			fetch(url, {
-				method: 'PATCH',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (!value) dispatch(isUpdateIndexServices(true))
-					return res.json()
-				})
-				.then((properties) => {
-					dispatch(getServices(properties))
-					dispatch(errorServices(''))
-					dispatch(isUpdateIndexServices(false))
-					dispatch(deleteService(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingServices(false))
-			dispatch(errorServices('error'))
-		}
-	}
+export const updateIndexServices = (data, value) => async (dispatch) => {
+	const url = `${URL}/admin/property/services/order`
+	const response = await patchAxios(url, data, dispatch)
+	if (!value) dispatch(isUpdateIndexServices(true))
+	dispatch(getServices(response.data))
+	dispatch(isUpdateIndexServices(false))
+	dispatch(deleteService(false))
 }
 
-export const sendBackground = (background) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/service/upload/icon`
-		dispatch(loadingBackground(true))
-		const data = new FormData()
-		data.append('file', background)
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-				body: data,
-			})
-				.then((res) => {
-					return res.text()
-				})
-				.then((res) => {
-					dispatch(setBackgroundURL(res))
-					dispatch(isBackgroundUpload(true))
-					dispatch(loadingBackground(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(isBackgroundUpload(false))
-			dispatch(loadingBackground(false))
-		}
-	}
+export const sendBackground = (background) => async (dispatch) => {
+	const url = `${URL}/admin/property/service/upload/icon`
+	dispatch(loadingBackground(true))
+	const data = new FormData()
+	data.append('file', background)
+	const response = await postAxios(url, data, dispatch)
+	dispatch(setBackgroundURL(response.data))
+	dispatch(isBackgroundUpload(true))
+	dispatch(loadingBackground(false))
 }
 
-export const sendIcon = (icon) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/service/upload/icon`
-		dispatch(loadIcon(true))
-		const data = new FormData()
-		data.append('file', icon)
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-				body: data,
-			})
-				.then((res) => {
-					return res.text()
-				})
-				.then((res) => {
-					dispatch(setIconURL(res))
-					dispatch(isIconUpload(true))
-					dispatch(loadIcon(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(isIconUpload(false))
-			dispatch(loadIcon(false))
-		}
-	}
+export const sendIcon = (icon) => async (dispatch) => {
+	const url = `${URL}/admin/property/service/upload/icon`
+	dispatch(loadIcon(true))
+	const data = new FormData()
+	data.append('file', icon)
+	const response = await postAxios(url, data, dispatch)
+	dispatch(setIconURL(response.data))
+	dispatch(isIconUpload(true))
+	dispatch(loadIcon(false))
 }
 
-export const getServicesDetails = (id) => {
-	return async (dispatch) => {
-		dispatch(loadingDetailsService(true))
-		const url = `${URL}/superadmin/servicemaster${id}`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((services) => {
-					dispatch(getService(services))
-					dispatch(errorServices(''))
-					dispatch(loadingDetailsService(false))
-				})
-		} catch (error) {
-			dispatch(loadingDetailsService(false))
-			dispatch(errorServices('error'))
-		}
-	}
+export const getServicesDetails = (id) => async (dispatch) => {
+	dispatch(loadingDetailsService(true))
+	const url = `${URL}/superadmin/servicemaster${id}`
+	const response = await getAxios(url, dispatch)
+	dispatch(getService(response.data))
+	dispatch(loadingDetailsService(false))
 }
 
-export const dellService = (id, message) => {
-	return async (dispatch) => {
-		dispatch(loadingServices(true))
-		const url = `${URL}/admin/property/service${id}` //?
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => res.json())
-				.then((res) => {
-					if (res.statusCode === 500) {
-						message()
-						dispatch(loadingServices(false))
-					} else {
-						dispatch(deleteService(true))
-						dispatch(errorServices(''))
-					}
-				})
-		} catch (error) {
-			dispatch(loadingServices(false))
-			dispatch(errorServices('error'))
-		}
-	}
+export const dellService = (id, message) => async (dispatch) => {
+	dispatch(loadingServices(true))
+	const url = `${URL}/admin/property/service${id}`
+	await dellAxios(url, dispatch,message)
+	dispatch(deleteService(true))
+	dispatch(loadingServices(false))
 }
 
-const loadingServices = (boolean) => {
-	return {
-		type: LOADING_SERVOCES,
-		payload: boolean,
-	}
-}
+const loadingServices = (boolean) => ({
+	type: LOADING_SERVOCES,
+	payload: boolean,
+})
 
-const loadingDetailsService = (boolean) => {
-	return {
-		type: LOADING_DETAILS_SERVICE,
-		payload: boolean,
-	}
-}
+const loadingDetailsService = (boolean) => ({
+	type: LOADING_DETAILS_SERVICE,
+	payload: boolean,
+})
 
-export const loadIcon = (boolean) => {
-	return {
-		type: LOADING_ICON,
-		payload: boolean,
-	}
-}
+export const loadIcon = (boolean) => ({
+	type: LOADING_ICON,
+	payload: boolean,
+})
 
-const loadingBackground = (boolean) => {
-	return {
-		type: LOADING_BACKGROUND,
-		payload: boolean,
-	}
-}
+const loadingBackground = (boolean) => ({
+	type: LOADING_BACKGROUND,
+	payload: boolean,
+})
 
 const setIconURL = (url) => ({
 	type: SET_ICON_URL,
@@ -365,11 +171,6 @@ const isBackgroundUpload = (boolean) => ({
 	payload: boolean,
 })
 
-const errorServices = (textError) => ({
-	type: ERROR_SERVICE,
-	payload: textError,
-})
-
 export const indexDelItemService = (index) => ({
 	type: INDEX_DEL_SERVICE,
 	payload: index,
@@ -384,7 +185,6 @@ const InitialState = {
 	isCreateService: false,
 	isUpdateService: false,
 	isUpdateIndexServices: false,
-	error: '',
 	loading: false,
 	loadingDetails: false,
 	loadingIcon: false,
@@ -420,8 +220,6 @@ export const servicesReducer = (state = InitialState, action) => {
 				isUpdateIndexServices: action.payload,
 				loading: false,
 			}
-		case ERROR_SERVICE:
-			return { ...state, error: action.payload }
 		case LOADING_SERVOCES:
 			return { ...state, loading: action.payload }
 		case LOADING_ICON:

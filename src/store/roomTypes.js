@@ -1,4 +1,10 @@
-import { authorizationToken } from '../utils/token'
+import {
+	dellAxios,
+	getAxios,
+	postAxios,
+	putAxios,
+	patchAxios,
+} from '../utils/axios'
 
 const GET_ROOMS_TYPES = 'GET_ROOMS_TYPES'
 const DELL_ROOMS_TYPES = 'DELL_ROOMS_TYPES'
@@ -11,166 +17,49 @@ const IS_UPDATE_INDEX_ROOM_TYPES = 'IS_UPDATE_INDEX_ROOM_TYPES'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllRoomTypes = () => {
-	return async (dispatch) => {
-		dispatch(loadingRoomTypes(true))
-		const url = `${URL}/admin/room/types`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((roomTypes) => {
-					dispatch(getRoomTypes(roomTypes))
-
-					dispatch(isCreateRoomTypes(false))
-					dispatch(isUpdateRoomTypes(false))
-					dispatch(loadingRoomTypes(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRoomTypes(false))
-		}
-	}
+export const getAllRoomTypes = () => async (dispatch) => {
+	dispatch(loadingRoomTypes(true))
+	const url = `${URL}/admin/room/types`
+	const response = await getAxios(url, dispatch)
+	dispatch(getRoomTypes(response.data))
+	dispatch(isCreateRoomTypes(false))
+	dispatch(isUpdateRoomTypes(false))
+	dispatch(isUpdateIndexRoomTypes(false))
+	dispatch(loadingRoomTypes(false))
 }
 
-export const createRoomType = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingRoomTypes(true))
-		const url = `${URL}/admin/room/types`
-
-		try {
-			const response = fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isCreateRoomTypes(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRoomTypes(false))
-		}
-	}
+export const createRoomType = (data) => async (dispatch) => {
+	dispatch(loadingRoomTypes(true))
+	const url = `${URL}/admin/room/types`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateRoomTypes(true))
 }
 
-export const updateRoomType = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingRoomTypes(true))
-		const url = `${URL}/admin/room/type`
-		try {
-			const response = fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isUpdateRoomTypes(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRoomTypes(false))
-		}
-	}
+export const updateRoomType = (data) => async (dispatch) => {
+	dispatch(loadingRoomTypes(true))
+	const url = `${URL}/admin/room/type`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateRoomTypes(true))
 }
 
-export const updateIndexRoomTypes = (data, value) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/room/types/order`
-		try {
-			fetch(url, {
-				method: 'PATCH',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (!value) dispatch(isUpdateIndexRoomTypes(true))
-					return res.json()
-				})
-				.then((roomTypes) => {
-					dispatch(getAllRoomTypes(roomTypes))
-					dispatch(isUpdateIndexRoomTypes(false))
-					dispatch(deleteRoomTypes(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
+export const updateIndexRoomTypes = (data, value) => async (dispatch) => {
+	const url = `${URL}/admin/room/types/order`
+	const response = await patchAxios(url, data, dispatch)
+	if (!value) dispatch(isUpdateIndexRoomTypes(true))
+	dispatch(getAllRoomTypes(response.data))
+	dispatch(deleteRoomTypes(false))
 }
 
-export const dellRoomType = (id, message) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/room/type${id}`
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => res.json())
-				.then((res) => {
-					if (res.statusCode === 500) {
-						message()
-					} else {
-						dispatch(deleteRoomTypes(true))
-					}
-				})
-		} catch (error) {}
-	}
+export const dellRoomType = (id, message) => async (dispatch) => {
+	const url = `${URL}/admin/room/type${id}`
+	await dellAxios(url, dispatch, message)
+	dispatch(deleteRoomTypes(true))
 }
 
-const loadingRoomTypes = (boolean) => {
-	return {
-		type: LOADING_ROOMS_TYPES,
-		payload: boolean,
-	}
-}
+const loadingRoomTypes = (boolean) => ({
+	type: LOADING_ROOMS_TYPES,
+	payload: boolean,
+})
 
 const isUpdateIndexRoomTypes = (properties) => ({
 	type: IS_UPDATE_INDEX_ROOM_TYPES,

@@ -1,4 +1,10 @@
-import { authorizationToken } from '../utils/token'
+import {
+	dellAxios,
+	getAxios,
+	postAxios,
+	putAxios,
+	patchAxios,
+} from '../utils/axios'
 
 const GET_USEFUL_CONTACTS = 'GET_USEFUL_CONTACTS'
 const DELL_USEFUL_CONTACTS = 'DELL_USEFUL_CONTACTS'
@@ -9,149 +15,47 @@ const IS_UPDATE_INDEX_USEFUL_CONTACTS = 'IS_UPDATE_INDEX_USEFUL_CONTACTS'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllUsefulContacts = () => {
-	return async (dispatch) => {
-		dispatch(loadingUsefulContacts(true))
-		const url = `${URL}/admin/useful/contacts`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((usefulContacts) => {
-					dispatch(getUsefulContacts(usefulContacts))
-					dispatch(isCreateUsefulContacts(false))
-					dispatch(isUpdateUsefulContacts(false))
-					dispatch(deleteUsefulContacts(false))
-					dispatch(loadingUsefulContacts(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingUsefulContacts(false))
-		}
-	}
+export const getAllUsefulContacts = () => async (dispatch) => {
+	dispatch(loadingUsefulContacts(true))
+	const url = `${URL}/admin/useful/contacts`
+	const response = await getAxios(url, dispatch)
+	dispatch(getUsefulContacts(response.data))
+	dispatch(isCreateUsefulContacts(false))
+	dispatch(isUpdateUsefulContacts(false))
+	dispatch(deleteUsefulContacts(false))
+	dispatch(loadingUsefulContacts(false))
 }
 
-export const createUsefulContact = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingUsefulContacts(true))
-		const url = `${URL}/admin/useful/contacts`
-
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isCreateUsefulContacts(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingUsefulContacts(false))
-		}
-	}
+export const createUsefulContact = (data) => async (dispatch) => {
+	dispatch(loadingUsefulContacts(true))
+	const url = `${URL}/admin/useful/contacts`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateUsefulContacts(true))
 }
 
-export const updateUsefulContact = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingUsefulContacts(true))
-		const url = `${URL}/admin/useful/contact`
-		try {
-			fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			}).then((res) => {
-				dispatch(isUpdateUsefulContacts(true))
-				return res.json()
-			})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingUsefulContacts(false))
-		}
-	}
+export const updateUsefulContact = (data) => async (dispatch) => {
+	dispatch(loadingUsefulContacts(true))
+	const url = `${URL}/admin/useful/contact`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateUsefulContacts(true))
 }
 
-export const updateIndexUsefulContacts = (data, value) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/useful/contacts/order`
-		try {
-			fetch(url, {
-				method: 'PATCH',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			}).then((res) => {
-				if (!value) dispatch(isUpdateIndexUsefulContacts(true))
-				return res.json()
-			})
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
+export const updateIndexUsefulContacts = (data, value) => async (dispatch) => {
+	const url = `${URL}/admin/useful/contacts/order`
+	await patchAxios(url, data, dispatch)
+	if (!value) dispatch(isUpdateIndexUsefulContacts(true))
 }
 
-export const dellUsefulContact = (id) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/useful/contact${id}`
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			}).then(() => {
-				dispatch(deleteUsefulContacts(true))
-			})
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
+export const dellUsefulContact = (id) => async (dispatch) => {
+	const url = `${URL}/admin/useful/contact${id}`
+	await dellAxios(url, dispatch)
+	dispatch(deleteUsefulContacts(true))
 }
 
-const loadingUsefulContacts = (boolean) => {
-	return {
-		type: LOADING_USEFUL_CONTACTS,
-		payload: boolean,
-	}
-}
+const loadingUsefulContacts = (boolean) => ({
+	type: LOADING_USEFUL_CONTACTS,
+	payload: boolean,
+})
 
 const isUpdateIndexUsefulContacts = (properties) => ({
 	type: IS_UPDATE_INDEX_USEFUL_CONTACTS,

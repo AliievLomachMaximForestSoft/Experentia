@@ -510,7 +510,7 @@
 
 		"searchEnterButton": "Search",
 		"resetEnterButton": "Reset",
-		"BackHome": "Back Home"
+		"BackHome": "Back "
 	},
 
 	"pagination": {
@@ -540,7 +540,21 @@
 		"tooltipNo": "No",
 		"tooltipNoText": "Not possibility to choose"
 	},
-	"404": {
-		"text": "Sorry, we couldn`t find that page."
+	"errors": {
+		"404": {
+			"text": "Sorry, we couldn`t find that page."
+		},
+		"403": {
+			"text": "Sorry, we couldn`t find that page."
+		},
+		"401": {
+			"text": "You are not authorized."
+		},
+		"409": {
+			"text": "It is impossible delete this item because it contain others items"
+		},
+		"some": {
+			"text": "Cloud server configuration takes 1-5 minutes, please wait."
+		}
 	}
 }

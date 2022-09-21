@@ -1,6 +1,5 @@
-import { authorizationToken } from '../utils/token'
 import _ from 'lodash'
-const axios = require('axios')
+import { dellAxios, getAxios, postAxios, putAxios } from '../utils/axios'
 
 const GET_ROOMS = 'GET_ROOMS'
 const GET_ROOMS_WITH_BOOKINGS = 'GET_ROOMS_WITH_BOOKINGS'
@@ -19,314 +18,125 @@ const IS_UPLOAD_GALERY = 'IS_UPLOAD_GALERY'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllRooms = (page, pageSize, filters) => {
+const sort = (data) => {
+	data.sort((a, b) =>
+		a.roomNumber.localeCompare(b.roomNumber, undefined, {
+			numeric: true,
+			sensitivity: 'base',
+		})
+	)
+	return data
+}
+
+export const getAllRooms = (page, pageSize, filters) => async (dispatch) => {
 	let url = ' '
-	return async (dispatch) => {
-		dispatch(loadingRooms(true))
-		if (filters) {
-			const keys = Object.keys(filters)
-			url = `${URL}/admin/property/rooms?${keys}=${filters[keys]}`
-		} else
-			url =
-				page && pageSize
-					? `${URL}/admin/property/rooms?page=${page}&take=${pageSize}`
-					: `${URL}/admin/property/rooms?page=1&take=30`
+	dispatch(loadingRooms(true))
+	if (filters) {
+		const keys = Object.keys(filters)
+		url = `${URL}/admin/property/rooms?${keys}=${filters[keys]}`
+	} else
+		url =
+			page && pageSize
+				? `${URL}/admin/property/rooms?page=${page}&take=${pageSize}`
+				: `${URL}/admin/property/rooms?page=1&take=30`
 
-		// const response = await axios.get(url, {
-		// 	headers: {
-		// 		Authorization: `Bearer ${localStorage.getItem('token')}`,
-		// 	},
-		// })
-		// console.log(response.data)
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((rooms) => {
-					rooms.items.sort((a, b) =>
-						a.roomNumber.localeCompare(b.roomNumber, undefined, {
-							numeric: true,
-							sensitivity: 'base',
-						})
-					)
-					dispatch(getRooms(rooms))
-					dispatch(setRoomsByNumber(''))
-					dispatch(isCreateRooms(false))
-					dispatch(isUpdateRooms(false))
-					dispatch(deleteRooms(false))
-					dispatch(loadingRooms(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRooms(false))
+	const response = await getAxios(url, dispatch)
+	sort(response.data.items)
+	dispatch(getRooms(response.data))
+	dispatch(setRoomsByNumber(''))
+	dispatch(isCreateRooms(false))
+	dispatch(isUpdateRooms(false))
+	dispatch(deleteRooms(false))
+	dispatch(loadingRooms(false))
+}
+
+export const getAllRoomsWithBookings = () => async (dispatch) => {
+	const url = `${URL}/admin/property/rooms/with-bookings`
+	const response = await getAxios(url, dispatch)
+	sort(response.data)
+	dispatch(getRoomsWithBooking(response.data))
+}
+
+export const getRoomsByNumber = (value) => async (dispatch) => {
+	dispatch(setRoomsByNumber(''))
+	dispatch(loadingBySearch(true))
+	const url = `${URL}/admin/property/rooms/field?value=${value}`
+	const response = await getAxios(url, dispatch)
+	sort(response.data)
+	dispatch(setRoomsByNumber(response.data))
+	dispatch(loadingBySearch(false))
+}
+
+export const createRoom = (data) => async (dispatch) => {
+	dispatch(loadingRooms(true))
+	const url = `${URL}/admin/property/rooms`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateRooms(true))
+	dispatch(loadingRooms(false))
+}
+
+export const updateRoom = (data) => async (dispatch) => {
+	dispatch(loadingRooms(true))
+	const url = `${URL}/admin/property/room`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateRooms(true))
+}
+
+export const updateStatusRoom = (data) => async (dispatch) => {
+	dispatch(loadingRooms(true))
+	const url = `${URL}/admin/property/room`
+	await putAxios(url, data, dispatch)
+	dispatch(loadingRooms(false))
+}
+
+export const dellRoom = (id, message) => async (dispatch) => {
+	const url = `${URL}/admin/property/room${id}`
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteRooms(true))
+}
+
+export const sendGalery = (galery) => async (dispatch) => {
+	const url = `${URL}/admin/property/room/photos`
+	let count = 0
+	let arrLink = []
+	let data = []
+	dispatch(loadImage(true))
+	galery.map(async (icon) => {
+		if (icon.originFileObj) {
+			data = new FormData()
+			data.append('file', icon.originFileObj)
+			const response = await postAxios(url, data, dispatch)
+			const link = response.data
+			count++
+			dispatch(setGaleryUrl(link))
+			arrLink.push(link)
+		} else {
+			const link = icon.name.replace(`${URL}/files/`, '').replaceAll('%2F', '/')
+			count++
+			dispatch(setGaleryUrl(link))
+			arrLink.push(link)
 		}
-	}
-}
-
-export const getAllRoomsWithBookings = () => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/rooms/with-bookings`
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((rooms) => {
-					rooms.sort((a, b) =>
-						a.roomNumber.localeCompare(b.roomNumber, undefined, {
-							numeric: true,
-							sensitivity: 'base',
-						})
-					)
-					dispatch(getRoomsWithBooking(rooms))
-				})
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
-}
-
-export const getRoomsByNumber = (value) => {
-	return async (dispatch) => {
-		dispatch(setRoomsByNumber(''))
-		dispatch(loadingBySearch(true))
-		const url = `${URL}/admin/property/rooms/field?value=${value}`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((propertySearch) => {
-					dispatch(setRoomsByNumber(propertySearch))
-					dispatch(loadingBySearch(false))
-				})
-		} catch (error) {
-			dispatch(loadingBySearch(false))
-		}
-	}
-}
-
-export const createRoom = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingRooms(true))
-		const url = `${URL}/admin/property/rooms`
-		try {
-			const response = fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isCreateRooms(true))
-					dispatch(loadingRooms(false))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRooms(false))
-		}
-	}
-}
-
-export const updateRoom = (data) => {
-	console.log('data', data)
-	return async (dispatch) => {
-		dispatch(loadingRooms(true))
-		const url = `${URL}/admin/property/room`
-		try {
-			const response = fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isUpdateRooms(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRooms(false))
-		}
-	}
-}
-
-export const updateStatusRoom = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingRooms(true))
-		const url = `${URL}/admin/property/room`
-		try {
-			fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					dispatch(loadingRooms(false))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdateStatus', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRooms(false))
-		}
-	}
-}
-
-export const dellRoom = (id, message) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/room${id}`
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((resp) => {
-					return resp.json()
-				})
-				.then((resp) => {
-					if (resp.statusCode === 500) {
-						message()
-					} else {
-						dispatch(deleteRooms(true))
-					}
-				})
-		} catch (error) {}
-	}
-}
-
-export const sendGalery = (galery) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/room/photos`
-		let count = 0
-		let arrLink = []
-		let data = []
-		dispatch(loadImage(true))
-		try {
-			galery.map(async (icon) => {
-				if (icon.originFileObj) {
-					data = new FormData()
-					data.append('file', icon.originFileObj)
-
-					const res = await fetch(url, {
-						method: 'POST',
-						mode: 'cors',
-						headers: {
-							accept: 'application/json',
-							Authorization: `Bearer ${authorizationToken}`,
-						},
-						credentials: 'include',
-						body: data,
-					})
-					const link = await res.text()
-					count++
-					dispatch(setGaleryUrl(link))
-					arrLink.push(link)
-				} else {
-					const link = icon.name
-						.replace(`${URL}/files/`, '')
-						.replaceAll('%2F', '/')
-					count++
-					dispatch(setGaleryUrl(link))
-					arrLink.push(link)
-				}
-				if (count === galery.length) {
-					dispatch(loadImage(false))
-					dispatch(isUploadGalery(arrLink))
-				}
-			})
-		} catch (error) {
-			console.log('error', error)
+		if (count === galery.length) {
 			dispatch(loadImage(false))
-			dispatch(isUploadGalery([]))
+			dispatch(isUploadGalery(arrLink))
 		}
-	}
+	})
 }
 
-const loadingRooms = (boolean) => {
-	return {
-		type: LOADING_ROOMS,
-		payload: boolean,
-	}
-}
+const loadingRooms = (boolean) => ({
+	type: LOADING_ROOMS,
+	payload: boolean,
+})
 
-const loadingBySearch = (boolean) => {
-	return {
-		type: LOADING_BY_SEARCH,
-		payload: boolean,
-	}
-}
+const loadingBySearch = (boolean) => ({
+	type: LOADING_BY_SEARCH,
+	payload: boolean,
+})
 
-const loadImage = (boolean) => {
-	return {
-		type: LOADING_IMAGE,
-		payload: boolean,
-	}
-}
+const loadImage = (boolean) => ({
+	type: LOADING_IMAGE,
+	payload: boolean,
+})
 
 const setRoomsByNumber = (bookings) => ({
 	type: GET_ROOMS_BY_NUMBER,

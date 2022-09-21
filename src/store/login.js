@@ -1,139 +1,61 @@
+import { getAxios, postAxios, putAxios } from '../utils/axios'
+
 const USER_LOGIN = 'USER_LOGIN'
 const ERROR_LOGIN = 'ERROR_LOGIN'
 const LOADING_LOGIN = 'LOADING_LOGIN'
 const AUTH_USER = 'AUTH_USER'
 const SENDING_SUCCESS = 'SENDING_SUCCESS'
+const SET_STATUS = 'SET_STATUS'
 const CREATE_NEW_PASSWORD_SUCCESS = 'CREATE_NEW_PASSWORD_SUCCESS'
 const URL = process.env.REACT_APP_URL
 
-export const loginUser = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingLogin(true))
+export const loginUser = (data) => async (dispatch) => {
+	dispatch(loadingLogin(true))
+	const url = `${URL}/auth/login/admin`
+	const response = await postAxios(
+		url,
+		{ password: data.password, email: data.email },
+		dispatch
+	)
+	const authorizationToken = response.data.token
+	localStorage.setItem('token', authorizationToken)
 
-		const url = `${URL}/auth/login/admin`
-
-		try {
-			fetch(url, {
-				method: 'POST',
-				body: JSON.stringify({ password: data.password, email: data.email }),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			})
-				.then((response) => {
-					return response.json()
-				})
-				.then((response) => {
-					const authorizationToken = response.token
-					localStorage.setItem('token', authorizationToken)
-
-					if (data.remember) {
-						localStorage.setItem('remember', true)
-					}
-					dispatch(userLogin(authorizationToken))
-					dispatch(isAuthUser(true))
-					dispatch(errorLogin(''))
-					dispatch(loadingLogin(false))
-
-					if (response.statusCode === 401) {
-						if (response.message === 'Unauthorized') {
-							dispatch(errorLogin('401'))
-							dispatch(loadingLogin(false))
-						}
-						if (response.message === 'Wrong credentials provided') {
-							dispatch(errorLogin('400'))
-							dispatch(loadingLogin(false))
-						}
-					}
-				})
-		} catch (error) {
-			dispatch(errorLogin('error'))
-			dispatch(loadingLogin(false))
-		}
+	if (data.remember) {
+		localStorage.setItem('remember', true)
 	}
+	dispatch(userLogin(authorizationToken))
+	dispatch(isAuthUser(true))
+	dispatch(errorLogin(''))
+	dispatch(loadingLogin(false))
 }
 
-export const sendEmail = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingLogin(true))
-		const url = `${URL}/auth/superadmin/forgot/password?email=${data.email}`
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-				},
-				credentials: 'include',
-			}).then((response) => {
-				if (response.status && response.status === 400) {
-					dispatch(errorLogin('400'))
-					dispatch(loadingLogin(false))
-					dispatch(sendingSuccess(false))
-				}
-				if (response.ok) {
-					dispatch(loadingLogin(false))
-					dispatch(sendingSuccess(true))
-					dispatch(errorLogin(''))
-				}
-			})
-		} catch (error) {
-			dispatch(errorLogin('error'))
-			dispatch(sendingSuccess(false))
-			dispatch(loadingLogin(false))
-		}
+export const sendEmail = (data) => async (dispatch) => {
+	dispatch(loadingLogin(true))
+	const url = `${URL}/auth/superadmin/forgot/password?email=${data.email}`
+	await getAxios(url, dispatch)
+	dispatch(loadingLogin(false))
+	dispatch(sendingSuccess(true))
+	dispatch(errorLogin(''))
+}
+
+export const createNewPassword = (data, token) => async (dispatch) => {
+	dispatch(loadingLogin(true))
+	const currentData = {
+		token: token,
+		password: data.password,
 	}
+	const url = `${URL}/auth/superadmin/reset/password`
+	await putAxios(url, currentData, dispatch)
+	dispatch(createNewPasswordSuccess(true))
+	dispatch(loadingLogin(false))
 }
 
-export const createNewPassword = (data, token) => {
-	return async (dispatch) => {
-		dispatch(loadingLogin(true))
-		const currentData = {
-			token: token,
-			password: data.password,
-		}
-		const url = `${URL}/auth/superadmin/reset/password`
-		try {
-			const response = await fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(currentData),
-			})
+export const loadingLogin = (boolean) => ({
+	type: LOADING_LOGIN,
+	payload: boolean,
+})
 
-			if (response.ok) {
-				dispatch(createNewPasswordSuccess(true))
-				dispatch(loadingLogin(false))
-			}
-			if (response.status === 401) {
-				dispatch(errorLogin('401'))
-				dispatch(loadingLogin(false))
-			}
-			if (response.status === 400) {
-				dispatch(errorLogin('400'))
-				dispatch(loadingLogin(false))
-			}
-		} catch (error) {
-			console.log('error', error)
-			dispatch(errorLogin('error'))
-			dispatch(loadingLogin(false))
-		}
-	}
-}
-
-export const loadingLogin = (boolean) => {
-	return {
-		type: LOADING_LOGIN,
-		payload: boolean,
-	}
-}
-export const isAuthUser = (boolean) => {
-	return { type: AUTH_USER, payload: boolean }
-}
+export const isAuthUser = (boolean) => ({ type: AUTH_USER, payload: boolean })
 
 const userLogin = (authorizationToken) => ({
 	type: USER_LOGIN,
@@ -155,8 +77,14 @@ export const errorLogin = (textError) => ({
 	payload: textError,
 })
 
+export const setStatus = (status) => ({
+	type: SET_STATUS,
+	payload: status,
+})
+
 const InitialState = {
 	authorizationToken: '',
+	status: 200,
 	error: '',
 	loading: false,
 	isAuth: null,
@@ -176,6 +104,8 @@ export const loginReducer = (state = InitialState, action) => {
 			return { ...state, isAuth: action.payload }
 		case SENDING_SUCCESS:
 			return { ...state, sending: action.payload }
+		case SET_STATUS:
+			return { ...state, status: action.payload }
 		case CREATE_NEW_PASSWORD_SUCCESS:
 			return { ...state, resetPasswordSuccess: action.payload }
 		default:

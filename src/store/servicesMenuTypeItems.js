@@ -1,208 +1,79 @@
-import { authorizationToken } from '../utils/token'
+import {
+	dellAxios,
+	getAxios,
+	postAxios,
+	putAxios,
+	patchAxios,
+} from '../utils/axios'
 const GET_MENU_ITEMS = 'GET_MENU_ITEMS'
 const LOADING_MENU_ITEMS = 'LOADING_MENU_ITEMS'
-const LOADING_ICON = 'LOADING_ICON'
-const SET_ICON_URL = 'SET_ICON_URL'
 const DELL_MENU_ITEM = 'DELL_MENU_ITEM'
 const IS_CREATE_MENU_ITEM = 'IS_CREATE_MENU_ITEM'
 const IS_UPDATE_MENU_ITEM = 'IS_UPDATE_MENU_ITEM'
 const IS_UPDATE_INDEX_MENU_ITEMS = 'IS_UPDATE_INDEX_MENU_ITEMS'
-const IS_ICON_UPLOAD = 'IS_ICON_UPLOAD'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllMenuItems = (id) => {
-	return async (dispatch) => {
-		dispatch(loadingMenuItems(true))
-		const url = `${URL}/admin/services/menu/items/${id}`
+export const getAllMenuItems = (id) => async (dispatch) => {
+	dispatch(loadingMenuItems(true))
+	const url = `${URL}/admin/services/menu/items/${id}`
+	const response = await getAxios(url, dispatch)
+	dispatch(getMenuItems(response.data))
+	dispatch(isCreateMenuItem(false))
+	dispatch(isUpdateMenuItem(false))
+	dispatch(loadingMenuItems(false))
+}
 
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
+export const createMenuItem = (data) => async (dispatch) => {
+	const url = `${URL}/admin/services/menu/items`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateMenuItem(true))
+}
+
+export const updateMenuItem = (data) => async (dispatch) => {
+	dispatch(loadingMenuItems(true))
+	const url = `${URL}/admin/services/menu/item`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateMenuItem(true))
+}
+
+export const updateIndexMenuItems = (data, value) => async (dispatch) => {
+	const url = `${URL}/admin/services/menu/items/order`
+	await patchAxios(url, data, dispatch)
+	if (!value) dispatch(isUpdateIndexMenuItem(true))
+	dispatch(isUpdateIndexMenuItem(false))
+	dispatch(deleteMenuItem(false))
+}
+
+export const sendIcon = (icon, item, update) => async (dispatch) => {
+	const url = `${URL}/admin/services/menu/items/images`
+	dispatch(loadingMenuItems(true))
+	const data = new FormData()
+	data.append('file', icon)
+	const response = await postAxios(url, data, dispatch)
+	if (update) {
+		dispatch(
+			updateMenuItem({
+				...item,
+				image: response.data === '{}' ? null : response.data,
 			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((items) => {
-					dispatch(getMenuItems(items))
-					dispatch(isCreateMenuItem(false))
-					dispatch(isUpdateMenuItem(false))
-					dispatch(loadingMenuItems(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingMenuItems(false))
-		}
+		)
+	} else {
+		dispatch(
+			createMenuItem({
+				...item,
+				image: response.data === '{}' ? null : response.data,
+			})
+		)
 	}
 }
 
-export const createMenuItem = (data) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/services/menu/items`
-
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					} else {
-						dispatch(isCreateMenuItem(true))
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingMenuItems(false))
-		}
-	}
-}
-
-export const updateMenuItem = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingMenuItems(true))
-		const url = `${URL}/admin/services/menu/item`
-
-		try {
-			fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					dispatch(isUpdateMenuItem(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			dispatch(loadingMenuItems(false))
-		}
-	}
-}
-
-export const updateIndexMenuItems = (data, value) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/services/menu/items/order`
-
-		try {
-			fetch(url, {
-				method: 'PATCH',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (!value) dispatch(isUpdateIndexMenuItem(true))
-					return res.json()
-				})
-				.then(() => {
-					dispatch(isUpdateIndexMenuItem(false))
-					dispatch(deleteMenuItem(false))
-				})
-		} catch (error) {
-			dispatch(loadingMenuItems(false))
-		}
-	}
-}
-
-export const sendIcon = (icon, item, update) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/services/menu/items/images`
-		dispatch(loadingMenuItems(true))
-		const data = new FormData()
-		data.append('file', icon)
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-				body: data,
-			})
-				.then((res) => {
-					return res.text()
-				})
-				.then((res) => {
-					if (update) {
-						dispatch(
-							updateMenuItem({ ...item, image: res === '{}' ? null : res })
-						)
-					} else {
-						dispatch(
-							createMenuItem({ ...item, image: res === '{}' ? null : res })
-						)
-					}
-				})
-		} catch (error) {}
-	}
-}
-
-export const dellMenuItem = (id, message) => {
-	return async (dispatch) => {
-		dispatch(loadingMenuItems(true))
-		const url = `${URL}/admin/services/menu/item${id}`
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode === 500) {
-						message()
-						dispatch(loadingMenuItems(false))
-					} else {
-						console.log('res', res)
-						dispatch(deleteMenuItem(true))
-						dispatch(loadingMenuItems(false))
-					}
-				})
-		} catch (error) {
-			dispatch(loadingMenuItems(false))
-		}
-	}
+export const dellMenuItem = (id, message) => async (dispatch) => {
+	dispatch(loadingMenuItems(true))
+	const url = `${URL}/admin/services/menu/item${id}`
+	await dellAxios(url, dispatch, message)
+	dispatch(deleteMenuItem(true))
+	dispatch(loadingMenuItems(false))
 }
 
 const loadingMenuItems = (boolean) => ({

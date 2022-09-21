@@ -3,7 +3,6 @@ import thunk from 'redux-thunk'
 import { loginReducer } from './login'
 import { propertiesReducer } from './properties'
 import { servicesReducer } from './services'
-import { topPropertiesReducer } from './topproperties'
 import { usersReducer } from './users'
 import { localReducer } from './local'
 import { bookingsReducer } from './bookings'
@@ -19,14 +18,12 @@ import { categoryMenuItemsReducer } from './servicesMenuTypeItems'
 import { attractionsReducer } from './servicesAttractions'
 import { socketReducer } from './socket'
 import { subscriptionReducer } from './subscription'
-// import { requestsReducer } from './request'
 
 const reducers = combineReducers({
 	login: loginReducer,
 	properties: propertiesReducer,
 	users: usersReducer,
 	services: servicesReducer,
-	topProperties: topPropertiesReducer,
 	local: localReducer,
 	bookings: bookingsReducer,
 	roomTypes: roomTypesReducer,
@@ -35,7 +32,6 @@ const reducers = combineReducers({
 	usefulContacts: usefulContactsReducer,
 	addons: addonsReducer,
 	notifications: notificationReducer,
-	// requests: requestsReducer,
 	settingsMenuType: categoryItemsReducer,
 	settingStandartType: standartItemsReducer,
 	settingsMenuTypeItems: categoryMenuItemsReducer,

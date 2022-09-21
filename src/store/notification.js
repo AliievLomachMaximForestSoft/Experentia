@@ -1,6 +1,6 @@
-import { authorizationToken } from '../utils/token'
+import { dellAxios, getAxios, postAxios } from '../utils/axios'
+
 const GET_NOTIFICATIONS = 'GET_NOTIFICATIONS'
-const GET_NOTIFICATION = 'GET_NOTIFICATION'
 const SET_ICON_URL = 'SET_ICON_URL'
 const DELL_NOTIFICATION = 'DELL_NOTIFICATION'
 const IS_CREATE_NOTIFICATION = 'IS_CREATE_NOTIFICATION'
@@ -12,150 +12,59 @@ const GET_DATE_PICKER = 'GET_DATE_PICKER'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllNotifications = (page, pageSize, startDate, endDate) => {
-	return async (dispatch) => {
+export const getAllNotifications =
+	(page, pageSize, startDate, endDate) => async (dispatch) => {
 		dispatch(loadingNotifications(true))
-
 		const url =
 			page && pageSize && startDate && endDate
 				? `${URL}/admin/property/notifications?page=${page}&limit=${pageSize}&start=${startDate}&end=${endDate}`
 				: page && pageSize
 				? `${URL}/admin/property/notifications?page=${page}&limit=${pageSize}`
 				: `${URL}/admin/property/notifications?page=1&limit=30`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((notifications) => {
-					dispatch(getNotifications(notifications))
-					dispatch(isCreateNotification(false))
-					dispatch(loadingNotifications(false))
-					dispatch(deleteNotification(false))
-					dispatch(setIconURL('undefined'))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingNotifications(false))
-		}
+		const response = await getAxios(url, dispatch)
+		dispatch(getNotifications(response.data))
+		dispatch(isCreateNotification(false))
+		dispatch(loadingNotifications(false))
+		dispatch(deleteNotification(false))
+		dispatch(setIconURL('undefined'))
 	}
+
+export const sendIcon = (icon) => async (dispatch) => {
+	const url = `${URL}/admin/property/notification/images`
+	dispatch(loadIcon(true))
+	const data = new FormData()
+	data.append('file', icon)
+	const response = await postAxios(url, data, dispatch)
+	dispatch(setIconURL(response.data))
+	dispatch(isIconUpload(true))
+	dispatch(loadIcon(false))
 }
 
-export const sendIcon = (icon) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property/notification/images`
-		dispatch(loadIcon(true))
-		const data = new FormData()
-		data.append('file', icon)
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-				body: data,
-			})
-				.then((res) => {
-					return res.text()
-				})
-				.then((res) => {
-					dispatch(setIconURL(res))
-					dispatch(isIconUpload(true))
-					dispatch(loadIcon(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(isIconUpload(false))
-			dispatch(loadIcon(false))
-		}
-	}
+export const createNotification = (data) => async (dispatch) => {
+	dispatch(loadingNotifications(true))
+	const url = `${URL}/admin/property/notifications`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateNotification(true))
+	dispatch(loadingNotifications(false))
 }
 
-export const createNotification = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingNotifications(true))
-		const url = `${URL}/admin/property/notifications`
-
-		try {
-			const response = fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						dispatch(loadingNotifications(false))
-					} else {
-						dispatch(isCreateNotification(true))
-						dispatch(loadingNotifications(false))
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingNotifications(false))
-		}
-	}
+export const dellNotification = (id) => async (dispatch) => {
+	dispatch(loadingNotifications(true))
+	const url = `${URL}/admin/property/notification${id}`
+	await dellAxios(url, dispatch)
+	dispatch(deleteNotification(true))
+	dispatch(loadingNotifications(false))
 }
 
-export const dellNotification = (id) => {
-	return async (dispatch) => {
-		dispatch(loadingNotifications(true))
-		const url = `${URL}/admin/property/notification${id}` //?
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then(() => {})
-				.then(() => {
-					dispatch(deleteNotification(true))
-					dispatch(loadingNotifications(false))
-				})
-		} catch (error) {
-			dispatch(loadingNotifications(false))
-		}
-	}
-}
+const loadingNotifications = (boolean) => ({
+	type: LOADING_NOTIFICATIONS,
+	payload: boolean,
+})
 
-const loadingNotifications = (boolean) => {
-	return {
-		type: LOADING_NOTIFICATIONS,
-		payload: boolean,
-	}
-}
-
-export const loadIcon = (boolean) => {
-	return {
-		type: LOADING_ICON,
-		payload: boolean,
-	}
-}
+export const loadIcon = (boolean) => ({
+	type: LOADING_ICON,
+	payload: boolean,
+})
 
 const setIconURL = (url) => ({
 	type: SET_ICON_URL,
@@ -189,7 +98,6 @@ export const getDatePicker = (date) => ({
 
 const InitialState = {
 	notifications: '',
-	notificationDetails: '',
 	iconUrl: '',
 	deleteNotification: false,
 	isCreateNotification: false,
@@ -203,8 +111,6 @@ export const notificationReducer = (state = InitialState, action) => {
 	switch (action.type) {
 		case GET_NOTIFICATIONS:
 			return { ...state, notifications: action.payload, loading: false }
-		case GET_NOTIFICATION:
-			return { ...state, notificationDetails: action.payload, loading: false }
 		case SET_ICON_URL:
 			return { ...state, iconUrl: action.payload, loading: false }
 		case DELL_NOTIFICATION:

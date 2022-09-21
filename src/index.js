@@ -6,7 +6,7 @@ import store from './store/store'
 import './i18n'
 
 let title = document.getElementById('title-main')
-title.textContent = 'Experentia'
+title.textContent = 'Experentia-admin'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

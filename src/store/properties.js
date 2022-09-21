@@ -1,5 +1,5 @@
-import { authorizationToken } from '../utils/token'
-const ERROR_PROPERTIES = 'ERROR_PROPERTIES'
+import { getAxios, postAxios, putAxios } from '../utils/axios'
+
 const SET_PROPERTY = 'SET_PROPERTY'
 const SET_GALERY_URL = 'SET_GALERY_URL'
 const SET_LOGO_URL = 'SET_LOGO_URL'
@@ -16,178 +16,65 @@ const SET_NAME = 'SET_NAME'
 
 const URL = process.env.REACT_APP_URL
 
-export const getProperty = () => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/property`
-
-		dispatch(loadingDetailsProperty(true))
-		try {
-			fetch(url, {
-				method: 'GET',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-			})
-				.then((response) => {
-					return response.json()
-				})
-				.then((response) => {
-					dispatch(setNameAdmin(response.name))
-					dispatch(setProperty(response.property))
-					dispatch(loadingDetailsProperty(false))
-					dispatch(isUpdateProperty(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingDetailsProperty(false))
-			dispatch(isUpdateProperty(false))
-		}
-	}
+export const getProperty = () => async (dispatch) => {
+	const url = `${URL}/admin/property`
+	dispatch(loadingDetailsProperty(true))
+	const response = await getAxios(url, dispatch)
+	dispatch(setNameAdmin(response.data.name))
+	dispatch(setProperty(response.data.property))
+	dispatch(loadingDetailsProperty(false))
+	dispatch(isUpdateProperty(false))
 }
 
-export const getCountries = () => {
-	return async (dispatch) => {
-		dispatch(loadingProperties(true))
-		const url = `${URL}/superadmin/countries`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					}
-					dispatch(setCountries(res))
-					dispatch(loadingProperties(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingProperties(false))
-			dispatch(errorProperties('error'))
-		}
-	}
+export const getCountries = () => async (dispatch) => {
+	dispatch(loadingProperties(true))
+	const url = `${URL}/admin/countries`
+	const response = await getAxios(url, dispatch)
+	dispatch(setCountries(response.data))
+	dispatch(loadingProperties(false))
 }
 
-export const updateProperties = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingProperties(true))
-		const url = `${URL}/admin/property`
-		try {
-			const response = fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isUpdateProperty(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingProperties(false))
-			dispatch(errorProperties('error'))
-		}
-	}
+export const updateProperties = (data) => async (dispatch) => {
+	dispatch(loadingProperties(true))
+	const url = `${URL}/admin/property`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateProperty(true))
 }
 
-export const sendGalery = (galery) => {
-	return async (dispatch) => {
-		const url = `${URL}/superadmin/servicemaster/upload/icon`
-		let count = 0
-		let arrLink = []
-		let data = []
-		dispatch(loadImage(true))
-		try {
-			galery.map(async (icon) => {
-				if (icon.originFileObj) {
-					data = new FormData()
-					data.append('file', icon.originFileObj)
-
-					const res = await fetch(url, {
-						method: 'POST',
-						mode: 'cors',
-						headers: {
-							accept: 'application/json',
-							Authorization: `Bearer ${authorizationToken}`,
-						},
-						credentials: 'include',
-						body: data,
-					})
-					const link = await res.text()
-					count++
-					dispatch(setGaleryUrl(link))
-					arrLink.push(link)
-				} else {
-					const link = icon.name
-						.replace(`${URL}/files/`, '')
-						.replaceAll('%2F', '/')
-					count++
-					dispatch(setGaleryUrl(link))
-					arrLink.push(link)
-				}
-				if (count === galery.length) {
-					dispatch(loadImage(false))
-					dispatch(isUploadGalery(arrLink))
-				}
-			})
-		} catch (error) {
-			console.log('error', error)
+export const sendGalery = (galery) => async (dispatch) => {
+	const url = `${URL}/admin/servicemaster/upload/icon`
+	let count = 0
+	let arrLink = []
+	let data = []
+	dispatch(loadImage(true))
+	galery.map(async (icon) => {
+		if (icon.originFileObj) {
+			data = new FormData()
+			data.append('file', icon.originFileObj)
+			const response = await postAxios(url, data, dispatch)
+			const link = response.data
+			count++
+			dispatch(setGaleryUrl(link))
+			arrLink.push(link)
+		} else {
+			const link = icon.name.replace(`${URL}/files/`, '').replaceAll('%2F', '/')
+			count++
+			dispatch(setGaleryUrl(link))
+			arrLink.push(link)
+		}
+		if (count === galery.length) {
 			dispatch(loadImage(false))
-			dispatch(isUploadGalery([]))
+			dispatch(isUploadGalery(arrLink))
 		}
-	}
+	})
 }
 
-export const sendLogo = (icon) => {
-	return async (dispatch) => {
-		const url = `${URL}/superadmin/servicemaster/upload/icon`
-
-		const data = new FormData()
-		data.append('file', icon)
-		try {
-			fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-				body: data,
-			})
-				.then((res) => {
-					return res.text()
-				})
-				.then((res) => {
-					dispatch(setLogoURL(res))
-				})
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
+export const sendLogo = (icon) => async (dispatch) => {
+	const url = `${URL}/admin/servicemaster/upload/icon`
+	const data = new FormData()
+	data.append('file', icon)
+	const response = await postAxios(url, data, dispatch)
+	dispatch(setLogoURL(response.data))
 }
 
 const setLogoURL = (url) => ({
@@ -200,26 +87,20 @@ const setGaleryUrl = (url) => ({
 	payload: url,
 })
 
-const loadImage = (boolean) => {
-	return {
-		type: LOADING_IMAGE,
-		payload: boolean,
-	}
-}
+const loadImage = (boolean) => ({
+	type: LOADING_IMAGE,
+	payload: boolean,
+})
 
-const loadingDetailsProperty = (boolean) => {
-	return {
-		type: LOADING_DETAILS_PROPERTY,
-		payload: boolean,
-	}
-}
+const loadingDetailsProperty = (boolean) => ({
+	type: LOADING_DETAILS_PROPERTY,
+	payload: boolean,
+})
 
-const loadingProperties = (boolean) => {
-	return {
-		type: LOADING_PROPERTIES,
-		payload: boolean,
-	}
-}
+const loadingProperties = (boolean) => ({
+	type: LOADING_PROPERTIES,
+	payload: boolean,
+})
 
 const setCountries = (countries) => ({
 	type: SET_COUNRIES,
@@ -236,11 +117,6 @@ export const isUploadGalery = (boolean) => ({
 	payload: boolean,
 })
 
-const errorProperties = (textError) => ({
-	type: ERROR_PROPERTIES,
-	payload: textError,
-})
-
 export const setProperty = (property) => ({
 	type: SET_PROPERTY,
 	payload: property,
@@ -252,16 +128,15 @@ const setNameAdmin = (name) => ({
 })
 
 const InitialState = {
-	countries: [], ///
+	countries: [],
 	nameAdmin: '',
 	property: '',
 	galeryUrl: '',
 	logoUrl: '',
 	loadingImage: false,
 	galeryArray: [],
-	isUpdateProperty: false, ///
-	error: '', ///
-	loading: false, ///
+	isUpdateProperty: false,
+	loading: false,
 }
 
 export const propertiesReducer = (state = InitialState, action) => {
@@ -280,8 +155,6 @@ export const propertiesReducer = (state = InitialState, action) => {
 			return { ...state, isUpdateProperty: action.payload, loading: false }
 		case IS_UPLOAD_GALERY:
 			return { ...state, galeryArray: action.payload, loading: false }
-		case ERROR_PROPERTIES:
-			return { ...state, error: action.payload }
 		case LOADING_IMAGE:
 			return { ...state, loadingImage: action.payload }
 		default:

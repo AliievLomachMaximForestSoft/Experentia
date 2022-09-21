@@ -199,7 +199,7 @@ const StandartList = (props) => {
 	useEffect(() => {
 		dispatch(getAllStandartItems(props.id))
 	}, [props.id])
-
+	console.log('props.standartItems', data)
 	return !loading ? (
 		props.standartItems && props.standartItems.length ? (
 			<ConfigProvider renderEmpty={customizeRenderEmpty}>
