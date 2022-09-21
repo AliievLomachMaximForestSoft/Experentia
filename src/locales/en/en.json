@@ -1,6 +1,6 @@
 {
 	"login": {
-		"mainTitle": "Log In",
+		"mainTitle": "VAD",
 		"mainTitleDescription": "Welcome! Enter your email and password below to login",
 		"placeholderForMail": "Enter email",
 		"placeholForPassword": "Enter password",
