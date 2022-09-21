@@ -17,25 +17,25 @@ export const loginUser = (data) => async (dispatch) => {
 		{ password: data.password, email: data.email },
 		dispatch
 	)
-	const authorizationToken = response.data.token
-	localStorage.setItem('token', authorizationToken)
+	if (response) {
+		const authorizationToken = response.data.token
+		localStorage.setItem('token', authorizationToken)
 
-	if (data.remember) {
-		localStorage.setItem('remember', true)
+		if (data.remember) {
+			localStorage.setItem('remember', true)
+		}
+		dispatch(userLogin(authorizationToken))
+		dispatch(isAuthUser(true))
 	}
-	dispatch(userLogin(authorizationToken))
-	dispatch(isAuthUser(true))
-	dispatch(errorLogin(''))
 	dispatch(loadingLogin(false))
 }
 
 export const sendEmail = (data) => async (dispatch) => {
 	dispatch(loadingLogin(true))
 	const url = `${URL}/auth/superadmin/forgot/password?email=${data.email}`
-	await getAxios(url, dispatch)
+	const response = await getAxios(url, dispatch)
+	response && dispatch(sendingSuccess(true))
 	dispatch(loadingLogin(false))
-	dispatch(sendingSuccess(true))
-	dispatch(errorLogin(''))
 }
 
 export const createNewPassword = (data, token) => async (dispatch) => {
@@ -45,8 +45,8 @@ export const createNewPassword = (data, token) => async (dispatch) => {
 		password: data.password,
 	}
 	const url = `${URL}/auth/superadmin/reset/password`
-	await putAxios(url, currentData, dispatch)
-	dispatch(createNewPasswordSuccess(true))
+	const response = await putAxios(url, currentData, dispatch)
+	response && dispatch(createNewPasswordSuccess(true))
 	dispatch(loadingLogin(false))
 }
 

@@ -17,37 +17,39 @@ export const getAllStandartItems = (id) => async (dispatch) => {
 	dispatch(loadingStandartItems(true))
 	const url = `${URL}/admin/services/standart/${id}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getStandartItems(response.data))
-	dispatch(isCreateStandartItem(false))
-	dispatch(isUpdateStandartItem(false))
+	if (response) {
+		dispatch(getStandartItems(response.data))
+		dispatch(isCreateStandartItem(false))
+		dispatch(isUpdateStandartItem(false))
+	}
 	dispatch(loadingStandartItems(false))
 }
 
 export const createStandart = (data) => async (dispatch) => {
 	dispatch(loadingStandartItems(true))
 	const url = `${URL}/admin/services/standart`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateStandartItem(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateStandartItem(true))
 	dispatch(loadingStandartItems(false))
 }
 
 export const updateStandartItem = (data) => async (dispatch) => {
 	dispatch(loadingStandartItems(true))
 	const url = `${URL}/admin/services/standart`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateStandartItem(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateStandartItem(true))
 }
 
 export const dellStandartItem = (id, message) => async (dispatch) => {
 	const url = `${URL}/admin/services/standart${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteStandartItems(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteStandartItems(true))
 }
 
 export const updateIndexStandartItems = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/services/standart/order`
-	await patchAxios(url, data, dispatch)
-	if (!value) dispatch(isUpdateIndexStandartItems(true))
+	const response = await patchAxios(url, data, dispatch)
+	if (!value && response) dispatch(isUpdateIndexStandartItems(true))
 	dispatch(deleteStandartItems(false))
 	dispatch(isUpdateIndexStandartItems(false))
 }

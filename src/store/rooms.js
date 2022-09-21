@@ -42,19 +42,23 @@ export const getAllRooms = (page, pageSize, filters) => async (dispatch) => {
 
 	const response = await getAxios(url, dispatch)
 	sort(response.data.items)
-	dispatch(getRooms(response.data))
-	dispatch(setRoomsByNumber(''))
-	dispatch(isCreateRooms(false))
-	dispatch(isUpdateRooms(false))
-	dispatch(deleteRooms(false))
+	if (response) {
+		dispatch(getRooms(response.data))
+		dispatch(setRoomsByNumber(''))
+		dispatch(isCreateRooms(false))
+		dispatch(isUpdateRooms(false))
+		dispatch(deleteRooms(false))
+	}
 	dispatch(loadingRooms(false))
 }
 
 export const getAllRoomsWithBookings = () => async (dispatch) => {
 	const url = `${URL}/admin/property/rooms/with-bookings`
 	const response = await getAxios(url, dispatch)
-	sort(response.data)
-	dispatch(getRoomsWithBooking(response.data))
+	if (response) {
+		sort(response.data)
+		dispatch(getRoomsWithBooking(response.data))
+	}
 }
 
 export const getRoomsByNumber = (value) => async (dispatch) => {
@@ -62,24 +66,26 @@ export const getRoomsByNumber = (value) => async (dispatch) => {
 	dispatch(loadingBySearch(true))
 	const url = `${URL}/admin/property/rooms/field?value=${value}`
 	const response = await getAxios(url, dispatch)
-	sort(response.data)
-	dispatch(setRoomsByNumber(response.data))
+	if (response) {
+		sort(response.data)
+		dispatch(setRoomsByNumber(response.data))
+	}
 	dispatch(loadingBySearch(false))
 }
 
 export const createRoom = (data) => async (dispatch) => {
 	dispatch(loadingRooms(true))
 	const url = `${URL}/admin/property/rooms`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateRooms(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateRooms(true))
 	dispatch(loadingRooms(false))
 }
 
 export const updateRoom = (data) => async (dispatch) => {
 	dispatch(loadingRooms(true))
 	const url = `${URL}/admin/property/room`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateRooms(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateRooms(true))
 }
 
 export const updateStatusRoom = (data) => async (dispatch) => {
@@ -106,10 +112,12 @@ export const sendGalery = (galery) => async (dispatch) => {
 			data = new FormData()
 			data.append('file', icon.originFileObj)
 			const response = await postAxios(url, data, dispatch)
-			const link = response.data
-			count++
-			dispatch(setGaleryUrl(link))
-			arrLink.push(link)
+			if (response) {
+				const link = response.data
+				count++
+				dispatch(setGaleryUrl(link))
+				arrLink.push(link)
+			}
 		} else {
 			const link = icon.name.replace(`${URL}/files/`, '').replaceAll('%2F', '/')
 			count++

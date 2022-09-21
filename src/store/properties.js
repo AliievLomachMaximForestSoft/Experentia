@@ -20,25 +20,27 @@ export const getProperty = () => async (dispatch) => {
 	const url = `${URL}/admin/property`
 	dispatch(loadingDetailsProperty(true))
 	const response = await getAxios(url, dispatch)
-	dispatch(setNameAdmin(response.data.name))
-	dispatch(setProperty(response.data.property))
+	if (response) {
+		dispatch(setNameAdmin(response.data.name))
+		dispatch(setProperty(response.data.property))
+		dispatch(isUpdateProperty(false))
+	}
 	dispatch(loadingDetailsProperty(false))
-	dispatch(isUpdateProperty(false))
 }
 
 export const getCountries = () => async (dispatch) => {
 	dispatch(loadingProperties(true))
 	const url = `${URL}/admin/countries`
 	const response = await getAxios(url, dispatch)
-	dispatch(setCountries(response.data))
+	response && dispatch(setCountries(response.data))
 	dispatch(loadingProperties(false))
 }
 
 export const updateProperties = (data) => async (dispatch) => {
 	dispatch(loadingProperties(true))
 	const url = `${URL}/admin/property`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateProperty(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateProperty(true))
 }
 
 export const sendGalery = (galery) => async (dispatch) => {
@@ -52,10 +54,12 @@ export const sendGalery = (galery) => async (dispatch) => {
 			data = new FormData()
 			data.append('file', icon.originFileObj)
 			const response = await postAxios(url, data, dispatch)
-			const link = response.data
-			count++
-			dispatch(setGaleryUrl(link))
-			arrLink.push(link)
+			if (response) {
+				const link = response.data
+				count++
+				dispatch(setGaleryUrl(link))
+				arrLink.push(link)
+			}
 		} else {
 			const link = icon.name.replace(`${URL}/files/`, '').replaceAll('%2F', '/')
 			count++
@@ -74,7 +78,7 @@ export const sendLogo = (icon) => async (dispatch) => {
 	const data = new FormData()
 	data.append('file', icon)
 	const response = await postAxios(url, data, dispatch)
-	dispatch(setLogoURL(response.data))
+	response && dispatch(setLogoURL(response.data))
 }
 
 const setLogoURL = (url) => ({

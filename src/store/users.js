@@ -16,8 +16,10 @@ export const getAllUsers = (page, pageSize) => async (dispatch) => {
 			? `${URL}/admin/users?page=${page}&take=${pageSize}`
 			: `${URL}/admin/users?page=1&take=30`
 	const response = await getAxios(url, dispatch)
-	dispatch(getUsers(response.data))
-	dispatch(deleteUser(false))
+	if (response) {
+		dispatch(getUsers(response.data))
+		dispatch(deleteUser(false))
+	}
 	dispatch(loadingUsers(false))
 }
 
@@ -25,7 +27,7 @@ export const getUserDetails = (id) => async (dispatch) => {
 	dispatch(loadingUserDetails(true))
 	const url = `${URL}/admin/user${id}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getUser(response.data))
+	response && dispatch(getUser(response.data))
 	dispatch(loadingUserDetails(false))
 }
 
@@ -33,7 +35,7 @@ export const getUsersByPhone = (phone) => async (dispatch) => {
 	dispatch(loadingBySearch(true))
 	const url = `${URL}/superadmin/users-by-phone?phone=${phone}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getSearchUsers(response.data))
+	response && dispatch(getSearchUsers(response.data))
 	dispatch(loadingBySearch(false))
 }
 
