@@ -15,32 +15,34 @@ export const getAllCategoryDishes = (id) => async (dispatch) => {
 	dispatch(loadingCategoryDishes(true))
 	const url = `${URL}/admin/services/menu/items/${id}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getCategoryDishes(response.data))
-	dispatch(isCreateCategoryDish(false))
-	dispatch(isUpdateCategoryDish(false))
+	if (response) {
+		dispatch(getCategoryDishes(response.data))
+		dispatch(isCreateCategoryDish(false))
+		dispatch(isUpdateCategoryDish(false))
+		dispatch(deleteCategoryDishes(false))
+	}
 	dispatch(loadingCategoryDishes(false))
-	dispatch(deleteCategoryDishes(false))
 }
 
 export const createCategory = (data) => async (dispatch) => {
 	dispatch(loadingCategoryDishes(true))
 	const url = `${URL}/admin/services/menu/items`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateCategoryDish(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateCategoryDish(true))
 	dispatch(loadingCategoryDishes(false))
 }
 
 export const dellCategoryDish = (id) => async (dispatch) => {
 	const url = `${URL}/admin/services/menu/item${id}`
-	await dellAxios(url, dispatch)
-	dispatch(deleteCategoryDishes(true))
+	const response = await dellAxios(url, dispatch)
+	response && dispatch(deleteCategoryDishes(true))
 }
 
 export const updateCategoryDish = (data) => async (dispatch) => {
 	dispatch(loadingCategoryDishes(true))
 	const url = `${URL}/admin/services/menu/item`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateCategoryDish(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateCategoryDish(true))
 }
 
 const loadingCategoryDishes = (boolean) => ({

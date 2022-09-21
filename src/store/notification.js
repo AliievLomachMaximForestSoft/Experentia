@@ -22,11 +22,13 @@ export const getAllNotifications =
 				? `${URL}/admin/property/notifications?page=${page}&limit=${pageSize}`
 				: `${URL}/admin/property/notifications?page=1&limit=30`
 		const response = await getAxios(url, dispatch)
-		dispatch(getNotifications(response.data))
-		dispatch(isCreateNotification(false))
+		if (response) {
+			dispatch(getNotifications(response.data))
+			dispatch(isCreateNotification(false))
+			dispatch(deleteNotification(false))
+			dispatch(setIconURL('undefined'))
+		}
 		dispatch(loadingNotifications(false))
-		dispatch(deleteNotification(false))
-		dispatch(setIconURL('undefined'))
 	}
 
 export const sendIcon = (icon) => async (dispatch) => {
@@ -35,24 +37,26 @@ export const sendIcon = (icon) => async (dispatch) => {
 	const data = new FormData()
 	data.append('file', icon)
 	const response = await postAxios(url, data, dispatch)
-	dispatch(setIconURL(response.data))
-	dispatch(isIconUpload(true))
+	if (response) {
+		dispatch(setIconURL(response.data))
+		dispatch(isIconUpload(true))
+	}
 	dispatch(loadIcon(false))
 }
 
 export const createNotification = (data) => async (dispatch) => {
 	dispatch(loadingNotifications(true))
 	const url = `${URL}/admin/property/notifications`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateNotification(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateNotification(true))
 	dispatch(loadingNotifications(false))
 }
 
 export const dellNotification = (id) => async (dispatch) => {
 	dispatch(loadingNotifications(true))
 	const url = `${URL}/admin/property/notification${id}`
-	await dellAxios(url, dispatch)
-	dispatch(deleteNotification(true))
+	const response = await dellAxios(url, dispatch)
+	response && dispatch(deleteNotification(true))
 	dispatch(loadingNotifications(false))
 }
 

@@ -17,33 +17,35 @@ export const getAllAddons = (page, pageSize) => async (dispatch) => {
 			? `${URL}/admin/services/addons?page=${page}&limit=${pageSize}`
 			: `${URL}/admin/services/addons?page=1&limit=30`
 	const response = await getAxios(url, dispatch)
-	dispatch(getAddons(response.data))
-	dispatch(isCreateAddons(false))
-	dispatch(isUpdateAddons(false))
-	dispatch(deleteAddons(false))
+	if (response) {
+		dispatch(getAddons(response.data))
+		dispatch(isCreateAddons(false))
+		dispatch(isUpdateAddons(false))
+		dispatch(deleteAddons(false))
+	}
 	dispatch(loadingAddons(false))
 }
 
 export const createAddons = (data) => async (dispatch) => {
 	dispatch(loadingAddons(true))
 	const url = `${URL}/admin/services/addons`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateAddons(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateAddons(true))
 	dispatch(loadingAddons(false))
 }
 
 export const updateAddon = (data) => async (dispatch) => {
 	dispatch(loadingAddons(true))
 	const url = `${URL}/admin/services/addon`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateAddons(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateAddons(true))
 	dispatch(loadingAddons(false))
 }
 
 export const dellAddon = (id, message) => async (dispatch) => {
 	const url = `${URL}/admin/services/addon${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteAddons(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteAddons(true))
 }
 
 const loadingAddons = (boolean) => ({

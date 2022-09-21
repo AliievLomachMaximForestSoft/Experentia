@@ -28,30 +28,30 @@ export const getAllServices = () => async (dispatch) => {
 	dispatch(loadingServices(true))
 	const url = `${URL}/admin/property/services`
 	const response = await getAxios(url, dispatch)
-	dispatch(getServices(response.data))
-	dispatch(isCreateService(false))
-	dispatch(isUpdateService(false))
+	if (response) {
+		dispatch(getServices(response.data))
+		dispatch(isCreateService(false))
+		dispatch(isUpdateService(false))
+		dispatch(setBackgroundURL('undefined'))
+		dispatch(setIconURL('undefined'))
+	}
 	dispatch(loadingServices(false))
-	dispatch(setBackgroundURL('undefined'))
-	dispatch(setIconURL('undefined'))
 }
 
 export const createService = (data) => async (dispatch) => {
 	dispatch(loadingServices(true))
 	const url = `${URL}/admin/property/services`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateService(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateService(true))
 }
 
-export const updateService = (data) => {
+export const updateService = (data) => async (dispatch) => {
 	if (data.abilityToSetTime.length === 0) data.abilityToSetTime = ['no']
-	return async (dispatch) => {
-		dispatch(loadingServices(true))
-		const url = `${URL}/admin/property/service`
-		await putAxios(url, data, dispatch)
-		dispatch(isUpdateService(true))
-		dispatch(loadingServices(false))
-	}
+	dispatch(loadingServices(true))
+	const url = `${URL}/admin/property/service`
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateService(true))
+	dispatch(loadingServices(false))
 }
 
 export const updateIndexServices = (data, value) => async (dispatch) => {
@@ -69,8 +69,10 @@ export const sendBackground = (background) => async (dispatch) => {
 	const data = new FormData()
 	data.append('file', background)
 	const response = await postAxios(url, data, dispatch)
-	dispatch(setBackgroundURL(response.data))
-	dispatch(isBackgroundUpload(true))
+	if (response) {
+		dispatch(setBackgroundURL(response.data))
+		dispatch(isBackgroundUpload(true))
+	}
 	dispatch(loadingBackground(false))
 }
 
@@ -80,8 +82,10 @@ export const sendIcon = (icon) => async (dispatch) => {
 	const data = new FormData()
 	data.append('file', icon)
 	const response = await postAxios(url, data, dispatch)
-	dispatch(setIconURL(response.data))
-	dispatch(isIconUpload(true))
+	if (response) {
+		dispatch(setIconURL(response.data))
+		dispatch(isIconUpload(true))
+	}
 	dispatch(loadIcon(false))
 }
 
@@ -89,15 +93,15 @@ export const getServicesDetails = (id) => async (dispatch) => {
 	dispatch(loadingDetailsService(true))
 	const url = `${URL}/superadmin/servicemaster${id}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getService(response.data))
+	response && dispatch(getService(response.data))
 	dispatch(loadingDetailsService(false))
 }
 
 export const dellService = (id, message) => async (dispatch) => {
 	dispatch(loadingServices(true))
 	const url = `${URL}/admin/property/service${id}`
-	await dellAxios(url, dispatch,message)
-	dispatch(deleteService(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteService(true))
 	dispatch(loadingServices(false))
 }
 

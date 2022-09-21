@@ -21,25 +21,27 @@ export const getAllRoomTypes = () => async (dispatch) => {
 	dispatch(loadingRoomTypes(true))
 	const url = `${URL}/admin/room/types`
 	const response = await getAxios(url, dispatch)
-	dispatch(getRoomTypes(response.data))
-	dispatch(isCreateRoomTypes(false))
-	dispatch(isUpdateRoomTypes(false))
-	dispatch(isUpdateIndexRoomTypes(false))
+	if (response) {
+		dispatch(getRoomTypes(response.data))
+		dispatch(isCreateRoomTypes(false))
+		dispatch(isUpdateRoomTypes(false))
+		dispatch(isUpdateIndexRoomTypes(false))
+	}
 	dispatch(loadingRoomTypes(false))
 }
 
 export const createRoomType = (data) => async (dispatch) => {
 	dispatch(loadingRoomTypes(true))
 	const url = `${URL}/admin/room/types`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateRoomTypes(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateRoomTypes(true))
 }
 
 export const updateRoomType = (data) => async (dispatch) => {
 	dispatch(loadingRoomTypes(true))
 	const url = `${URL}/admin/room/type`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateRoomTypes(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateRoomTypes(true))
 }
 
 export const updateIndexRoomTypes = (data, value) => async (dispatch) => {
@@ -52,8 +54,8 @@ export const updateIndexRoomTypes = (data, value) => async (dispatch) => {
 
 export const dellRoomType = (id, message) => async (dispatch) => {
 	const url = `${URL}/admin/room/type${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteRoomTypes(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteRoomTypes(true))
 }
 
 const loadingRoomTypes = (boolean) => ({

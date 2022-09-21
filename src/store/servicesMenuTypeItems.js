@@ -18,29 +18,31 @@ export const getAllMenuItems = (id) => async (dispatch) => {
 	dispatch(loadingMenuItems(true))
 	const url = `${URL}/admin/services/menu/items/${id}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getMenuItems(response.data))
-	dispatch(isCreateMenuItem(false))
-	dispatch(isUpdateMenuItem(false))
+	if (response) {
+		dispatch(getMenuItems(response.data))
+		dispatch(isCreateMenuItem(false))
+		dispatch(isUpdateMenuItem(false))
+	}
 	dispatch(loadingMenuItems(false))
 }
 
 export const createMenuItem = (data) => async (dispatch) => {
 	const url = `${URL}/admin/services/menu/items`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateMenuItem(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateMenuItem(true))
 }
 
 export const updateMenuItem = (data) => async (dispatch) => {
 	dispatch(loadingMenuItems(true))
 	const url = `${URL}/admin/services/menu/item`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateMenuItem(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateMenuItem(true))
 }
 
 export const updateIndexMenuItems = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/services/menu/items/order`
-	await patchAxios(url, data, dispatch)
-	if (!value) dispatch(isUpdateIndexMenuItem(true))
+	const response = await patchAxios(url, data, dispatch)
+	if (!value && response) dispatch(isUpdateIndexMenuItem(true))
 	dispatch(isUpdateIndexMenuItem(false))
 	dispatch(deleteMenuItem(false))
 }
@@ -51,28 +53,30 @@ export const sendIcon = (icon, item, update) => async (dispatch) => {
 	const data = new FormData()
 	data.append('file', icon)
 	const response = await postAxios(url, data, dispatch)
-	if (update) {
-		dispatch(
-			updateMenuItem({
-				...item,
-				image: response.data === '{}' ? null : response.data,
-			})
-		)
-	} else {
-		dispatch(
-			createMenuItem({
-				...item,
-				image: response.data === '{}' ? null : response.data,
-			})
-		)
+	if (response) {
+		if (update) {
+			dispatch(
+				updateMenuItem({
+					...item,
+					image: response.data === '{}' ? null : response.data,
+				})
+			)
+		} else {
+			dispatch(
+				createMenuItem({
+					...item,
+					image: response.data === '{}' ? null : response.data,
+				})
+			)
+		}
 	}
 }
 
 export const dellMenuItem = (id, message) => async (dispatch) => {
 	dispatch(loadingMenuItems(true))
 	const url = `${URL}/admin/services/menu/item${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteMenuItem(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteMenuItem(true))
 	dispatch(loadingMenuItems(false))
 }
 

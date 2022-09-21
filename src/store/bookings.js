@@ -25,11 +25,13 @@ export const getAllBookings = (page, pageSize) => async (dispatch) => {
 			? `${URL}/admin/bookings?page=${page}&take=${pageSize}`
 			: `${URL}/admin/bookings?page=1&take=30`
 	const response = await getAxios(url, dispatch)
-	dispatch(getBookings(response.data))
-	dispatch(isCreateBookings(false))
-	dispatch(isUpdateBookings(false))
-	dispatch(isPDFFileUpload(false))
-	dispatch(deleteBookings(false))
+	if (response) {
+		dispatch(getBookings(response.data))
+		dispatch(isCreateBookings(false))
+		dispatch(isUpdateBookings(false))
+		dispatch(isPDFFileUpload(false))
+		dispatch(deleteBookings(false))
+	}
 	dispatch(loadingBookings(false))
 }
 
@@ -40,24 +42,26 @@ export const getAllBookingsHistory = (page, pageSize) => async (dispatch) => {
 			? `${URL}/admin/bookings/history?page=${page}&take=${pageSize}`
 			: `${URL}/admin/bookings/history?page=1&take=30`
 	const response = await getAxios(url, dispatch)
-	dispatch(getBookingsHistory(response.data))
-	dispatch(deleteBookings(false))
+	if (response) {
+		dispatch(getBookingsHistory(response.data))
+		dispatch(deleteBookings(false))
+	}
 	dispatch(loadingBookings(false))
 }
 
 export const createBooking = (data) => async (dispatch) => {
 	dispatch(loadingBookings(true))
 	const url = `${URL}/admin/bookings`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateBookings(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateBookings(true))
 	dispatch(loadingBookings(false))
 }
 
 export const updateBooking = (data, pdf) => async (dispatch) => {
 	dispatch(loadingBookings(true))
 	const url = `${URL}/admin/booking`
-	await putAxios(url, data, dispatch)
-	if (!pdf) dispatch(isUpdateBookings(true))
+	const response = await putAxios(url, data, dispatch)
+	if (!pdf && response) dispatch(isUpdateBookings(true))
 	dispatch(loadingBookings(false))
 }
 
@@ -66,7 +70,7 @@ export const getBookingsHistoryByPhone = (value) => async (dispatch) => {
 	dispatch(loadingBookings(true))
 	const url = `${URL}/admin/bookings/history/by-phone?phone=${value}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getBookingsHistoryPhone(response.data))
+	response && dispatch(getBookingsHistoryPhone(response.data))
 	dispatch(loadingBookings(false))
 }
 
@@ -75,14 +79,14 @@ export const getBookingsHistoryByRoom = (value) => async (dispatch) => {
 	dispatch(loadingBookings(true))
 	const url = `${URL}/admin/bookings/history/by-room?room=${value}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getBookingsHistoryRoom(response.data))
+	response && dispatch(getBookingsHistoryRoom(response.data))
 	dispatch(loadingBookings(false))
 }
 
 export const dellBooking = (id) => async (dispatch) => {
 	const url = `${URL}/admin/booking${id}`
-	await dellAxios(url, dispatch)
-	dispatch(deleteBookings(true))
+	const response = await dellAxios(url, dispatch)
+	response && dispatch(deleteBookings(true))
 }
 
 export const sendPDFFile = (pdf) => async (dispatch) => {
@@ -91,8 +95,10 @@ export const sendPDFFile = (pdf) => async (dispatch) => {
 	const data = new FormData()
 	data.append('file', pdf)
 	const response = await postAxios(url, data, dispatch)
-	dispatch(setPDFFileURL(response.data))
-	dispatch(isPDFFileUpload(true))
+	if (response) {
+		dispatch(setPDFFileURL(response.data))
+		dispatch(isPDFFileUpload(true))
+	}
 	dispatch(isUpdateBookings(false))
 	dispatch(loadingPDFFile(false))
 }

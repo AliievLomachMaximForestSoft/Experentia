@@ -21,38 +21,42 @@ export const getAllAttractions = () => async (dispatch) => {
 	dispatch(loadingAttractions(true))
 	const url = `${URL}/admin/services/attractions`
 	const response = await getAxios(url, dispatch)
-	dispatch(getAttractions(response.data))
-	dispatch(isCreateAttraction(false))
-	dispatch(isUpdateAttraction(false))
+	if (response) {
+		dispatch(getAttractions(response.data))
+		dispatch(isCreateAttraction(false))
+		dispatch(isUpdateAttraction(false))
+	}
 	dispatch(loadingAttractions(false))
 }
 
 export const createAttraction = (data) => async (dispatch) => {
 	dispatch(loadingAttractions(true))
 	const url = `${URL}/admin/services/attractions`
-	await postAxios(url, data, dispatch)
+	const response = await postAxios(url, data, dispatch)
+	if (response) {
+		dispatch(isCreateAttraction(true))
+		dispatch(loadImage(false))
+	}
 	dispatch(loadingAttractions(false))
-	dispatch(isCreateAttraction(true))
-	dispatch(loadImage(false))
 }
 
 export const dellAttraction = (id, message) => async (dispatch) => {
 	const url = `${URL}/admin/services/attraction${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteAttractions(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteAttractions(true))
 }
 
 export const updateAttraction = (data) => async (dispatch) => {
 	dispatch(loadingAttractions(true))
 	const url = `${URL}/admin/services/attraction`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateAttraction(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateAttraction(true))
 }
 
 export const updateIndexAttractionIndex = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/services/attractions/order`
-	await patchAxios(url, data, dispatch)
-	if (!value) dispatch(isUpdateIndexAttractions(true))
+	const response = await patchAxios(url, data, dispatch)
+	if (!value && response) dispatch(isUpdateIndexAttractions(true))
 	dispatch(deleteAttractions(false))
 	dispatch(isUpdateIndexAttractions(false))
 }
@@ -71,10 +75,12 @@ export const sendGaleryAttraction =
 					data.append('file', icon.originFileObj)
 
 					const response = await postAxios(url, data, dispatch)
-					const link = response.data
-					count++
-					dispatch(setGaleryUrl(link))
-					arrLink.push(link)
+					if (response) {
+						const link = response.data
+						count++
+						dispatch(setGaleryUrl(link))
+						arrLink.push(link)
+					}
 				} else {
 					const link = icon.name
 						.replace(`${URL}/files/`, '')

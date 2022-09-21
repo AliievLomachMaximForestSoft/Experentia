@@ -19,37 +19,39 @@ export const getAllUsefulContacts = () => async (dispatch) => {
 	dispatch(loadingUsefulContacts(true))
 	const url = `${URL}/admin/useful/contacts`
 	const response = await getAxios(url, dispatch)
-	dispatch(getUsefulContacts(response.data))
-	dispatch(isCreateUsefulContacts(false))
-	dispatch(isUpdateUsefulContacts(false))
-	dispatch(deleteUsefulContacts(false))
+	if (response) {
+		dispatch(getUsefulContacts(response.data))
+		dispatch(isCreateUsefulContacts(false))
+		dispatch(isUpdateUsefulContacts(false))
+		dispatch(deleteUsefulContacts(false))
+	}
 	dispatch(loadingUsefulContacts(false))
 }
 
 export const createUsefulContact = (data) => async (dispatch) => {
 	dispatch(loadingUsefulContacts(true))
 	const url = `${URL}/admin/useful/contacts`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateUsefulContacts(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateUsefulContacts(true))
 }
 
 export const updateUsefulContact = (data) => async (dispatch) => {
 	dispatch(loadingUsefulContacts(true))
 	const url = `${URL}/admin/useful/contact`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateUsefulContacts(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateUsefulContacts(true))
 }
 
 export const updateIndexUsefulContacts = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/useful/contacts/order`
-	await patchAxios(url, data, dispatch)
-	if (!value) dispatch(isUpdateIndexUsefulContacts(true))
+	const response = await patchAxios(url, data, dispatch)
+	if (!value && response) dispatch(isUpdateIndexUsefulContacts(true))
 }
 
 export const dellUsefulContact = (id) => async (dispatch) => {
 	const url = `${URL}/admin/useful/contact${id}`
-	await dellAxios(url, dispatch)
-	dispatch(deleteUsefulContacts(true))
+	const response = await dellAxios(url, dispatch)
+	response && dispatch(deleteUsefulContacts(true))
 }
 
 const loadingUsefulContacts = (boolean) => ({

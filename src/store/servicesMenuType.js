@@ -17,38 +17,40 @@ export const getAllCategoryItems = (id) => async (dispatch) => {
 	dispatch(loadingCategoryItems(true))
 	const url = `${URL}/admin/services/menu/categories/${Number(id)}`
 	const response = await getAxios(url, dispatch)
-	dispatch(getCategoryItems(response.data))
-	dispatch(isCreateCategoryItem(false))
-	dispatch(isUpdateCategoryItem(false))
+	if (response) {
+		dispatch(getCategoryItems(response.data))
+		dispatch(isCreateCategoryItem(false))
+		dispatch(isUpdateCategoryItem(false))
+	}
 	dispatch(loadingCategoryItems(false))
 }
 
 export const createCategory = (data) => async (dispatch) => {
 	dispatch(loadingCategoryItems(true))
 	const url = `${URL}/admin/services/menu/categories`
-	await postAxios(url, data, dispatch)
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateCategoryItem(true))
 	dispatch(loadingCategoryItems(false))
-	dispatch(isCreateCategoryItem(true))
 }
 
 export const dellCategoryItem = (id, message) => async (dispatch) => {
 	const url = `${URL}/admin/services/menu/category${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteCategoryItems(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteCategoryItems(true))
 }
 
 export const updateCategoryItem = (data) => async (dispatch) => {
 	dispatch(loadingCategoryItems(true))
 	const url = `${URL}/admin/services/menu/category`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateCategoryItem(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateCategoryItem(true))
 }
 
 export const updateIndexCategoryIndex =
 	(data, value, id) => async (dispatch) => {
 		const url = `${URL}/admin/services/menu/categories/order`
-		await patchAxios(url, data, dispatch)
-		if (!value) dispatch(isUpdateIndexCategoryItems(true))
+		const response = await patchAxios(url, data, dispatch)
+		if (!value && response) dispatch(isUpdateIndexCategoryItems(true))
 		dispatch(deleteCategoryItems(false))
 		dispatch(isUpdateIndexCategoryItems(false))
 	}

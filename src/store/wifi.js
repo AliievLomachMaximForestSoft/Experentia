@@ -14,31 +14,33 @@ export const getAllWiFis = () => async (dispatch) => {
 	dispatch(loadingWiFis(true))
 	const url = `${URL}/admin/settings/wifis`
 	const response = await getAxios(url, dispatch)
-	dispatch(getWiFis(response.data))
-	dispatch(isCreateWiFis(false))
-	dispatch(isUpdateWiFis(false))
-	dispatch(deleteWiFis(false))
+	if (response) {
+		dispatch(getWiFis(response.data))
+		dispatch(isCreateWiFis(false))
+		dispatch(isUpdateWiFis(false))
+		dispatch(deleteWiFis(false))
+	}
 	dispatch(loadingWiFis(false))
 }
 
 export const createWiFi = (data) => async (dispatch) => {
 	dispatch(loadingWiFis(true))
 	const url = `${URL}/admin/settings/wifis`
-	await postAxios(url, data, dispatch)
-	dispatch(isCreateWiFis(true))
+	const response = await postAxios(url, data, dispatch)
+	response && dispatch(isCreateWiFis(true))
 }
 
 export const updateWiFi = (data) => async (dispatch) => {
 	dispatch(loadingWiFis(true))
 	const url = `${URL}/admin/settings/wifi`
-	await putAxios(url, data, dispatch)
-	dispatch(isUpdateWiFis(true))
+	const response = await putAxios(url, data, dispatch)
+	response && dispatch(isUpdateWiFis(true))
 }
 
 export const dellWiFi = (id, message) => async (dispatch) => {
 	const url = `${URL}/admin/settings/wifi${id}`
-	await dellAxios(url, dispatch, message)
-	dispatch(deleteWiFis(true))
+	const response = await dellAxios(url, dispatch, message)
+	response && dispatch(deleteWiFis(true))
 }
 
 const loadingWiFis = (boolean) => ({

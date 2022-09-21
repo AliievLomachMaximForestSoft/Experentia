@@ -121,7 +121,7 @@ const AttractionsList = (props) => {
 									)
 								}}
 							>
-								<img src='/assets/action/edit.svg' alt='' />
+								<img src='/assets/action/Edit.svg' alt='' />
 							</Button>
 						</Col>
 						<Col>
