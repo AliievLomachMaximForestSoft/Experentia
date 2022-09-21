@@ -2,10 +2,9 @@ import React from 'react'
 import { Button, Modal, Row } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { dellService, indexDelItemService } from '../../../store/services'
 import { dellBooking } from '../../../store/bookings'
-import { dellUser } from '../../../store/users'
-import { useNavigate } from 'react-router'
 import { dellRoomType } from '../../../store/roomTypes'
 import { dellWiFi } from '../../../store/wifi'
 import { dellRoom } from '../../../store/rooms'
@@ -48,15 +47,12 @@ const ModalDelete = (props) => {
 		} else if (value === 'roomTypes') {
 			dispatch(dellRoomType(props.id, props.message))
 			props.setIndexDel(props.index)
-		} else if (value === 'user') {
-			dispatch(dellUser(props.id))
 		} else if (value === 'wifi') {
 			dispatch(dellWiFi(props.id, props.message))
 		} else if (value === 'room' || value === 'roomDetails') {
 			dispatch(dellRoom(props.id, props.message))
 			navigate('/hotelSettings/rooms')
 		} else if (value === 'sub') {
-			// dispatch(dellWiFi(props.id))
 			console.log('sub')
 		} else if (value === 'services' || value === 'servicesDetails') {
 			dispatch(dellService(props.id, props.message))

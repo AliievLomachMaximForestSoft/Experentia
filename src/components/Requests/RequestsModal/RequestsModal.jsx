@@ -18,6 +18,7 @@ import MapContainer from '../../UI Components/MapContainer/MapContainer'
 import { updateRequest } from '../../../store/socket'
 const { Step } = Steps
 const KEY = process.env.REACT_APP_MAPS_KEY
+const URL = process.env.REACT_APP_URL
 
 const RequestsModal = (props) => {
 	const { t, i18n } = useTranslation()
@@ -354,7 +355,10 @@ const RequestsModal = (props) => {
 											>
 												<Avatar
 													size={50}
-													icon={<img src={orderDetails.menuItem.image} />}
+													src={`${URL}/files/${orderDetails.menuItem.image.replaceAll(
+														'/',
+														'%2F'
+													)}`}
 												/>
 											</Badge>
 										</Col>

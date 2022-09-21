@@ -106,16 +106,6 @@ const Sider = () => {
 				}
 			}
 		})
-	// socket &&
-	// 	socket.on('updateMessage', (data) => {
-	// 		if (chatArrByUserId !== null) {
-	// 			const intermediateObjForChat = { ...chatArrByUserId }
-	// 			intermediateObjForChat[data.message.guest.ID][data.message.ID] =
-	// 				data.message
-	// 			dispatch(setChatArrByUserId(intermediateObjForChat))
-	// 			dispatch(isUpdateMess_(true))
-	// 		}
-	// 	})
 
 	useEffect(() => {
 		dispatch(getAllServices())
@@ -260,13 +250,13 @@ const Sider = () => {
 				getItem(`${t('sidebar.subscription')}`, 'hotelSettings/subscription'),
 			]
 		),
-		getItem(
-			`${t('sidebar.HowToUse')}`,
-			'howToUse',
-			<SideBarIcon
-				name={activeTab !== 'howToUse' ? 'HowToUse' : 'HowToUseActive'}
-			/>
-		),
+		// getItem(
+		// 	`${t('sidebar.HowToUse')}`,
+		// 	'howToUse',
+		// 	<SideBarIcon
+		// 		name={activeTab !== 'howToUse' ? 'HowToUse' : 'HowToUseActive'}
+		// 	/>
+		// ),
 	]
 
 	return (

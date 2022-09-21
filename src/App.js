@@ -38,7 +38,7 @@ import Attractions from './components/ServiceSettings/Attractions/Attractions'
 import AttractionsAddEdit from './components/ServiceSettings/Attractions/AttractionsAddEdit/AttractionsAddEdit'
 
 function App() {
-	const { isAuth } = useSelector((state) => state.login)
+	const { isAuth, status } = useSelector((state) => state.login)
 	const { isSubscription } = useSelector((state) => state.subscription)
 	const setStorage = !localStorage.getItem('remember')
 		? localStorage.setItem('remember', false)
@@ -50,7 +50,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path='*' element={<ErrorPage />} />
+				<Route path='*' element={<ErrorPage status={404} />} />
 
 				<Route path='forgot' element={<Forgot />} />
 				<Route path='newPassword' element={<NewPassword />} />
@@ -65,8 +65,10 @@ function App() {
 						) : localStorage.getItem('subscription') === 'false' ||
 						  isSubscription === 'first' ? (
 							<Subscription />
-						) : (
+						) : status === 200 ? (
 							<ContentPage />
+						) : (
+							<ErrorPage status={status} />
 						)
 					}
 				>

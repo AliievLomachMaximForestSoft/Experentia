@@ -26,8 +26,9 @@ export const socket_ = io(URL, {
 })
 //
 
-export const getAllRequests = (page = 1, pageSize = 30) => {
-	return async (dispatch) => {
+export const getAllRequests =
+	(page = 1, pageSize = 30) =>
+	async (dispatch) => {
 		dispatch(loadingRequests(true))
 		try {
 			socket_.emit('getServiceOrders', { page, take: pageSize }, (event) => {
@@ -41,61 +42,49 @@ export const getAllRequests = (page = 1, pageSize = 30) => {
 			dispatch(loadingRequests(false))
 		}
 	}
-}
 
-export const updateRequest = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingRequests(true))
-		const url = `${URL}/admin/services/order`
-		try {
-			socket_.emit('updateServiceOrder', data, (res) => {
-				dispatch(isUpdateRequests(true))
-				dispatch(loadingRequests(false))
-			})
-		} catch (error) {
-			console.log('error', error)
+export const updateRequest = (data) => async (dispatch) => {
+	dispatch(loadingRequests(true))
+	try {
+		socket_.emit('updateServiceOrder', data, () => {
+			dispatch(isUpdateRequests(true))
 			dispatch(loadingRequests(false))
-		}
+		})
+	} catch (error) {
+		console.log('error', error)
+		dispatch(loadingRequests(false))
 	}
 }
 
-export const dellRequest = (id) => {
-	return async (dispatch) => {
-		try {
-			socket_.emit('deleteServiceOrder', { id }, (res) => {
-				dispatch(deleteRequests(true))
-			})
-		} catch (error) {}
-	}
+export const dellRequest = (id) => async (dispatch) => {
+	try {
+		socket_.emit('deleteServiceOrder', { id }, () => {
+			dispatch(deleteRequests(true))
+		})
+	} catch (error) {}
 }
 
-export const getAllMess = (page = 1, pageSize = 1000) => {
-	return async (dispatch) => {
+export const getAllMess =
+	(page = 1, pageSize = 1000) =>
+	async (dispatch) => {
 		dispatch(loadingRequests(true))
 		try {
-			socket_.emit('getMessages', { page, limit: 1000 }, (event) => {
-				// socket_.emit('getMessages', {}, (event) => {
+			socket_.emit('getMessages', { page, limit: pageSize }, (event) => {
 				dispatch(getMess(event))
-				// dispatch(isUpdateRequests(false))
-				// dispatch(deleteRequests(false))
-				// dispatch(loadingRequests(false))
 			})
 		} catch (error) {
 			console.log('error', error)
 			dispatch(loadingRequests(false))
 		}
 	}
-}
 
-export const updateMess = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingRequests(true))
-		try {
-			socket_.emit('updateMessage', data)
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRequests(false))
-		}
+export const updateMess = (data) => async (dispatch) => {
+	dispatch(loadingRequests(true))
+	try {
+		socket_.emit('updateMessage', data)
+	} catch (error) {
+		console.log('error', error)
+		dispatch(loadingRequests(false))
 	}
 }
 
@@ -104,12 +93,10 @@ export const setSocket = (socket) => ({
 	payload: socket,
 })
 
-const loadingRequests = (boolean) => {
-	return {
-		type: LOADING_REQUESTS,
-		payload: boolean,
-	}
-}
+const loadingRequests = (boolean) => ({
+	type: LOADING_REQUESTS,
+	payload: boolean,
+})
 
 export const getRequests = (requests) => ({
 	type: GET_REQUESTS,

@@ -1,82 +1,43 @@
+import { getAxios, postAxios } from '../utils/axios'
+
 const USER_SUBSCRIPTION = 'USER_SUBSCRIPTION'
 const LOADING_SUBSCRIPTION = 'LOADING_SUBSCRIPTION'
 const SUBSCRIPTION_USER = 'SUBSCRIPTION_USER'
 const URL = process.env.REACT_APP_URL
 
-export const getSubscription = () => {
-	return async (dispatch) => {
-		dispatch(loadingSubscription(true))
-
-		const url = `${URL}/admin/property/last-subscription`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-			})
-				.then((response) => {
-					return response.json()
-				})
-				.then((response) => {
-					if (response.data === 'not found') {
-						dispatch(isSubscriptionUser('first'))
-						localStorage.setItem('subscription', false)
-						dispatch(loadingSubscription(false))
-					} else {
-						dispatch(subscriptionDetails(response))
-						dispatch(loadingSubscription(false))
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingSubscription(false))
-		}
+export const getSubscription = () => async (dispatch) => {
+	dispatch(loadingSubscription(true))
+	const url = `${URL}/admin/property/last-subscription`
+	const response = await getAxios(url, dispatch)
+	if (response.data === 'not found') {
+		dispatch(isSubscriptionUser('first'))
+		localStorage.setItem('subscription', false)
+		dispatch(loadingSubscription(false))
+	} else {
+		dispatch(subscriptionDetails(response.data))
+		dispatch(loadingSubscription(false))
 	}
 }
 
-export const setSubscriptionData = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingSubscription(true))
-		const url = `${URL}/admin/property/subscriptions`
-
-		try {
-			fetch(url, {
-				method: 'POST',
-				headers: {
-					accept: 'application/json',
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				body: JSON.stringify(data),
-			})
-				.then((response) => {
-					return response.json()
-				})
-				.then((response) => {
-					dispatch(subscriptionDetails(response))
-					dispatch(isSubscriptionUser(true))
-					localStorage.setItem('subscription', true)
-					dispatch(loadingSubscription(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingSubscription(false))
-		}
-	}
+export const setSubscriptionData = (data) => async (dispatch) => {
+	dispatch(loadingSubscription(true))
+	const url = `${URL}/admin/property/subscriptions`
+	const response = await postAxios(url, data, dispatch)
+	dispatch(subscriptionDetails(response.data))
+	dispatch(isSubscriptionUser(true))
+	localStorage.setItem('subscription', true)
+	dispatch(loadingSubscription(false))
 }
 
-export const loadingSubscription = (boolean) => {
-	return {
-		type: LOADING_SUBSCRIPTION,
-		payload: boolean,
-	}
-}
-export const isSubscriptionUser = (boolean) => {
-	return { type: SUBSCRIPTION_USER, payload: boolean }
-}
+export const loadingSubscription = (boolean) => ({
+	type: LOADING_SUBSCRIPTION,
+	payload: boolean,
+})
+
+export const isSubscriptionUser = (boolean) => ({
+	type: SUBSCRIPTION_USER,
+	payload: boolean,
+})
 
 const subscriptionDetails = (data) => ({
 	type: USER_SUBSCRIPTION,

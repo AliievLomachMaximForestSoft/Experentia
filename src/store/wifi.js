@@ -1,4 +1,4 @@
-import { authorizationToken } from '../utils/token'
+import { dellAxios, getAxios, postAxios, putAxios } from '../utils/axios'
 
 const GET_WIFIS = 'GET_WIFIS'
 const DELL_WIFIS = 'DELL_WIFIS'
@@ -10,140 +10,41 @@ const IS_UPDATE_WIFIS = 'IS_UPDATE_WIFIS'
 
 const URL = process.env.REACT_APP_URL
 
-export const getAllWiFis = () => {
-	return async (dispatch) => {
-		dispatch(loadingWiFis(true))
-		const url = `${URL}/admin/settings/wifis`
-
-		try {
-			fetch(url, {
-				method: 'GET',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => {
-					return res.json()
-				})
-				.then((wifi) => {
-					dispatch(getWiFis(wifi))
-
-					dispatch(isCreateWiFis(false))
-					dispatch(isUpdateWiFis(false))
-					dispatch(deleteWiFis(false))
-					dispatch(loadingWiFis(false))
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingWiFis(false))
-		}
-	}
+export const getAllWiFis = () => async (dispatch) => {
+	dispatch(loadingWiFis(true))
+	const url = `${URL}/admin/settings/wifis`
+	const response = await getAxios(url, dispatch)
+	dispatch(getWiFis(response.data))
+	dispatch(isCreateWiFis(false))
+	dispatch(isUpdateWiFis(false))
+	dispatch(deleteWiFis(false))
+	dispatch(loadingWiFis(false))
 }
 
-export const createWiFi = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingWiFis(true))
-		const url = `${URL}/admin/settings/wifis`
-
-		try {
-			const response = fetch(url, {
-				method: 'POST',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201)
-						dispatch(isCreateWiFis(true))
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errCreate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingWiFis(false))
-		}
-	}
+export const createWiFi = (data) => async (dispatch) => {
+	dispatch(loadingWiFis(true))
+	const url = `${URL}/admin/settings/wifis`
+	await postAxios(url, data, dispatch)
+	dispatch(isCreateWiFis(true))
 }
 
-export const updateWiFi = (data) => {
-	return async (dispatch) => {
-		dispatch(loadingWiFis(true))
-		const url = `${URL}/admin/settings/wifi`
-		try {
-			const response = fetch(url, {
-				method: 'PUT',
-				mode: 'cors',
-				headers: {
-					accept: 'application/json',
-					Authorization: `Bearer ${authorizationToken}`,
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(data),
-			})
-				.then((res) => {
-					if (res.status === 200 || res.status === 201) {
-						dispatch(isUpdateWiFis(true))
-					}
-					return res.json()
-				})
-				.then((res) => {
-					if (res.statusCode) {
-						console.log('errUpdate', res)
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingWiFis(false))
-		}
-	}
+export const updateWiFi = (data) => async (dispatch) => {
+	dispatch(loadingWiFis(true))
+	const url = `${URL}/admin/settings/wifi`
+	await putAxios(url, data, dispatch)
+	dispatch(isUpdateWiFis(true))
 }
 
-export const dellWiFi = (id, message) => {
-	return async (dispatch) => {
-		const url = `${URL}/admin/settings/wifi${id}`
-		try {
-			fetch(url, {
-				method: 'DELETE',
-				mode: 'cors',
-				headers: {
-					accept: '*/*',
-					Authorization: `Bearer ${authorizationToken}`,
-				},
-				credentials: 'include',
-			})
-				.then((res) => res.json())
-				.then((res) => {
-					if (res.statusCode === 500) {
-						message()
-					} else {
-						dispatch(deleteWiFis(true))
-					}
-				})
-		} catch (error) {
-			console.log('error', error)
-		}
-	}
+export const dellWiFi = (id, message) => async (dispatch) => {
+	const url = `${URL}/admin/settings/wifi${id}`
+	await dellAxios(url, dispatch, message)
+	dispatch(deleteWiFis(true))
 }
 
-const loadingWiFis = (boolean) => {
-	return {
-		type: LOADING_WIFIS,
-		payload: boolean,
-	}
-}
+const loadingWiFis = (boolean) => ({
+	type: LOADING_WIFIS,
+	payload: boolean,
+})
 
 const getWiFis = (wifis) => ({
 	type: GET_WIFIS,

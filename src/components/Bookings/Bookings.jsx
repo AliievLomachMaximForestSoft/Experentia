@@ -16,7 +16,7 @@ const Bookings = () => {
 			socket.emit(
 				'createServiceOrder',
 				{
-					created: '2022-09-15T18:00:43.884Z',
+					created: '2022-09-20T16:00:43.884Z',
 					status: 'New',
 					comment: 'string',
 					attachment: ['string'],
@@ -28,65 +28,65 @@ const Bookings = () => {
 						ID: 211,
 					},
 					propertyService: {
-						// ID: 47, //taxi
-						// ID: 14, //standart
-						ID: 81,
+						// ID: 150, //taxi
+						ID: 148, //standart
+						// ID: 147,
 					},
-					foodOrderHeader: {
-						orderTotal: 12,
-						itemTotal: 1,
-						totalTax: 2,
-						serviceCharge: 0,
-						tipAmount: 0,
-						foodOrderDetails: [
-							{
-								quantity: 3,
-								specialNotes: 'string',
-								menuItem: {
-									ID: 107,
-								},
-								foodOrderAddons: [
-									{
-										quantity: 1,
-										addon: {
-											ID: 101,
-										},
-									},
-									{
-										quantity: 3,
-										addon: {
-											ID: 100,
-										},
-									},
-								],
-							},
-							{
-								quantity: 6,
-								specialNotes: 'string',
-								menuItem: {
-									ID: 107,
-								},
-								foodOrderAddons: [
-									{
-										quantity: 1,
-										addon: {
-											ID: 99,
-										},
-									},
-								],
-							},
-						],
-					},
-					// serviceStandarts: [
-					// 	{
-					// 		ID: 55,
-					// 	},
-					// 	{
-					// 		ID: 56,
-					// 	},
-					// ],
+					// foodOrderHeader: {
+					// 	orderTotal: 12,
+					// 	itemTotal: 1,
+					// 	totalTax: 2,
+					// 	serviceCharge: 0,
+					// 	tipAmount: 0,
+					// 	foodOrderDetails: [
+					// 		{
+					// 			quantity: 3,
+					// 			specialNotes: 'string',
+					// 			menuItem: {
+					// 				ID: 137,
+					// 			},
+					// 			foodOrderAddons: [
+					// 				{
+					// 					quantity: 1,
+					// 					addon: {
+					// 						ID: 102,
+					// 					},
+					// 				},
+					// 				{
+					// 					quantity: 3,
+					// 					addon: {
+					// 						ID: 102,
+					// 					},
+					// 				},
+					// 			],
+					// 		},
+					// 		{
+					// 			quantity: 6,
+					// 			specialNotes: 'string',
+					// 			menuItem: {
+					// 				ID: 137,
+					// 			},
+					// 			foodOrderAddons: [
+					// 				{
+					// 					quantity: 1,
+					// 					addon: {
+					// 						ID: 102,
+					// 					},
+					// 				},
+					// 			],
+					// 		},
+					// 	],
+					// },
+					serviceStandarts: [
+						{
+							ID: 92,
+						},
+						{
+							ID: 91,
+						},
+					],
 					// taxiOrder: {
-					// 	created: '2022-09-02T07:40:43.884Z',
+					// 	created: '2022-09-20T16:00:43.884Z',
 					// 	accepted: '2022-09-02T07:40:43.884Z',
 					// 	completed: '2022-08-31T07:40:43.884Z',
 					// 	location: 'Cherkasy, Ukraine',
@@ -127,9 +127,9 @@ const Bookings = () => {
 		socket.emit(
 			'updateMessage',
 			{
-				ID: 713,
+				ID: 721,
 				isDelivered: true,
-				// isReaded: true,
+				isReaded: true,
 			},
 			(data) => {
 				console.log('dataUpdate', data)

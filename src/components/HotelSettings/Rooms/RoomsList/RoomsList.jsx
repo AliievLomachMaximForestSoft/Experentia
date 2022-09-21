@@ -241,6 +241,12 @@ const RoomsList = ({ searchText }) => {
 				return res.json()
 			})
 			.then((rooms) => {
+				rooms.items.sort((a, b) =>
+					a.roomNumber.localeCompare(b.roomNumber, undefined, {
+						numeric: true,
+						sensitivity: 'base',
+					})
+				)
 				setData(rooms)
 				setLoadingFilter(false)
 			})
