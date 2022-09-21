@@ -1,6 +1,6 @@
 {
 	"login": {
-		"mainTitle": "MAX",
+		"mainTitle": "Log in",
 		"mainTitleDescription": "Welcome! Enter your email and password below to login",
 		"placeholderForMail": "Enter email",
 		"placeholForPassword": "Enter password",
