@@ -2,6 +2,7 @@ import { setStatus } from '../store/login'
 const axios = require('axios')
 
 export const getAxios = async (url, dispatch) => {
+	console.log('test')
 	try {
 		const response = await axios.get(url, {
 			headers: {
