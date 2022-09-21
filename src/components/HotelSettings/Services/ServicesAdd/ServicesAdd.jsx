@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PageHeader, Breadcrumb } from 'antd'
+import { PageHeader, Breadcrumb, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router'
@@ -30,6 +30,8 @@ const ServicesAdd = () => {
 		isUpdateService,
 		deleteService,
 	} = useSelector((state) => state.services)
+
+	console.log('services :>> ', services)
 
 	const setIcon = (icon) => {
 		dispatch(sendIcon(icon))
@@ -74,10 +76,14 @@ const ServicesAdd = () => {
 				? services.length + 1
 				: 1,
 		}
+		const attr = _.find(services, ['serviceType', 'attraction'])
+
 		if (params.id) {
 			newService.ID = Number(params.id)
-			dispatch(updateService(newService))
-		} else {
+			if (data.serviceType === 'attraction' && attr) {
+				message.error(t('services.serviceCanNotBeCreated'))
+				return
+			}
 			dispatch(createService(newService))
 		}
 	}

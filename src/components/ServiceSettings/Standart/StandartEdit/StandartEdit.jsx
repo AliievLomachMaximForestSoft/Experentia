@@ -118,9 +118,9 @@ const StandartEdit = (props) => {
 										<InputNumber
 											style={{ width: 100 }}
 											addonAfter='$'
-											max={100}
+											max={1000}
 											min={0}
-											maxLength={3}
+											maxLength={4}
 											placeholder={0}
 										/>
 									</Form.Item>
@@ -164,7 +164,7 @@ const StandartEdit = (props) => {
 													type='primary'
 													// loading={props.isCreateProperty}
 												>
-													{t('modal.okText')}
+													{t('modal.saveText')}
 												</Button>
 											</Col>
 										</Row>

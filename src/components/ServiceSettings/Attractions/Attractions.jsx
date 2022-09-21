@@ -13,7 +13,7 @@ const Attractions = () => {
 	const { name, id } = useParams()
 	const dispatch = useDispatch()
 	const { attractions } = useSelector((state) => state.settingsAttractionsType)
-
+	console.log('attractions :>> ', attractions)
 	useEffect(() => {
 		dispatch(getAllAttractions())
 	}, [])
