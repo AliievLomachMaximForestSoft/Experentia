@@ -199,7 +199,14 @@
 		"placeholderForAddonName": "Enter name",
 		"placeholderForDescription": "Describe the ingredients",
 		"placeholderForName": "Dish name",
-		"placeholderForAddons": "Enter name"
+		"placeholderForAddons": "Enter name",
+
+		"dellDishTitle": "Are you sure delete this menu item?",
+		"dellDishContent": "All data will be deleted and you will not be able to recover it",
+		"dellDishSucces": "Menu item deleted!",
+		"createdDishSucces": "Created a new menu item!",
+		"updateDishSuccess": "Menu item updated!",
+		"indexUpdateSucces": "Index updated successfully!"
 	},
 
 	"attractions": {
@@ -451,6 +458,8 @@
 		"created": "Created",
 		"updateServicesSuccess": "Service updated!",
 		"updated": "Updated",
+		"serviceCanNotBeChanged": "Service can not be changed",
+		"serviceCanNotBeCreated": "Service can not be created",
 
 		"indexUpdateSucces": "Index updated successfully!"
 	},
@@ -510,7 +519,7 @@
 
 		"searchEnterButton": "Search",
 		"resetEnterButton": "Reset",
-		"BackHome": "Back "
+		"BackHome": "Back Home"
 	},
 
 	"pagination": {
@@ -540,21 +549,7 @@
 		"tooltipNo": "No",
 		"tooltipNoText": "Not possibility to choose"
 	},
-	"errors": {
-		"404": {
-			"text": "Sorry, we couldn`t find that page."
-		},
-		"403": {
-			"text": "Sorry, we couldn`t find that page."
-		},
-		"401": {
-			"text": "You are not authorized."
-		},
-		"409": {
-			"text": "It is impossible delete this item because it contain others items"
-		},
-		"some": {
-			"text": "Cloud server configuration takes 1-5 minutes, please wait."
-		}
+	"404": {
+		"text": "Sorry, we couldn`t find that page."
 	}
 }

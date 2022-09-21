@@ -98,11 +98,11 @@ const AddonsAdd = () => {
 									label={t('settings.addons.titleForPrice')}
 								>
 									<InputNumber
-										style={{ width: 100 }}
+										style={{ width: 1000 }}
 										addonAfter='$'
-										max={100}
+										max={1000}
 										min={0}
-										maxLength={3}
+										maxLength={4}
 										placeholder={0}
 									/>
 								</Form.Item>

@@ -185,24 +185,24 @@ const CategoryDishesList = (props) => {
 
 	useEffect(() => {
 		if (deleteMenuItems) {
-			message.success(`${t('standart.dellStandartSucces')}`)
+			message.success(`${t('dish.dellDishSucces')}`)
 			dispatch(getAllMenuItems(props.id))
 		}
 		if (isUpdateMenuItems) {
 			message.success({
-				content: `${t('standart.updateStandartSuccess')}`,
+				content: `${t('dish.updateDishSuccess')}`,
 			})
 			dispatch(getAllMenuItems(props.id))
 		}
 		if (isCreateMenuItems) {
 			message.success({
-				content: `${t('standart.createdStandartSucces')}`,
+				content: `${t('dish.createdDishSucces')}`,
 			})
 			dispatch(getAllMenuItems(props.id))
 		}
 		if (isUpdateIndexMenuItems) {
 			message.success({
-				content: `${t('standart.indexUpdateSucces')}`,
+				content: `${t('dish.indexUpdateSucces')}`,
 			})
 		}
 	}, [
