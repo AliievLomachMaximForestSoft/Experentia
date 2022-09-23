@@ -59,7 +59,6 @@ export const updateIndexAttractionIndex = (data, value) => async (dispatch) => {
 	const response = await patchAxios(url, data, dispatch)
 	if (!value && response) dispatch(isUpdateIndexAttractions(true))
 	dispatch(deleteAttractions(false))
-	dispatch(isUpdateIndexAttractions(false))
 }
 
 export const sendGaleryAttraction =
@@ -136,7 +135,7 @@ const isUpdateAttraction = (isUpdateAttraction) => ({
 	payload: isUpdateAttraction,
 })
 
-const isUpdateIndexAttractions = (Attractions) => ({
+export const isUpdateIndexAttractions = (Attractions) => ({
 	type: IS_UPDATE_INDEX_ATTRACTIONS,
 	payload: Attractions,
 })
@@ -165,7 +164,7 @@ const InitialState = {
 	isUpdateAttractions: false,
 	isCreateAttractions: false,
 	loading: false,
-	isUpdateIndexAttractions: false,
+	indexAttractions: false,
 	loadImage: false,
 	indexDelItem: null,
 }
@@ -183,7 +182,7 @@ export const attractionsReducer = (state = InitialState, action) => {
 		case IS_UPDATE_INDEX_ATTRACTIONS:
 			return {
 				...state,
-				isUpdateIndexAttractions: action.payload,
+				indexAttractions: action.payload,
 				loading: false,
 			}
 		case IS_CREATE_UPDATE_ITEM:
