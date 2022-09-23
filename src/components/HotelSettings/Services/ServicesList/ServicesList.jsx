@@ -230,7 +230,7 @@ const ServicesList = () => {
 			message.success(`${t('services.indexUpdateSucces')}`)
 		}
 	}, [isUpdateIndexServices])
-	console.log('services', services)
+
 	return !loading ? (
 		services && services.length > 0 ? (
 			<ConfigProvider renderEmpty={customizeRenderEmpty}>

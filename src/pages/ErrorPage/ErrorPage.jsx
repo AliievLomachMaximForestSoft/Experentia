@@ -46,7 +46,7 @@ const ErrorPage = ({ status }) => {
 							type='primary'
 							onClick={() => {
 								dispatch(setStatus(200))
-								navigate(-1)
+								navigate(-1 || '/')
 							}}
 						>
 							{`${t('button.BackHome')}`}

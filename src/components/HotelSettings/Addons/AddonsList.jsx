@@ -90,7 +90,7 @@ const AddonsList = () => {
 			dispatch(getAllAddons())
 		}
 	}, [deleteAddons, isCreateAddons, isUpdateAddons])
-	console.log('addons', addons)
+	
 	return !loading ? (
 		addons.items ? (
 			<ConfigProvider renderEmpty={customizeRenderEmpty} locale={local}>

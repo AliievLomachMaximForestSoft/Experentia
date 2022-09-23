@@ -33,7 +33,6 @@ const ServicesEditUI = (props) => {
 	useEffect(() => {
 		props.setServiceDatails(props.serviceDetails)
 	}, [])
-	console.log('props.serviceDetails', props.serviceDetails)
 
 	useEffect(() => {
 		if (props.id) {

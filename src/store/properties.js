@@ -44,7 +44,7 @@ export const updateProperties = (data) => async (dispatch) => {
 }
 
 export const sendGalery = (galery) => async (dispatch) => {
-	const url = `${URL}/admin/servicemaster/upload/icon`
+	const url = `${URL}/admin/property/images`
 	let count = 0
 	let arrLink = []
 	let data = []
@@ -74,7 +74,7 @@ export const sendGalery = (galery) => async (dispatch) => {
 }
 
 export const sendLogo = (icon) => async (dispatch) => {
-	const url = `${URL}/admin/servicemaster/upload/icon`
+	const url = `${URL}/admin/property/images`
 	const data = new FormData()
 	data.append('file', icon)
 	const response = await postAxios(url, data, dispatch)

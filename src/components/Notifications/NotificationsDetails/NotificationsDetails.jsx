@@ -18,8 +18,6 @@ const NotificationDetails = (props) => {
 		setIsModalVisible(false)
 	}
 
-	console.log('props', props)
-
 	return (
 		<>
 			<Button style={{ padding: 0 }} type='text' onClick={() => show()}>

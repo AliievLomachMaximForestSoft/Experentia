@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import './App.less'
@@ -40,24 +40,20 @@ import AttractionsAddEdit from './components/ServiceSettings/Attractions/Attract
 function App() {
 	const { isAuth, status } = useSelector((state) => state.login)
 	const { isSubscription } = useSelector((state) => state.subscription)
-	const setStorage = !localStorage.getItem('remember')
-		? localStorage.setItem('remember', false)
-		: null
-	const setSubscription = !localStorage.getItem('subscription')
-		? localStorage.setItem('subscription', false)
-		: null
+	!localStorage.getItem('remember') && localStorage.setItem('remember', false)
+
+	!localStorage.getItem('subscription') &&
+		localStorage.setItem('subscription', false)
+
+	useEffect(() => {}, [localStorage.getItem('subscription')])
 
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path='*' element={<ErrorPage status={404} />} />
-
 				<Route path='forgot' element={<Forgot />} />
 				<Route path='newPassword' element={<NewPassword />} />
 				<Route path='info' element={<InfoLinkEmail />} />
-
-				{/* <Route element={<LoginPage />}> */}
-
 				<Route
 					element={
 						!isAuth && localStorage.getItem('remember') === 'false' ? (

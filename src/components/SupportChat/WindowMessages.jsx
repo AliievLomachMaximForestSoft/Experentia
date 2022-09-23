@@ -66,8 +66,6 @@ const WindowMessages = () => {
 
 	socket &&
 		socket.on('updateMessage', (data) => {
-			console.log('data', data)
-
 			if (chatArrByUserId) {
 				const intermediateObjForChat = { ...chatArrByUserId }
 				intermediateObjForChat[data.message.guest.ID].map((elem, index) => {

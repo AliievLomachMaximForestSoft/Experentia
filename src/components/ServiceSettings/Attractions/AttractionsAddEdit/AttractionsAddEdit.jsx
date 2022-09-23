@@ -143,8 +143,6 @@ const AttractionsAddEdit = () => {
 				lat: lat,
 				lng: lng,
 			}
-			console.log('galery.length', galery.length)
-			console.log('attractionsItem.galery', attractionsItem.gallery)
 			galery.length === 0
 				? dispatch(
 						sendGaleryAttraction(newData, attractionsItem.gallery, 'edit')
@@ -152,7 +150,8 @@ const AttractionsAddEdit = () => {
 				: dispatch(sendGaleryAttraction(newData, galery, 'edit'))
 		}
 	}
-
+	console.log('subName', subName)
+	console.log('type', type)
 	return (
 		<>
 			<PageHeader

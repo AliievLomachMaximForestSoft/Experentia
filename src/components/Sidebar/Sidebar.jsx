@@ -14,6 +14,7 @@ import {
 	setChatArrByUserId,
 	setCountUnreadMess,
 } from '../../store/socket'
+import { setStatus } from '../../store/login'
 
 function getItem(label, key, icon, children, type) {
 	if (label === 'Service Settings' && children.length === 0) {
@@ -70,11 +71,11 @@ const Sider = () => {
 		})
 	socket &&
 		socket.on('error', (data) => {
-			console.log('error', data)
+			dispatch(setStatus(data.status))
 		})
 	socket &&
 		socket.on('exception', (data) => {
-			console.log('exception', data)
+			dispatch(setStatus(data.status))
 		})
 	socket &&
 		socket.on('createMessage', (data) => {
