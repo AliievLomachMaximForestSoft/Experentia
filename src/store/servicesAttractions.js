@@ -14,6 +14,7 @@ const LOADING_ATTRACTIONS = 'LOADING_ATTRACTIONS'
 const SET_GALERY_URL = 'SET_GALERY_URL'
 const LOADING_IMAGE = 'LOADING_IMAGE'
 const IS_UPLOAD_GALERY = 'IS_UPLOAD_GALERY'
+const INDEX_DEL_ATTRACTION = 'INDEX_DEL_ATTRACTION'
 
 const URL = process.env.REACT_APP_URL
 
@@ -150,6 +151,11 @@ const loadImage = (bool) => ({
 	payload: bool,
 })
 
+export const indexDelItemAttraction = (index) => ({
+	type: INDEX_DEL_ATTRACTION,
+	payload: index,
+})
+
 const InitialState = {
 	attractions: '',
 	attractionsSearch: '',
@@ -161,10 +167,13 @@ const InitialState = {
 	loading: false,
 	isUpdateIndexAttractions: false,
 	loadImage: false,
+	indexDelItem: null,
 }
 
 export const attractionsReducer = (state = InitialState, action) => {
 	switch (action.type) {
+		case INDEX_DEL_ATTRACTION:
+			return { ...state, indexDelItem: action.payload }
 		case GET_ATTRACTIONS:
 			return { ...state, attractions: action.payload, loading: false }
 		case DELL_ATTRACTIONS:

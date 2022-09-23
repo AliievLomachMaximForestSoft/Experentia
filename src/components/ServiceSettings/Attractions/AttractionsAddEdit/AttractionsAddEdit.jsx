@@ -20,6 +20,7 @@ import TextArea from 'antd/lib/input/TextArea'
 import { PlacesAutocomplete } from '../../../UI Components/MapContainer/Autocomplete'
 import MapContainer from '../../../UI Components/MapContainer/MapContainer'
 import { sendGaleryAttraction } from '../../../../store/servicesAttractions'
+import ModalDelete from '../../../UI Components/Modal/ModalDelete'
 
 const KEY = process.env.REACT_APP_MAPS_KEY
 
@@ -34,6 +35,7 @@ const AttractionsAddEdit = () => {
 	const [lng, setLng] = useState()
 	const [galery, setGalery] = useState([])
 	const [attractionsItem, setAttractionsItem] = useState()
+	const [indexDel, setIndexDel] = useState(null)
 
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
@@ -66,6 +68,7 @@ const AttractionsAddEdit = () => {
 
 	useEffect(() => {
 		if (isUpdateAttractions || isCreateAttractions) {
+			console.log('asdasdasdas')
 			navigate(-1)
 		}
 	}, [isCreateAttractions, isUpdateAttractions])
@@ -74,6 +77,7 @@ const AttractionsAddEdit = () => {
 		if (type === 'edit') {
 			attractions.map((item) => {
 				if (item.ID === Number(id)) {
+					setIndexDel(item.index)
 					setAttractionsItem(item)
 					setAddress(item.address)
 					setCity({ lat: item.lat, lng: item.lng })
@@ -174,8 +178,21 @@ const AttractionsAddEdit = () => {
 				}
 			></PageHeader>
 			<Content style={{ backgroundColor: '#F5F5F5' }}>
-				<Content style={{ margin: 24, backgroundColor: 'white' }}>
+				<Content
+					style={{ margin: 24, backgroundColor: 'white', position: 'relative' }}
+				>
 					<Row style={{ padding: '24px 0' }}>
+						<Row style={{ position: 'absolute', right: '15px', top: '10px' }}>
+							{type === 'edit' ? (
+								<ModalDelete
+									id={Number(id)}
+									index={indexDel}
+									value='attractionDetails'
+									title={`${t('attractions.dellAttractionTitle')}`}
+									content={`${t('attractions.dellAttractionContent')}`}
+								/>
+							) : null}
+						</Row>
 						<Col span={10} offset={7}>
 							<Form
 								colon={true}

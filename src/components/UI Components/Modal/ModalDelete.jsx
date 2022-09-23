@@ -13,10 +13,15 @@ import { dellAddon } from '../../../store/addons'
 import { dellNotification } from '../../../store/notification'
 import { dellCategoryItem } from '../../../store/servicesMenuType'
 import { dellStandartItem } from '../../../store/servicesStandartType'
-import { dellMenuItem } from '../../../store/servicesMenuTypeItems'
-import { dellAttraction } from '../../../store/servicesAttractions'
+import {
+	dellMenuItem,
+	indexDelItemMenuItem,
+} from '../../../store/servicesMenuTypeItems'
+import {
+	dellAttraction,
+	indexDelItemAttraction,
+} from '../../../store/servicesAttractions'
 import { dellRequest } from '../../../store/socket'
-import { indexDelItem } from '../../../store/categoryDishes'
 
 const ModalDelete = (props) => {
 	const { t } = useTranslation()
@@ -77,11 +82,12 @@ const ModalDelete = (props) => {
 			dispatch(dellStandartItem(props.id, props.message))
 		} else if (value === 'dish' || value === 'dishDetails') {
 			dispatch(dellMenuItem(props.id, props.message))
-			dispatch(indexDelItem(props.index))
+			dispatch(indexDelItemMenuItem(props.index))
 			value === 'dishDetails' && navigate(-1)
 		} else if (value === 'attraction' || value === 'attractionDetails') {
-			props.setIndexDel(props.index)
 			dispatch(dellAttraction(props.id, props.message))
+			dispatch(indexDelItemAttraction(props.index))
+			value === 'attractionDetails' && navigate(-1)
 		} else {
 			return ''
 		}
@@ -95,7 +101,8 @@ const ModalDelete = (props) => {
 					props.value === 'propertyDatails' ||
 					props.value === 'bookingsDetails' ||
 					props.value === 'roomDetails' ||
-					props.value === 'dishDetails'
+					props.value === 'dishDetails' ||
+					props.value === 'attractionDetails'
 						? { margin: '24px 24px 0' }
 						: props.value === 'sub'
 						? {}
@@ -107,7 +114,8 @@ const ModalDelete = (props) => {
 					props.value === 'bookingsDetails' ||
 					props.value === 'sub' ||
 					props.value === 'roomDetails' ||
-					props.value === 'dishDetails'
+					props.value === 'dishDetails' ||
+					props.value === 'attractionDetails'
 						? true
 						: false
 				}
@@ -117,7 +125,8 @@ const ModalDelete = (props) => {
 					props.value === 'bookingsDetails' ||
 					props.value === 'sub' ||
 					props.value === 'roomDetails' ||
-					props.value === 'dishDetails'
+					props.value === 'dishDetails' ||
+					props.value === 'attractionDetails'
 						? 'default'
 						: 'text'
 				}
@@ -131,7 +140,8 @@ const ModalDelete = (props) => {
 								props.value === 'propertyDatails' ||
 								props.value === 'bookingsDetails' ||
 								props.value === 'roomDetails' ||
-								props.value === 'dishDetails'
+								props.value === 'dishDetails' ||
+								props.value === 'attractionDetails'
 									? { width: 14, marginRight: 10 }
 									: {}
 							}
@@ -143,7 +153,8 @@ const ModalDelete = (props) => {
 					props.value === 'propertyDatails' ||
 					props.value === 'bookingsDetails' ||
 					props.value === 'roomDetails' ||
-					props.value === 'dishDetails'
+					props.value === 'dishDetails' ||
+					props.value === 'attractionDetails'
 						? `${t('button.titleForDell')}`
 						: props.value === 'sub'
 						? `${t('settings.subscription.cancelSubscription')}`
