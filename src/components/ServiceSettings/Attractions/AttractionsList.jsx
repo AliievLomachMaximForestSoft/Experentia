@@ -20,6 +20,7 @@ import AttractionsDetails from './AttractionsDetails/AttractionsDetails'
 import {
 	getAllAttractions,
 	updateIndexAttractionIndex,
+	isUpdateIndexAttractions,
 } from '../../../store/servicesAttractions'
 const URL = process.env.REACT_APP_URL
 
@@ -34,7 +35,7 @@ const AttractionsList = (props) => {
 		deleteAttractions,
 		isUpdateAttractions,
 		isCreateAttractions,
-		isUpdateIndexAttractions,
+		indexAttractions,
 		loading,
 		indexDelItem,
 	} = useSelector((state) => state.settingsAttractionsType)
@@ -157,16 +158,17 @@ const AttractionsList = (props) => {
 			})
 			dispatch(getAllAttractions(props.id))
 		}
-		if (isUpdateIndexAttractions) {
+		if (indexAttractions) {
 			message.success({
 				content: `${t('attractions.indexUpdateSucces')}`,
 			})
+			dispatch(isUpdateIndexAttractions(false))
 		}
 	}, [
 		deleteAttractions,
 		isCreateAttractions,
 		isUpdateAttractions,
-		isUpdateIndexAttractions,
+		indexAttractions,
 	])
 
 	useEffect(() => {

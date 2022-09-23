@@ -19,7 +19,11 @@ import {
 	SortableHandle,
 } from 'react-sortable-hoc'
 import SkeletonUI from '../../../UI Components/Skeleton/SkeletonUI'
-import { getAllServices, updateIndexServices } from '../../../../store/services'
+import {
+	getAllServices,
+	isUpdateIndexServices,
+	updateIndexServices,
+} from '../../../../store/services'
 import EmptyState, {
 	customizeRenderEmpty,
 } from '../../../UI Components/EmptyState/EmptyState'
@@ -41,7 +45,7 @@ const ServicesList = () => {
 		deleteService,
 		isCreateService,
 		isUpdateService,
-		isUpdateIndexServices,
+		indexServices,
 		indexDelItem,
 	} = useSelector((state) => state.services)
 	const { local } = useSelector((state) => state.local)
@@ -221,15 +225,16 @@ const ServicesList = () => {
 				if (services[i].index >= indexDelItem)
 					services[i].index = services[i].index - 1
 			}
-			dispatch(updateIndexServices(services, 'delete'))
+			dispatch(isUpdateIndexServices(services, 'delete'))
 		}
 	}, [services])
 
 	useEffect(() => {
-		if (isUpdateIndexServices) {
+		if (indexServices) {
 			message.success(`${t('services.indexUpdateSucces')}`)
 		}
-	}, [isUpdateIndexServices])
+		dispatch(isUpdateIndexServices(false))
+	}, [indexServices])
 
 	return !loading ? (
 		services && services.length > 0 ? (

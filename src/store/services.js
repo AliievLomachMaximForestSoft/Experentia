@@ -57,10 +57,13 @@ export const updateService = (data) => async (dispatch) => {
 export const updateIndexServices = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/property/services/order`
 	const response = await patchAxios(url, data, dispatch)
-	if (!value) dispatch(isUpdateIndexServices(true))
-	dispatch(getServices(response.data))
-	dispatch(isUpdateIndexServices(false))
-	dispatch(deleteService(false))
+	if (response) {
+		if (!value) {
+			dispatch(isUpdateIndexServices(true))
+		}
+		dispatch(getServices(response.data))
+		dispatch(deleteService(false))
+	}
 }
 
 export const sendBackground = (background) => async (dispatch) => {
@@ -160,7 +163,7 @@ const isUpdateService = (isUpdateService) => ({
 	payload: isUpdateService,
 })
 
-const isUpdateIndexServices = (service) => ({
+export const isUpdateIndexServices = (service) => ({
 	type: IS_UPDATE_INDEX_SERVICES,
 	payload: service,
 })
@@ -188,7 +191,7 @@ const InitialState = {
 	deleteService: false,
 	isCreateService: false,
 	isUpdateService: false,
-	isUpdateIndexServices: false,
+	indexServices: false,
 	loading: false,
 	loadingDetails: false,
 	loadingIcon: false,
@@ -221,7 +224,7 @@ export const servicesReducer = (state = InitialState, action) => {
 		case IS_UPDATE_INDEX_SERVICES:
 			return {
 				...state,
-				isUpdateIndexServices: action.payload,
+				indexServices: action.payload,
 				loading: false,
 			}
 		case LOADING_SERVOCES:
