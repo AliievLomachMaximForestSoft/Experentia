@@ -11,6 +11,7 @@ const DELL_MENU_ITEM = 'DELL_MENU_ITEM'
 const IS_CREATE_MENU_ITEM = 'IS_CREATE_MENU_ITEM'
 const IS_UPDATE_MENU_ITEM = 'IS_UPDATE_MENU_ITEM'
 const IS_UPDATE_INDEX_MENU_ITEMS = 'IS_UPDATE_INDEX_MENU_ITEMS'
+const INDEX_DEL_MENU_ITEM = 'INDEX_DEL_MENU_ITEM'
 
 const URL = process.env.REACT_APP_URL
 
@@ -110,6 +111,11 @@ const isUpdateIndexMenuItem = (items) => ({
 	payload: items,
 })
 
+export const indexDelItemMenuItem = (index) => ({
+	type: INDEX_DEL_MENU_ITEM,
+	payload: index,
+})
+
 const InitialState = {
 	menuItems: '',
 	deleteMenuItems: false,
@@ -117,10 +123,13 @@ const InitialState = {
 	isUpdateMenuItems: false,
 	isUpdateIndexMenuItems: false,
 	loading: false,
+	indexDelItem: null,
 }
 
 export const categoryMenuItemsReducer = (state = InitialState, action) => {
 	switch (action.type) {
+		case INDEX_DEL_MENU_ITEM:
+			return { ...state, indexDelItem: action.payload }
 		case GET_MENU_ITEMS:
 			return { ...state, menuItems: action.payload, loading: false }
 		case DELL_MENU_ITEM:

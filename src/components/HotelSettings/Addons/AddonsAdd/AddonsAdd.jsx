@@ -98,7 +98,7 @@ const AddonsAdd = () => {
 									label={t('settings.addons.titleForPrice')}
 								>
 									<InputNumber
-										style={{ width: 1000 }}
+										style={{ width: 100 }}
 										addonAfter='$'
 										max={1000}
 										min={0}

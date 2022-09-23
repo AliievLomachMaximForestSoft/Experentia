@@ -31,7 +31,7 @@ const Attractions = () => {
 				extra={
 					<AddButton
 						data={'attraction'}
-						navigate={`/serviceSettings/${name}/${id}/attraction/add`}
+						navigate={`/serviceSettings/${name}/${id}/attraction/add/new`}
 					/>
 				}
 			></PageHeader>

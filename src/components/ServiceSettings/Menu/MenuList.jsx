@@ -44,6 +44,7 @@ const MenuList = (props) => {
 		)
 	})
 
+	console.log('categoryItems :>> ', categoryItems)
 	const SortableItem = SortableElement((props) => <tr {...props} />)
 	const SortableBody = SortableContainer((props) => <tbody {...props} />)
 

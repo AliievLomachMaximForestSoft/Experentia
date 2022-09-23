@@ -89,7 +89,7 @@ function App() {
 						element={<Attractions />}
 					/>
 					<Route
-						path='serviceSettings/:name/:id/attraction/:type'
+						path='serviceSettings/:name/:id/attraction/:type/new'
 						element={<AttractionsAddEdit />}
 					/>
 					<Route

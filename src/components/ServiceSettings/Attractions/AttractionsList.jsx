@@ -27,7 +27,6 @@ const AttractionsList = (props) => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const [data, setData] = useState([])
-	const [indexDel, setIndexDel] = useState()
 
 	const navigate = useNavigate()
 
@@ -37,6 +36,7 @@ const AttractionsList = (props) => {
 		isCreateAttractions,
 		isUpdateIndexAttractions,
 		loading,
+		indexDelItem,
 	} = useSelector((state) => state.settingsAttractionsType)
 
 	const messageErr = () => {
@@ -126,7 +126,6 @@ const AttractionsList = (props) => {
 						</Col>
 						<Col>
 							<ModalDelete
-								setIndexDel={setIndexDel}
 								id={record.ID}
 								index={record.index}
 								message={messageErr}
@@ -177,7 +176,7 @@ const AttractionsList = (props) => {
 
 		if (deleteAttractions) {
 			for (let i = 0; i < props.attractions.length; i++) {
-				if (props.attractions[i].index >= indexDel)
+				if (props.attractions[i].index >= indexDelItem)
 					props.attractions[i].index = props.attractions[i].index - 1
 			}
 			dispatch(
