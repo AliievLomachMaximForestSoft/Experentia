@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client'
+import { setStatus } from './login'
 
 const SET_SOCKET = 'SET_SOCKET'
 const SET_COUNT_UNREAD_MESS = 'SET_COUNT_UNREAD_MESS'
@@ -30,62 +31,42 @@ export const getAllRequests =
 	(page = 1, pageSize = 30) =>
 	async (dispatch) => {
 		dispatch(loadingRequests(true))
-		try {
-			socket_.emit('getServiceOrders', { page, take: pageSize }, (event) => {
-				dispatch(getRequests(event))
-				dispatch(isUpdateRequests(false))
-				dispatch(deleteRequests(false))
-				dispatch(loadingRequests(false))
-			})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRequests(false))
-		}
+		socket_.emit('getServiceOrders', { page, take: pageSize }, (event) => {
+			dispatch(getRequests(event))
+			dispatch(isUpdateRequests(false))
+			dispatch(deleteRequests(false))
+		})
+		dispatch(loadingRequests(false))
 	}
 
 export const updateRequest = (data) => async (dispatch) => {
 	dispatch(loadingRequests(true))
-	try {
-		socket_.emit('updateServiceOrder', data, () => {
-			dispatch(isUpdateRequests(true))
-			dispatch(loadingRequests(false))
-		})
-	} catch (error) {
-		console.log('error', error)
-		dispatch(loadingRequests(false))
-	}
+	socket_.emit('updateServiceOrder', data, () => {
+		dispatch(isUpdateRequests(true))
+	})
+	dispatch(loadingRequests(false))
 }
 
 export const dellRequest = (id) => async (dispatch) => {
-	try {
-		socket_.emit('deleteServiceOrder', { id }, () => {
-			dispatch(deleteRequests(true))
-		})
-	} catch (error) {}
+	socket_.emit('deleteServiceOrder', { id }, () => {
+		dispatch(deleteRequests(true))
+	})
 }
 
 export const getAllMess =
 	(page = 1, pageSize = 1000) =>
 	async (dispatch) => {
 		dispatch(loadingRequests(true))
-		try {
-			socket_.emit('getMessages', { page, limit: pageSize }, (event) => {
-				dispatch(getMess(event))
-			})
-		} catch (error) {
-			console.log('error', error)
-			dispatch(loadingRequests(false))
-		}
+		socket_.emit('getMessages', { page, limit: pageSize }, (event) => {
+			dispatch(getMess(event))
+		})
+		dispatch(loadingRequests(false))
 	}
 
 export const updateMess = (data) => async (dispatch) => {
 	dispatch(loadingRequests(true))
-	try {
-		socket_.emit('updateMessage', data)
-	} catch (error) {
-		console.log('error', error)
-		dispatch(loadingRequests(false))
-	}
+	socket_.emit('updateMessage', data)
+	dispatch(loadingRequests(false))
 }
 
 export const setSocket = (socket) => ({

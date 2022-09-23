@@ -381,7 +381,14 @@
 			"dellSubSucces": "वाई-फ़ाई स्पॉट हटाया गया!",
 
 			"createdSubSucces": "एक नया वाई-फाई स्थान बनाया!",
-			"updateSubSuccess": "वाई-फ़ाई स्पॉट अपडेट किया गया!"
+			"updateSubSuccess": "वाई-फ़ाई स्पॉट अपडेट किया गया!",
+
+			"currentSubscription": "आपकी वर्तमान सदस्यता",
+			"Month": "महीना",
+			"Year": "साल",
+			"NextBillDate": "अगली बिल तिथि",
+			"Active": "सक्रिय",
+			"rooms": "कमरा"
 		},
 		"notification": {
 			"addPlsGallery": "गैलरी में कृपया फोटो जोड़ें",

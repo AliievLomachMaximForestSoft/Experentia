@@ -1,9 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
-import { Button, Card, Col, Row, Tag, Typography } from 'antd'
+import { Card, Col, Row, Tag, Typography } from 'antd'
 import ModalDelete from '../../UI Components/Modal/ModalDelete'
-import { useSelector } from 'react-redux'
 
 const SubscriptionContent = (props) => {
 	const { t } = useTranslation()
@@ -12,7 +12,9 @@ const SubscriptionContent = (props) => {
 
 	return (
 		<>
-			<Typography.Title level={2}>Your current subscription</Typography.Title>
+			<Typography.Title level={2}>
+				{t('settings.subscription.currentSubscription')}
+			</Typography.Title>
 			<Card
 				style={{
 					marginTop: 16,
@@ -23,18 +25,21 @@ const SubscriptionContent = (props) => {
 			>
 				<Typography.Title level={3}>
 					{`${
-						props.subscriptionDetails.planType === 'month' ? '1Month' : '1Year'
+						props.subscriptionDetails.planType === 'month'
+							? `1 ${t('settings.subscription.Month')}`
+							: `1 $${t('settings.subscription.Year')}`
 					}`}
 					: ${props.subscriptionDetails.paidAmaunt}
 				</Typography.Title>
 				<Typography.Text>
-					{props.subscriptionDetails.numberOfRooms} rooms
+					{props.subscriptionDetails.numberOfRooms}{' '}
+					{t('settings.subscription.rooms')}
 				</Typography.Text>
 				<Row justify='space-between' style={{ marginTop: 14 }} align='middle'>
 					<Col>
-						<Tag color='green'>Active</Tag>
+						<Tag color='green'>{t('settings.subscription.Active')}</Tag>
 						<Typography.Text>
-							Next bill date{' '}
+							{`${t('settings.subscription.NextBillDate')}: `}
 							{moment(props.subscriptionDetails.toDate).format('DD.MM.YYYY')}
 						</Typography.Text>
 					</Col>

@@ -32,7 +32,7 @@ export const loginUser = (data) => async (dispatch) => {
 
 export const sendEmail = (data) => async (dispatch) => {
 	dispatch(loadingLogin(true))
-	const url = `${URL}/auth/superadmin/forgot/password?email=${data.email}`
+	const url = `${URL}/auth/admin/forgot/password?email=${data.email}`
 	const response = await getAxios(url, dispatch)
 	response && dispatch(sendingSuccess(true))
 	dispatch(loadingLogin(false))
@@ -44,7 +44,7 @@ export const createNewPassword = (data, token) => async (dispatch) => {
 		token: token,
 		password: data.password,
 	}
-	const url = `${URL}/auth/superadmin/reset/password`
+	const url = `${URL}/auth/admin/reset/password`
 	const response = await putAxios(url, currentData, dispatch)
 	response && dispatch(createNewPasswordSuccess(true))
 	dispatch(loadingLogin(false))

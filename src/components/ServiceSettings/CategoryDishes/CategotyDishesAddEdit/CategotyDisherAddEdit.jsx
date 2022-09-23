@@ -132,7 +132,6 @@ const CategoryDishesAddEdit = (props) => {
 	}
 
 	const onSubmit = (e) => {
-		console.log(e)
 		if (type === 'add') {
 			const newData = {
 				...e,
@@ -383,7 +382,6 @@ const CategoryDishesAddEdit = (props) => {
 											>
 												<InputNumber
 													onChange={(value) => {
-														// console.log('value', value)
 														let s = (value / 100) * Number(tax)
 														setTaxCount((value / 100) * Number(tax))
 													}}

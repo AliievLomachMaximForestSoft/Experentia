@@ -150,7 +150,6 @@ const MenuList = (props) => {
 			key: 'action',
 			width: 206,
 			render: (text, record) => {
-				console.log('record', record)
 				return (
 					<Row justify='space-beetween'>
 						<Col>

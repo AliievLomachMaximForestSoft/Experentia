@@ -56,7 +56,7 @@ const AboutEdit = (props) => {
 		dispatch(getCountries())
 	}, [])
 
-	const { countries, property, loadingImage, galeryArray } = useSelector(
+	const { countries, property, loading, galeryArray } = useSelector(
 		(state) => state.properties
 	)
 
@@ -461,7 +461,7 @@ const AboutEdit = (props) => {
 										<Button
 											style={{ marginTop: 32, width: 114 }}
 											htmlType='submit'
-											loading={loadingImage}
+											loading={loading}
 											type='primary'
 										>
 											{t('button.titleForSave')}

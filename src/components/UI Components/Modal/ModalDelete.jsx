@@ -58,7 +58,6 @@ const ModalDelete = (props) => {
 			dispatch(dellRoom(props.id, props.message))
 			navigate('/hotelSettings/rooms')
 		} else if (value === 'sub') {
-			console.log('sub')
 		} else if (value === 'services' || value === 'servicesDetails') {
 			dispatch(dellService(props.id, props.message))
 			dispatch(indexDelItemService(props.index))

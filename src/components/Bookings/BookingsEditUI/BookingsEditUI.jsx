@@ -46,7 +46,7 @@ const BookingsEditUI = (props) => {
 
 		props.onSubmit(newData)
 	}
-	console.log('props.bookingsDetails', props.bookingsDetails)
+
 	const disabledDate = (current) => {
 		return current && current < moment().endOf('day')
 	}

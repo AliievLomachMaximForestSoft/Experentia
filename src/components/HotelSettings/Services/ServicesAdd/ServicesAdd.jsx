@@ -31,8 +31,6 @@ const ServicesAdd = () => {
 		deleteService,
 	} = useSelector((state) => state.services)
 
-	console.log('services :>> ', services)
-
 	const setIcon = (icon) => {
 		dispatch(sendIcon(icon))
 	}
@@ -79,6 +77,7 @@ const ServicesAdd = () => {
 		const attr = _.find(services, ['serviceType', 'attraction'])
 
 		if (params.id) {
+			newService.ID = Number(params.id)
 			dispatch(updateService(newService))
 		} else {
 			if (data.serviceType === 'attraction' && attr) {

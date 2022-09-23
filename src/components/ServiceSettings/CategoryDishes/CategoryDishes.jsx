@@ -18,7 +18,7 @@ const CategoryDishes = () => {
 	useEffect(() => {
 		dispatch(getAllMenuItems(id))
 	}, [])
-	console.log('menuItems', menuItems)
+
 	return (
 		<>
 			<PageHeader

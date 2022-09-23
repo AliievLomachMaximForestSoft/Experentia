@@ -394,7 +394,14 @@
 			"dellSubSucces": "Wi-Fi spot deleted!",
 
 			"createdSubSucces": "Created a new Wi-Fi spot!",
-			"updateSubSuccess": "Wi-Fi spot updated!"
+			"updateSubSuccess": "Wi-Fi spot updated!",
+
+			"currentSubscription": "Your current subscription",
+			"Month": "Month",
+			"Year": "Year",
+			"NextBillDate": "Next bill date",
+			"Active": "Active",
+			"rooms": "Rooms"
 		},
 		"notification": {
 			"addPlsGallery": "Add please photo to gallery",
