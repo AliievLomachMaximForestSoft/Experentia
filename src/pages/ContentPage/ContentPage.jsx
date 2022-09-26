@@ -4,13 +4,14 @@ import { Layout } from 'antd'
 import HeaderMain from '../../components/HeaderMain/HeaderMain'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { useDispatch } from 'react-redux'
-import { setSocket, socket_ } from '../../store/socket'
+import { setConnectSocet, setSocket } from '../../store/socket'
 const { Sider } = Layout
 
 const ContentPage = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
-		dispatch(setSocket(socket_))
+		const socket = dispatch(setConnectSocet(localStorage.getItem('token')))
+		dispatch(setSocket(socket))
 	}, [])
 
 	return (

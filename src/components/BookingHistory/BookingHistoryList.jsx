@@ -29,7 +29,7 @@ const BookingHistory = () => {
 	const { t } = useTranslation()
 	const searchInput = useRef(null)
 	const [data, setData] = useState()
-	const [pagination, setPagination] = useState({})
+	const [pagination, setPagination] = useState(false)
 	const [loadingFilter, setLoadingFilter] = useState(false)
 	const { bookingsHistory, loading, deleteBookings } = useSelector(
 		(state) => state.bookings

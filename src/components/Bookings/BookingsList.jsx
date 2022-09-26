@@ -33,7 +33,7 @@ const BookingsList = () => {
 	const navigate = useNavigate()
 	const searchInput = useRef(null)
 	const [data, setData] = useState()
-	const [pagination, setPagination] = useState({})
+	const [pagination, setPagination] = useState(false)
 	const [loadingFilter, setLoadingFilter] = useState(false)
 
 	const {

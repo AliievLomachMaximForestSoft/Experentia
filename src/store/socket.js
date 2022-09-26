@@ -1,5 +1,4 @@
 import { io } from 'socket.io-client'
-import { setStatus } from './login'
 
 const SET_SOCKET = 'SET_SOCKET'
 const SET_COUNT_UNREAD_MESS = 'SET_COUNT_UNREAD_MESS'
@@ -18,20 +17,23 @@ const IS_UPDATE_MESS = 'IS_UPDATE_MESS'
 
 const URL = process.env.REACT_APP_URL
 
-//global connect
-export const socket_ = io(URL, {
-	auth: {
-		token: `${localStorage.getItem('token')}`,
-	},
-	transports: ['websocket'],
-})
-//
+// global connect
+export const setConnectSocet = (token) => {
+	const socket = io(URL, {
+		auth: {
+			token,
+		},
+		transports: ['websocket'],
+	})
+	return () => socket
+}
 
 export const getAllRequests =
 	(page = 1, pageSize = 30) =>
 	async (dispatch) => {
 		dispatch(loadingRequests(true))
-		socket_.emit('getServiceOrders', { page, take: pageSize }, (event) => {
+		const socket = setConnectSocet(localStorage.getItem('token'))
+		socket().emit('getServiceOrders', { page, take: pageSize }, (event) => {
 			dispatch(getRequests(event))
 			dispatch(isUpdateRequests(false))
 			dispatch(deleteRequests(false))
@@ -41,14 +43,16 @@ export const getAllRequests =
 
 export const updateRequest = (data) => async (dispatch) => {
 	dispatch(loadingRequests(true))
-	socket_.emit('updateServiceOrder', data, () => {
+	const socket = setConnectSocet(localStorage.getItem('token'))
+	socket().emit('updateServiceOrder', data, () => {
 		dispatch(isUpdateRequests(true))
 	})
 	dispatch(loadingRequests(false))
 }
 
 export const dellRequest = (id) => async (dispatch) => {
-	socket_.emit('deleteServiceOrder', { id }, () => {
+	const socket = setConnectSocet(localStorage.getItem('token'))
+	socket().emit('deleteServiceOrder', { id }, () => {
 		dispatch(deleteRequests(true))
 	})
 }
@@ -57,7 +61,8 @@ export const getAllMess =
 	(page = 1, pageSize = 1000) =>
 	async (dispatch) => {
 		dispatch(loadingRequests(true))
-		socket_.emit('getMessages', { page, limit: pageSize }, (event) => {
+		const socket = setConnectSocet(localStorage.getItem('token'))
+		socket().emit('getMessages', { page, limit: pageSize }, (event) => {
 			dispatch(getMess(event))
 		})
 		dispatch(loadingRequests(false))
@@ -65,7 +70,8 @@ export const getAllMess =
 
 export const updateMess = (data) => async (dispatch) => {
 	dispatch(loadingRequests(true))
-	socket_.emit('updateMessage', data)
+	const socket = setConnectSocet(localStorage.getItem('token'))
+	socket().emit('updateMessage', data)
 	dispatch(loadingRequests(false))
 }
 
