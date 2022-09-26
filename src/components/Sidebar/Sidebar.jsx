@@ -71,10 +71,12 @@ const Sider = () => {
 		})
 	socket &&
 		socket.on('error', (data) => {
+			console.log('error', data)
 			dispatch(setStatus(data.status))
 		})
 	socket &&
 		socket.on('exception', (data) => {
+			console.log('exception', data)
 			dispatch(setStatus(data.status))
 		})
 	socket &&
@@ -107,16 +109,6 @@ const Sider = () => {
 				}
 			}
 		})
-	// socket &&
-	// 	socket.on('updateMessage', (data) => {
-	// 		if (chatArrByUserId !== null) {
-	// 			const intermediateObjForChat = { ...chatArrByUserId }
-	// 			intermediateObjForChat[data.message.guest.ID][data.message.ID] =
-	// 				data.message
-	// 			dispatch(setChatArrByUserId(intermediateObjForChat))
-	// 			dispatch(isUpdateMess_(true))
-	// 		}
-	// 	})
 
 	useEffect(() => {
 		dispatch(getAllServices())

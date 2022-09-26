@@ -28,7 +28,7 @@ const RoomsList = ({ searchText }) => {
 	const navigate = useNavigate()
 	const [data, setData] = useState()
 	const [loadingFilter, setLoadingFilter] = useState(false)
-	const [pagination, setPagination] = useState({})
+	const [pagination, setPagination] = useState(false)
 	const { roomTypes } = useSelector((state) => state.roomTypes)
 
 	const {
