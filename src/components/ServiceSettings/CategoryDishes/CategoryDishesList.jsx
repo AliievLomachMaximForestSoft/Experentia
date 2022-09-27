@@ -171,7 +171,7 @@ const CategoryDishesList = (props) => {
 							<ModalDelete
 								id={record.ID}
 								index={record.index}
-								value='dish'
+								value='dishWithIndex'
 								message={messageErr}
 								title={`${t('standart.dellStandartTitle')}`}
 								content={`${t('standart.dellStandartContent')}`}

@@ -154,8 +154,7 @@ const AttractionsAddEdit = () => {
 				: dispatch(sendGaleryAttraction(newData, galery, 'edit'))
 		}
 	}
-	console.log('subName', subName)
-	console.log('type', type)
+
 	return (
 		<>
 			<PageHeader
@@ -186,7 +185,8 @@ const AttractionsAddEdit = () => {
 								<ModalDelete
 									id={Number(id)}
 									index={indexDel}
-									value='attractionDetails'
+									setIndexDel={setIndexDel}
+									value='attractionWithIndexDetails'
 									title={`${t('attractions.dellAttractionTitle')}`}
 									content={`${t('attractions.dellAttractionContent')}`}
 								/>

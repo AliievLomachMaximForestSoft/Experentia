@@ -293,15 +293,14 @@ const BookingsList = () => {
 			dispatch(getAllBookings())
 		}
 		if (isUpdateBookings) {
-			message.success({
-				content: `${t('bookings.updateBookingSuccess')}`,
-			})
-			dispatch(getAllBookings())
-		}
-		if (isUploadPdf) {
-			message.success({
-				content: `${t('bookings.checkOutBookingSuccess')}`,
-			})
+			if (!isUploadPdf)
+				message.success({
+					content: `${t('bookings.updateBookingSuccess')}`,
+				})
+			else
+				message.success({
+					content: `${t('bookings.checkOutBookingSuccess')}`,
+				})
 			dispatch(getAllBookings())
 		}
 		if (isCreateBookings) {
@@ -310,7 +309,7 @@ const BookingsList = () => {
 			})
 			dispatch(getAllBookings())
 		}
-	}, [deleteBookings, isCreateBookings, isUpdateBookings, isUploadPdf])
+	}, [deleteBookings, isCreateBookings, isUpdateBookings])
 
 	const onChange = (pagination) => {
 		dispatch(getAllBookings(pagination.current, pagination.pageSize))

@@ -111,7 +111,7 @@ const isUpdateIndexMenuItem = (items) => ({
 	payload: items,
 })
 
-export const indexDelItemMenuItem = (index) => ({
+export const setIndexDel = (index) => ({
 	type: INDEX_DEL_MENU_ITEM,
 	payload: index,
 })

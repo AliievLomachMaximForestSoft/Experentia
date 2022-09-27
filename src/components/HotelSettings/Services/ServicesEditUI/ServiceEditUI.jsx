@@ -69,7 +69,7 @@ const ServicesEditUI = (props) => {
 					<ModalDelete
 						id={props.serviceDetails.ID}
 						index={props.serviceDetails.index}
-						value='servicesDetails'
+						value='servicesWithIndexDetails'
 						title={`${t('services.dellServicesTitle')}`}
 						content={`${t('services.dellServicesContent')}`}
 					/>

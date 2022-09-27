@@ -90,7 +90,8 @@
 		"updateBookingSuccess": "बुकिंग अपडेट की गई!",
 		"checkOutBookingSuccess": "बुकिंग चेक आउट",
 		"updated": "अद्यतन",
-		"NoResults": "कोई परिणाम नहीं"
+		"NoResults": "कोई परिणाम नहीं",
+		"errorUpdated": "यह तारीख पहले से ही बुक है"
 	},
 
 	"notifications": {

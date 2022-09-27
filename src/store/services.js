@@ -178,7 +178,7 @@ const isBackgroundUpload = (boolean) => ({
 	payload: boolean,
 })
 
-export const indexDelItemService = (index) => ({
+export const setIndexDel = (index) => ({
 	type: INDEX_DEL_SERVICE,
 	payload: index,
 })

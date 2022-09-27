@@ -150,7 +150,7 @@ const loadImage = (bool) => ({
 	payload: bool,
 })
 
-export const indexDelItemAttraction = (index) => ({
+export const setIndexDel = (index) => ({
 	type: INDEX_DEL_ATTRACTION,
 	payload: index,
 })

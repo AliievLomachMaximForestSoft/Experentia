@@ -90,7 +90,8 @@
 		"updateBookingSuccess": "Booking updated!",
 		"checkOutBookingSuccess": "Booking chek out",
 		"updated": "Updated",
-		"NoResults": "No Results"
+		"NoResults": "No Results",
+		"errorUpdated": "This date is already booked"
 	},
 
 	"notifications": {

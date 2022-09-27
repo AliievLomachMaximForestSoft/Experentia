@@ -160,14 +160,13 @@ const BokingsAddUI = (props) => {
 					})
 				})
 			})
-		const x = []
-
+		const arr = []
 		roomsWithBookings.length > 0 &&
 			roomsWithBookings.map((room) => {
-				return !delRoom.has(room) ? x.push(room) : ''
+				return !delRoom.has(room) ? arr.push(room) : ''
 			})
-		setRoomsFiltered(x)
-		roomTypeFilter(x)
+		setRoomsFiltered(arr)
+		roomTypeFilter(arr)
 	}
 
 	const roomTypeFilter = (data) => {
@@ -214,7 +213,7 @@ const BokingsAddUI = (props) => {
 	useEffect(() => {
 		if (accType || selectedRoomType) filterRoomsByData()
 	}, [accType, selectedRoomType])
-
+	console.log('roomsWithBookings', roomsWithBookings)
 	return rooms.items?.length > 0 ? (
 		<Content style={{ backgroundColor: '#F5F5F5' }}>
 			<Content style={{ margin: 24, backgroundColor: 'white' }}>

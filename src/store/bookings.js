@@ -57,11 +57,11 @@ export const createBooking = (data) => async (dispatch) => {
 	dispatch(loadingBookings(false))
 }
 
-export const updateBooking = (data, pdf) => async (dispatch) => {
+export const updateBooking = (data) => async (dispatch) => {
 	dispatch(loadingBookings(true))
 	const url = `${URL}/admin/booking`
 	const response = await putAxios(url, data, dispatch)
-	if (!pdf && response) dispatch(isUpdateBookings(true))
+	if (response) dispatch(isUpdateBookings(true))
 	dispatch(loadingBookings(false))
 }
 
