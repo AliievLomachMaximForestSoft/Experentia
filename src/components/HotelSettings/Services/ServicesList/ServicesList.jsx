@@ -23,6 +23,7 @@ import {
 	getAllServices,
 	isUpdateIndexServices,
 	updateIndexServices,
+	setIndexDel,
 } from '../../../../store/services'
 import EmptyState, {
 	customizeRenderEmpty,
@@ -164,7 +165,7 @@ const ServicesList = () => {
 				return (
 					<Row justify='space-beetween'>
 						<Col>
-							<ServicesDetails record={record} />
+							<ServicesDetails record={record} setIndexDel={setIndexDel} />
 						</Col>
 						<Col>
 							<Button
@@ -182,6 +183,7 @@ const ServicesList = () => {
 								id={record.ID}
 								index={record.index}
 								message={messageErr}
+								setIndexDel={setIndexDel}
 								value='servicesWithIndex'
 								title={`${t('services.dellServicesTitle')}`}
 								content={`${t('services.dellServicesContent')}`}
@@ -225,7 +227,7 @@ const ServicesList = () => {
 				if (services[i].index >= indexDelItem)
 					services[i].index = services[i].index - 1
 			}
-			dispatch(isUpdateIndexServices(services, 'delete'))
+			dispatch(updateIndexServices(services, 'delete'))
 		}
 	}, [services])
 

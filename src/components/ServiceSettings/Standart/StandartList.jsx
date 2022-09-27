@@ -17,6 +17,7 @@ import StandartEdit from './StandartEdit/StandartEdit'
 import ModalDelete from '../../UI Components/Modal/ModalDelete'
 import {
 	getAllStandartItems,
+	isUpdateIndexStandartItems,
 	updateIndexStandartItems,
 } from '../../../store/servicesStandartType'
 
@@ -30,7 +31,7 @@ const StandartList = (props) => {
 		deleteStandartItems,
 		isUpdateStandartItems,
 		isCreateStandartItems,
-		isUpdateIndexStandartItems,
+		indexStandartItems,
 		loading,
 	} = useSelector((state) => state.settingStandartType)
 
@@ -168,16 +169,17 @@ const StandartList = (props) => {
 			})
 			dispatch(getAllStandartItems(props.id))
 		}
-		if (isUpdateIndexStandartItems) {
+		if (indexStandartItems) {
 			message.success({
 				content: `${t('standart.indexUpdateSucces')}`,
 			})
+			dispatch(isUpdateIndexStandartItems(false))
 		}
 	}, [
 		deleteStandartItems,
 		isCreateStandartItems,
 		isUpdateStandartItems,
-		isUpdateIndexStandartItems,
+		indexStandartItems,
 	])
 
 	useEffect(() => {
@@ -190,9 +192,7 @@ const StandartList = (props) => {
 				if (props.standartItems[i].index >= indexDel)
 					props.standartItems[i].index = props.standartItems[i].index - 1
 			}
-			dispatch(
-				updateIndexStandartItems(props.standartItems, 'delete', props.id)
-			)
+			dispatch(updateIndexStandartItems(props.standartItems, 'delete'))
 		}
 	}, [props.standartItems])
 
@@ -201,12 +201,12 @@ const StandartList = (props) => {
 	}, [props.id])
 
 	return !loading ? (
-		props.standartItems && props.standartItems.length ? (
+		data && data.length ? (
 			<ConfigProvider renderEmpty={customizeRenderEmpty}>
 				<Table
 					pagination={false}
 					columns={columns}
-					dataSource={data.length > 0 ? data : props.standartItems}
+					dataSource={data}
 					rowKey={'index'}
 					components={{
 						body: {

@@ -17,6 +17,8 @@ import CategoryDishesDetails from './CategoryDishesDetails/CategoryDishesDetails
 import {
 	getAllMenuItems,
 	updateIndexMenuItems,
+	setIndexDel,
+	isUpdateIndexMenuItem,
 } from '../../../store/servicesMenuTypeItems'
 import { useNavigate } from 'react-router-dom'
 const URL = process.env.REACT_APP_URL
@@ -172,6 +174,7 @@ const CategoryDishesList = (props) => {
 								id={record.ID}
 								index={record.index}
 								value='dishWithIndex'
+								setIndexDel={setIndexDel}
 								message={messageErr}
 								title={`${t('standart.dellStandartTitle')}`}
 								content={`${t('standart.dellStandartContent')}`}
@@ -204,6 +207,7 @@ const CategoryDishesList = (props) => {
 			message.success({
 				content: `${t('dish.indexUpdateSucces')}`,
 			})
+			dispatch(isUpdateIndexMenuItem(false))
 		}
 	}, [
 		deleteMenuItems,

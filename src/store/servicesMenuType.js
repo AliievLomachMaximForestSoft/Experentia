@@ -52,7 +52,6 @@ export const updateIndexCategoryIndex =
 		const response = await patchAxios(url, data, dispatch)
 		if (!value && response) dispatch(isUpdateIndexCategoryItems(true))
 		dispatch(deleteCategoryItems(false))
-		dispatch(isUpdateIndexCategoryItems(false))
 	}
 
 const loadingCategoryItems = (boolean) => ({
@@ -80,7 +79,7 @@ const isUpdateCategoryItem = (isUpdateCategoryItem) => ({
 	payload: isUpdateCategoryItem,
 })
 
-const isUpdateIndexCategoryItems = (categoryItems) => ({
+export const isUpdateIndexCategoryItems = (categoryItems) => ({
 	type: IS_UPDATE_INDEX_CATEGORY_ITEMS,
 	payload: categoryItems,
 })
@@ -91,6 +90,7 @@ const InitialState = {
 	deleteCategoryItems: false,
 	isUpdateCategoryItems: false,
 	isCreateCategoryItems: false,
+	indexCategoryItems: false,
 	loading: false,
 }
 
@@ -105,7 +105,7 @@ export const categoryItemsReducer = (state = InitialState, action) => {
 		case IS_UPDATE_INDEX_CATEGORY_ITEMS:
 			return {
 				...state,
-				isUpdateIndexCategoryItems: action.payload,
+				indexCategoryItems: action.payload,
 				loading: false,
 			}
 		case IS_CREATE_UPDATE_ITEM:

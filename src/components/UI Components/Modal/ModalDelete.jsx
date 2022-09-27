@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Modal, Row } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { dellService } from '../../../store/services'
 import { dellBooking } from '../../../store/bookings'
@@ -73,8 +73,12 @@ const ModalDelete = (props) => {
 						? {}
 						: { padding: 0, marginLeft: 12 }
 				}
-				danger={props.value.includes('Details')}
-				type={props.value.includes('Details') ? 'default' : 'text'}
+				danger={props.value.includes('Details') || props.value === 'sub'}
+				type={
+					props.value.includes('Details') || props.value === 'sub'
+						? 'default'
+						: 'text'
+				}
 				onClick={confirm}
 			>
 				<Row align={'middle'}>

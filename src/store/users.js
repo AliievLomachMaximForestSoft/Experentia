@@ -33,7 +33,7 @@ export const getUserDetails = (id) => async (dispatch) => {
 
 export const getUsersByPhone = (phone) => async (dispatch) => {
 	dispatch(loadingBySearch(true))
-	const url = `${URL}/superadmin/users-by-phone?phone=${phone}`
+	const url = `${URL}/admin/guests-by-phone?phone=${phone}`
 	const response = await getAxios(url, dispatch)
 	response && dispatch(getSearchUsers(response.data))
 	dispatch(loadingBySearch(false))

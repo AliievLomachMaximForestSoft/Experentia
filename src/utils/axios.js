@@ -65,6 +65,7 @@ export const dellAxios = async (url, dispatch, message) => {
 			},
 		})
 		dispatch(setStatus(200))
+		console.log('response', response)
 		return response
 	} catch (error) {
 		error.response.status === 409
