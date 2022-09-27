@@ -153,7 +153,7 @@ const UsefulContactsList = () => {
 								id={record.ID}
 								index={record.index}
 								setIndexDel={setIndexDel}
-								value='usefulContacts'
+								value='usefulContactsWithIndex'
 								title={`${t('settings.usefulContacts.dellUsefulContactTitle')}`}
 								content={`${t(
 									'settings.usefulContacts.dellUsefulContactContent'

@@ -306,7 +306,7 @@ const CategoryDishesAddEdit = (props) => {
 							<ModalDelete
 								id={Number(itemid)}
 								index={index}
-								value='dishDetails'
+								value='dishWithIndexDetails'
 								title={`${t('standart.dellStandartTitle')}`}
 								content={`${t('standart.dellStandartContent')}`}
 							/>

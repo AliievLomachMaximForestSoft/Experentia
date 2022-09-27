@@ -173,7 +173,7 @@ const MenuList = (props) => {
 								setIndexDel={setIndexDel}
 								id={record.ID}
 								index={record.index}
-								value='menu'
+								value='menuWithIndex'
 								title={`${t('menu.dellCategoryTitle')}`}
 								content={`${t('menu.dellCategoryContent')}`}
 								message={messageErr}

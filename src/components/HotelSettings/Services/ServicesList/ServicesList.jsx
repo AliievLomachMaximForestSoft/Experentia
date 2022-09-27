@@ -182,7 +182,7 @@ const ServicesList = () => {
 								id={record.ID}
 								index={record.index}
 								message={messageErr}
-								value='services'
+								value='servicesWithIndex'
 								title={`${t('services.dellServicesTitle')}`}
 								content={`${t('services.dellServicesContent')}`}
 							/>

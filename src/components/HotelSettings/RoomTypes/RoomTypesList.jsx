@@ -119,7 +119,7 @@ const RoomTypesList = () => {
 								index={record.index}
 								setIndexDel={setIndexDel}
 								message={messageErr}
-								value='roomTypes'
+								value='roomTypesWithIndex'
 								title={`${t('settings.roomTypes.dellRoomTypesTitle')}`}
 								content={`${t('settings.roomTypes.dellRoomTypesContent')}`}
 							/>

@@ -140,7 +140,7 @@ const StandartList = (props) => {
 								index={record.index}
 								setIndexDel={setIndexDel}
 								message={messageErr}
-								value='standart'
+								value='standartWithIndex'
 								title={`${t('standart.dellStandartTitle')}`}
 								content={`${t('standart.dellStandartContent')}`}
 							/>

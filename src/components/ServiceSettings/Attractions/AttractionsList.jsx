@@ -130,7 +130,7 @@ const AttractionsList = (props) => {
 								id={record.ID}
 								index={record.index}
 								message={messageErr}
-								value='attraction'
+								value='attractionWithIndex'
 								title={`${t('attractions.dellAttractionTitle')}`}
 								content={`${t('attractions.dellAttractionContent')}`}
 							/>

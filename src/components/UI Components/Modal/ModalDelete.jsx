@@ -3,7 +3,7 @@ import { Button, Modal, Row } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
-import { dellService, indexDelItemService } from '../../../store/services'
+import { dellService } from '../../../store/services'
 import { dellBooking } from '../../../store/bookings'
 import { dellRoomType } from '../../../store/roomTypes'
 import { dellWiFi } from '../../../store/wifi'
@@ -13,14 +13,8 @@ import { dellAddon } from '../../../store/addons'
 import { dellNotification } from '../../../store/notification'
 import { dellCategoryItem } from '../../../store/servicesMenuType'
 import { dellStandartItem } from '../../../store/servicesStandartType'
-import {
-	dellMenuItem,
-	indexDelItemMenuItem,
-} from '../../../store/servicesMenuTypeItems'
-import {
-	dellAttraction,
-	indexDelItemAttraction,
-} from '../../../store/servicesAttractions'
+import { dellMenuItem } from '../../../store/servicesMenuTypeItems'
+import { dellAttraction } from '../../../store/servicesAttractions'
 import { dellRequest } from '../../../store/socket'
 
 const ModalDelete = (props) => {
@@ -41,106 +35,53 @@ const ModalDelete = (props) => {
 	}
 
 	const handleOk = (value) => {
-		if (
-			value === 'bookings' ||
-			value === 'bookingsDetails' ||
-			value === 'bookingsHistory'
-		) {
-			dispatch(dellBooking(props.id))
-
-			value === !'bookingsHistory' && navigate('/')
-		} else if (value === 'roomTypes') {
+		if (value.includes('bookings')) dispatch(dellBooking(props.id))
+		else if (value.includes('roomTypes'))
 			dispatch(dellRoomType(props.id, props.message))
-			props.setIndexDel(props.index)
-		} else if (value === 'wifi') {
-			dispatch(dellWiFi(props.id, props.message))
-		} else if (value === 'room' || value === 'roomDetails') {
-			dispatch(dellRoom(props.id, props.message))
-			navigate('/hotelSettings/rooms')
-		} else if (value === 'sub') {
-		} else if (value === 'services' || value === 'servicesDetails') {
+		else if (value.includes('wifi')) dispatch(dellWiFi(props.id, props.message))
+		else if (value.includes('room')) dispatch(dellRoom(props.id, props.message))
+		else if (value.includes('services'))
 			dispatch(dellService(props.id, props.message))
-			dispatch(indexDelItemService(props.index))
-			navigate('/hotelSettings/services')
-		} else if (value === 'admins') {
-			props.delAdmin(props.record)
-		} else if (value === 'usefulContacts') {
+		else if (value.includes('usefulContacts'))
 			dispatch(dellUsefulContact(props.id))
-			props.setIndexDel(props.index)
-		} else if (value === 'addon') {
+		else if (value.includes('addon'))
 			dispatch(dellAddon(props.id, props.message))
-		} else if (value === 'notifications') {
+		else if (value.includes('notifications'))
 			dispatch(dellNotification(props.id))
-		} else if (value === 'requests') {
-			dispatch(dellRequest(props.id))
-		} else if (value === 'menu') {
+		else if (value.includes('requests')) dispatch(dellRequest(props.id))
+		else if (value.includes('menu'))
 			dispatch(dellCategoryItem(props.id, props.message))
-			props.setIndexDel(props.index)
-		} else if (value === 'standart') {
-			props.setIndexDel(props.index)
+		else if (value.includes('standart'))
 			dispatch(dellStandartItem(props.id, props.message))
-		} else if (value === 'dish' || value === 'dishDetails') {
+		else if (value.includes('dish'))
 			dispatch(dellMenuItem(props.id, props.message))
-			dispatch(indexDelItemMenuItem(props.index))
-			value === 'dishDetails' && navigate(-1)
-		} else if (value === 'attraction' || value === 'attractionDetails') {
+		else if (value.includes('attraction'))
 			dispatch(dellAttraction(props.id, props.message))
-			dispatch(indexDelItemAttraction(props.index))
-			value === 'attractionDetails' && navigate(-1)
-		} else {
-			return ''
-		}
+		else return ''
+
+		value.includes('Details') && navigate(-1)
+		value.includes('WithIndex') && props.setIndexDel(props.index)
 	}
 
 	return (
 		<>
 			<Button
 				style={
-					props.value === 'servicesDetails' ||
-					props.value === 'propertyDatails' ||
-					props.value === 'bookingsDetails' ||
-					props.value === 'roomDetails' ||
-					props.value === 'dishDetails' ||
-					props.value === 'attractionDetails'
+					props.value.includes('Details')
 						? { margin: '24px 24px 0' }
 						: props.value === 'sub'
 						? {}
 						: { padding: 0, marginLeft: 12 }
 				}
-				danger={
-					props.value === 'servicesDetails' ||
-					props.value === 'propertyDatails' ||
-					props.value === 'bookingsDetails' ||
-					props.value === 'sub' ||
-					props.value === 'roomDetails' ||
-					props.value === 'dishDetails' ||
-					props.value === 'attractionDetails'
-						? true
-						: false
-				}
-				type={
-					props.value === 'servicesDetails' ||
-					props.value === 'propertyDatails' ||
-					props.value === 'bookingsDetails' ||
-					props.value === 'sub' ||
-					props.value === 'roomDetails' ||
-					props.value === 'dishDetails' ||
-					props.value === 'attractionDetails'
-						? 'default'
-						: 'text'
-				}
+				danger={props.value.includes('Details')}
+				type={props.value.includes('Details') ? 'default' : 'text'}
 				onClick={confirm}
 			>
 				<Row align={'middle'}>
 					{props.value !== 'sub' && (
 						<img
 							style={
-								props.value === 'servicesDetails' ||
-								props.value === 'propertyDatails' ||
-								props.value === 'bookingsDetails' ||
-								props.value === 'roomDetails' ||
-								props.value === 'dishDetails' ||
-								props.value === 'attractionDetails'
+								props.value.includes('Details')
 									? { width: 14, marginRight: 10 }
 									: {}
 							}
@@ -148,12 +89,7 @@ const ModalDelete = (props) => {
 							alt='Icon'
 						/>
 					)}
-					{props.value === 'servicesDetails' ||
-					props.value === 'propertyDatails' ||
-					props.value === 'bookingsDetails' ||
-					props.value === 'roomDetails' ||
-					props.value === 'dishDetails' ||
-					props.value === 'attractionDetails'
+					{props.value.includes('Details')
 						? `${t('button.titleForDell')}`
 						: props.value === 'sub'
 						? `${t('settings.subscription.cancelSubscription')}`
