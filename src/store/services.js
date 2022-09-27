@@ -94,7 +94,7 @@ export const sendIcon = (icon) => async (dispatch) => {
 
 export const getServicesDetails = (id) => async (dispatch) => {
 	dispatch(loadingDetailsService(true))
-	const url = `${URL}/superadmin/servicemaster${id}`
+	const url = `${URL}/admin/servicemaster${id}`
 	const response = await getAxios(url, dispatch)
 	response && dispatch(getService(response.data))
 	dispatch(loadingDetailsService(false))

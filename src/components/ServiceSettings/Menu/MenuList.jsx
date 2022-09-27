@@ -11,6 +11,7 @@ import {
 } from 'react-sortable-hoc'
 import {
 	getAllCategoryItems,
+	isUpdateIndexCategoryItems,
 	updateIndexCategoryIndex,
 } from '../../../store/servicesMenuType'
 import EmptyState, {
@@ -30,11 +31,25 @@ const MenuList = (props) => {
 	const {
 		categoryItems,
 		loading,
-		isUpdateIndexCategoryItems,
+		indexCategoryItems,
 		isUpdateCategoryItems,
 		isCreateCategoryItems,
 		deleteCategoryItems,
 	} = useSelector((state) => state.settingsMenuType)
+
+	useEffect(() => {
+		if (categoryItems && categoryItems.length > 0)
+			categoryItems?.sort((a, b) => a.index - b.index)
+		setData(categoryItems)
+
+		if (deleteCategoryItems) {
+			for (let i = 0; i < categoryItems.length; i++) {
+				if (categoryItems[i].index >= indexDel)
+					categoryItems[i].index = categoryItems[i].index - 1
+			}
+			dispatch(updateIndexCategoryIndex(categoryItems, 'delete'))
+		}
+	}, [categoryItems])
 
 	const DragHandle = SortableHandle(() => {
 		return (
@@ -102,14 +117,15 @@ const MenuList = (props) => {
 			})
 			dispatch(getAllCategoryItems(props.id))
 		}
-		if (isUpdateIndexCategoryItems) {
+		if (indexCategoryItems) {
 			message.success(`${t('menu.indexUpdateSucces')}`)
+			dispatch(isUpdateIndexCategoryItems(false))
 		}
 	}, [
 		deleteCategoryItems,
 		isUpdateCategoryItems,
 		isCreateCategoryItems,
-		isUpdateIndexCategoryItems,
+		indexCategoryItems,
 	])
 
 	const columns = [
@@ -185,27 +201,13 @@ const MenuList = (props) => {
 		},
 	]
 
-	useEffect(() => {
-		if (categoryItems && categoryItems.length > 0)
-			categoryItems?.sort((a, b) => a.index - b.index)
-		setData(categoryItems)
-
-		if (deleteCategoryItems) {
-			for (let i = 0; i < categoryItems.length; i++) {
-				if (categoryItems[i].index >= indexDel)
-					categoryItems[i].index = categoryItems[i].index - 1
-			}
-			dispatch(updateIndexCategoryIndex(categoryItems, 'delete', props.id))
-		}
-	}, [categoryItems])
-
 	return !loading ? (
-		categoryItems && categoryItems.length ? (
+		data && data.length ? (
 			<ConfigProvider renderEmpty={customizeRenderEmpty}>
 				<Table
 					pagination={false}
 					columns={columns}
-					dataSource={data.length > 0 ? data : categoryItems}
+					dataSource={data}
 					rowKey={'index'}
 					components={{
 						body: {

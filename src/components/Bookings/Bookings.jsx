@@ -28,9 +28,9 @@ const Bookings = () => {
 						ID: 211,
 					},
 					propertyService: {
-						// ID: 150, //taxi
-						ID: 148, //standart
-						// ID: 147,
+						ID: 178, //taxi
+						// ID: 176, //standart
+						// ID: 175,
 					},
 					// foodOrderHeader: {
 					// 	orderTotal: 12,
@@ -43,62 +43,62 @@ const Bookings = () => {
 					// 			quantity: 3,
 					// 			specialNotes: 'string',
 					// 			menuItem: {
-					// 				ID: 137,
+					// 				ID: 165,
 					// 			},
 					// 			foodOrderAddons: [
-					// 				{
-					// 					quantity: 1,
-					// 					addon: {
-					// 						ID: 102,
-					// 					},
-					// 				},
-					// 				{
-					// 					quantity: 3,
-					// 					addon: {
-					// 						ID: 102,
-					// 					},
-					// 				},
+					// 				// {
+					// 				// 	quantity: 1,
+					// 				// 	addon: {
+					// 				// 		ID: 102,
+					// 				// 	},
+					// 				// },
+					// 				// {
+					// 				// 	quantity: 3,
+					// 				// 	addon: {
+					// 				// 		ID: 102,
+					// 				// 	},
+					// 				// },
 					// 			],
 					// 		},
 					// 		{
 					// 			quantity: 6,
 					// 			specialNotes: 'string',
 					// 			menuItem: {
-					// 				ID: 137,
+					// 				ID: 165,
 					// 			},
 					// 			foodOrderAddons: [
-					// 				{
-					// 					quantity: 1,
-					// 					addon: {
-					// 						ID: 102,
-					// 					},
-					// 				},
+					// 				// {
+					// 				// 	quantity: 1,
+					// 				// 	addon: {
+					// 				// 		ID: 102,
+					// 				// 	},
+					// 				// },
 					// 			],
 					// 		},
 					// 	],
 					// },
-					serviceStandarts: [
-						{
-							ID: 92,
-						},
-						{
-							ID: 91,
-						},
-					],
-					// taxiOrder: {
-					// 	created: '2022-09-20T16:00:43.884Z',
-					// 	accepted: '2022-09-02T07:40:43.884Z',
-					// 	completed: '2022-08-31T07:40:43.884Z',
-					// 	location: 'Cherkasy, Ukraine',
-					// 	lat: 49.444431,
-					// 	lng: 32.059769,
-
-					// 	time: '2022-08-31T07:40:43.884Z',
-					// 	file: null,
-					// 	guest: {
-					// 		ID: 217,
+					// serviceStandarts: [
+					// 	{
+					// 		ID: 95,
 					// 	},
-					// },
+					// 	{
+					// 		ID: 96,
+					// 	},
+					// ],
+					taxiOrder: {
+						created: '2022-09-20T16:00:43.884Z',
+						accepted: '2022-09-02T07:40:43.884Z',
+						completed: '2022-08-31T07:40:43.884Z',
+						location: 'Cherkasy, Ukraine',
+						lat: 49.444431,
+						lng: 32.059769,
+
+						time: '2022-08-31T07:40:43.884Z',
+						file: null,
+						guest: {
+							ID: 217,
+						},
+					},
 				},
 				(data) => {
 					console.log('data!!!!!!!!!!!!', data)
@@ -127,7 +127,7 @@ const Bookings = () => {
 		socket.emit(
 			'updateMessage',
 			{
-				ID: 725,
+				ID: 733,
 				isDelivered: true,
 				isReaded: true,
 			},

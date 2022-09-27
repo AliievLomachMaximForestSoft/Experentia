@@ -24,6 +24,7 @@ import TextArea from 'antd/lib/input/TextArea'
 import {
 	sendIcon,
 	updateMenuItem,
+	setIndexDel,
 } from '../../../../store/servicesMenuTypeItems'
 import { filterAddons, getAllAddons } from '../../../../store/addons'
 import EmptyState, {
@@ -307,6 +308,7 @@ const CategoryDishesAddEdit = (props) => {
 								id={Number(itemid)}
 								index={index}
 								value='dishWithIndexDetails'
+								setIndexDel={setIndexDel}
 								title={`${t('standart.dellStandartTitle')}`}
 								content={`${t('standart.dellStandartContent')}`}
 							/>

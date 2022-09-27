@@ -44,7 +44,6 @@ export const updateIndexMenuItems = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/services/menu/items/order`
 	const response = await patchAxios(url, data, dispatch)
 	if (!value && response) dispatch(isUpdateIndexMenuItem(true))
-	dispatch(isUpdateIndexMenuItem(false))
 	dispatch(deleteMenuItem(false))
 }
 
@@ -106,7 +105,7 @@ const isUpdateMenuItem = (item) => ({
 	payload: item,
 })
 
-const isUpdateIndexMenuItem = (items) => ({
+export const isUpdateIndexMenuItem = (items) => ({
 	type: IS_UPDATE_INDEX_MENU_ITEMS,
 	payload: items,
 })

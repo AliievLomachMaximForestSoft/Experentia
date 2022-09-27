@@ -49,9 +49,10 @@ export const dellStandartItem = (id, message) => async (dispatch) => {
 export const updateIndexStandartItems = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/services/standart/order`
 	const response = await patchAxios(url, data, dispatch)
+	console.log('value', value)
 	if (!value && response) dispatch(isUpdateIndexStandartItems(true))
 	dispatch(deleteStandartItems(false))
-	dispatch(isUpdateIndexStandartItems(false))
+	// dispatch(isUpdateIndexStandartItems(false))
 }
 
 const loadingStandartItems = (boolean) => ({
@@ -79,7 +80,7 @@ const isUpdateStandartItem = (isUpdateStandartItem) => ({
 	payload: isUpdateStandartItem,
 })
 
-const isUpdateIndexStandartItems = (standartItems) => ({
+export const isUpdateIndexStandartItems = (standartItems) => ({
 	type: IS_UPDATE_INDEX_STANDART_ITEMS,
 	payload: standartItems,
 })
@@ -90,7 +91,7 @@ const InitialState = {
 	deleteStandartItems: false,
 	isUpdateStandartItems: false,
 	isCreateStandartItems: false,
-	isUpdateIndexStandartItems: false,
+	indexStandartItems: false,
 	loading: false,
 }
 
@@ -107,7 +108,7 @@ export const standartItemsReducer = (state = InitialState, action) => {
 		case IS_UPDATE_INDEX_STANDART_ITEMS:
 			return {
 				...state,
-				isUpdateIndexStandartItems: action.payload,
+				indexStandartItems: action.payload,
 				loading: false,
 			}
 		case LOADING_STANDART_ITEMS:

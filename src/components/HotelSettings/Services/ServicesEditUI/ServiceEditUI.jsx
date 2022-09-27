@@ -12,12 +12,14 @@ import {
 	Checkbox,
 	InputNumber,
 	Card,
+	message,
 } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 import { Content } from 'antd/es/layout/layout'
 import UploadIcon from '../../../UI Components/UploadImage/UploadIcon'
 import UploadBackground from '../../../UI Components/UploadImage/UploadBackground'
 import ModalDelete from '../../../UI Components/Modal/ModalDelete'
+import { setIndexDel } from '../../../../store/services'
 import { useSelector } from 'react-redux'
 const { Text } = Typography
 const { TextArea } = Input
@@ -60,6 +62,13 @@ const ServicesEditUI = (props) => {
 			])
 		}
 	}, [props.serviceDetails])
+
+	const messageErr = () => {
+		message.error({
+			content: `${t('settings.wifi.itemCannotBeDeleted')}`,
+		})
+	}
+
 	return (
 		<Content style={{ backgroundColor: '#F5F5F5' }}>
 			<Content
@@ -69,7 +78,9 @@ const ServicesEditUI = (props) => {
 					<ModalDelete
 						id={props.serviceDetails.ID}
 						index={props.serviceDetails.index}
+						message={messageErr}
 						value='servicesWithIndexDetails'
+						setIndexDel={setIndexDel}
 						title={`${t('services.dellServicesTitle')}`}
 						content={`${t('services.dellServicesContent')}`}
 					/>
