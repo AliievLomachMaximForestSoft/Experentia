@@ -60,7 +60,7 @@ const AboutEdit = (props) => {
 		useSelector((state) => state.properties)
 
 	const { local } = useSelector((state) => state.local)
-	console.log('loading :>> ', loading)
+
 	const setIcon = (galery) => {
 		if (galery.length === 0) {
 			if (!property.gallery) {

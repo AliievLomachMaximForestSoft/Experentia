@@ -49,10 +49,8 @@ export const dellStandartItem = (id, message) => async (dispatch) => {
 export const updateIndexStandartItems = (data, value) => async (dispatch) => {
 	const url = `${URL}/admin/services/standart/order`
 	const response = await patchAxios(url, data, dispatch)
-	console.log('value', value)
 	if (!value && response) dispatch(isUpdateIndexStandartItems(true))
 	dispatch(deleteStandartItems(false))
-	// dispatch(isUpdateIndexStandartItems(false))
 }
 
 const loadingStandartItems = (boolean) => ({

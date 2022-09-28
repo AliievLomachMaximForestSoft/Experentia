@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import moment from 'moment'
 import {
 	Button,
 	Col,
@@ -15,7 +16,6 @@ import {
 import { Content } from 'antd/es/layout/layout'
 import { getAllRooms } from '../../../store/rooms'
 import ModalDelete from '../../UI Components/Modal/ModalDelete'
-import moment from 'moment'
 import 'moment/locale/es-us'
 import 'moment/locale/hi'
 const { RangePicker } = DatePicker

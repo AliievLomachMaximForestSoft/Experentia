@@ -46,7 +46,10 @@ const UploadImage = (props) => {
 	}
 
 	return (
-		<Spin spinning={props.loadingIcon} style={{ width: props.width }}>
+		<Spin
+			spinning={props.loadingIcon ? props.loadingIcon : false}
+			style={{ width: props.width }}
+		>
 			<Upload
 				className={
 					props.data === 'logo'

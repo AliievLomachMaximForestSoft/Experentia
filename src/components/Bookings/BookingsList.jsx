@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { authorizationToken } from '../../utils/token'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import moment from 'moment'
 import {
 	Table,
 	Row,
@@ -14,7 +14,7 @@ import {
 	Input,
 } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import moment from 'moment'
+import { authorizationToken } from '../../utils/token'
 import SkeletonUI from '../UI Components/Skeleton/SkeletonUI'
 import { getAllBookings } from '../../store/bookings'
 import EmptyState, {

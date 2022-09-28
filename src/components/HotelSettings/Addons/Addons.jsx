@@ -1,6 +1,6 @@
+import React from 'react'
 import { Breadcrumb, PageHeader } from 'antd'
 import { Content } from 'antd/lib/layout/layout'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import AddonsAdd from './AddonsAdd/AddonsAdd'
 import AddonsList from './AddonsList'
