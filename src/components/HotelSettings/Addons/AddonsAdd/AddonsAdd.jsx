@@ -101,7 +101,6 @@ const AddonsAdd = () => {
 										style={{ width: 100 }}
 										addonAfter='$'
 										max={1000}
-										min={0}
 										maxLength={4}
 										placeholder={0}
 									/>
