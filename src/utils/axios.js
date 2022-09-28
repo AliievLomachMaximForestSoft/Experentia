@@ -26,6 +26,7 @@ export const postAxios = async (url, data, dispatch) => {
 		return response
 	} catch (error) {
 		dispatch(setStatus(error.response.status))
+		console.log('error', error)
 	}
 }
 
