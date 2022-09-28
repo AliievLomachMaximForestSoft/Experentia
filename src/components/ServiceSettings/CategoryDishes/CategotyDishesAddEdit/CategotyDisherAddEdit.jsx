@@ -134,7 +134,7 @@ const CategoryDishesAddEdit = (props) => {
 	}
 
 	const onSubmit = (e) => {
-		if (icon === 'undefined') {
+		if (img === null && icon === 'undefined') {
 			notification.error({
 				message: `${t('dish.addPlsLogo')}`,
 			})
@@ -150,6 +150,7 @@ const CategoryDishesAddEdit = (props) => {
 				},
 				menuItemAddons: data,
 			}
+			console.log('newData :>> ', newData)
 			dispatch(sendIcon(img, newData))
 		} else if (type === 'edit') {
 			const newData = {
@@ -391,9 +392,8 @@ const CategoryDishesAddEdit = (props) => {
 											>
 												<InputNumber
 													onChange={(value) => {
-														let s = (value / 100) * Number(tax)
 														setTaxCount(
-															((value / 100) * Number(tax)).toFixed(1)
+															Number(((value / 100) * Number(tax)).toFixed(1))
 														)
 													}}
 													style={{ width: 100 }}
