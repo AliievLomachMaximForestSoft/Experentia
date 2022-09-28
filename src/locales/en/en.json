@@ -207,7 +207,9 @@
 		"dellDishSucces": "Menu item deleted!",
 		"createdDishSucces": "Created a new menu item!",
 		"updateDishSuccess": "Menu item updated!",
-		"indexUpdateSucces": "Index updated successfully!"
+		"indexUpdateSucces": "Index updated successfully!",
+
+		"addPlsLogo": "Add please photo to gallery"
 	},
 
 	"attractions": {

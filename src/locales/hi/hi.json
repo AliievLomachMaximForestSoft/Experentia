@@ -207,7 +207,9 @@
 		"dellDishSucces": "मेनू आइटम हटा दिया गया!",
 		"createdDishSucces": "एक नया मेनू आइटम बनाया!",
 		"updateDishSuccess": "मेनू आइटम अपडेट किया गया!",
-		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!"
+		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!",
+
+		"addPlsLogo": "गैलरी में कृपया फोटो जोड़ें"
 	},
 
 	"attractions": {

@@ -15,6 +15,7 @@ import {
 	Table,
 	ConfigProvider,
 	Typography,
+	notification,
 } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { useNavigate, useParams } from 'react-router'
@@ -133,6 +134,12 @@ const CategoryDishesAddEdit = (props) => {
 	}
 
 	const onSubmit = (e) => {
+		if (icon === 'undefined') {
+			notification.error({
+				message: `${t('dish.addPlsLogo')}`,
+			})
+			return
+		}
 		if (type === 'add') {
 			const newData = {
 				...e,
@@ -385,7 +392,9 @@ const CategoryDishesAddEdit = (props) => {
 												<InputNumber
 													onChange={(value) => {
 														let s = (value / 100) * Number(tax)
-														setTaxCount((value / 100) * Number(tax).toFixed(1))
+														setTaxCount(
+															((value / 100) * Number(tax)).toFixed(1)
+														)
 													}}
 													style={{ width: 100 }}
 													addonAfter='$'
