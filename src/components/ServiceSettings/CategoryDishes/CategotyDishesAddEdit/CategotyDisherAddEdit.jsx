@@ -385,7 +385,7 @@ const CategoryDishesAddEdit = (props) => {
 												<InputNumber
 													onChange={(value) => {
 														let s = (value / 100) * Number(tax)
-														setTaxCount((value / 100) * Number(tax))
+														setTaxCount((value / 100) * Number(tax).toFixed(1))
 													}}
 													style={{ width: 100 }}
 													addonAfter='$'
@@ -396,9 +396,10 @@ const CategoryDishesAddEdit = (props) => {
 												/>
 											</Form.Item>
 										</Col>
-										<Col>Tax: ${taxCount}</Col>
+										<Col style={{ marginLeft: '40px', marginTop: '50px' }}>
+											Including tax: ${taxCount}
+										</Col>
 									</Row>
-
 									<Form.Item label={t('dish.titleForStatus')} name='isActive'>
 										<Select
 											required

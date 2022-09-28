@@ -128,11 +128,11 @@ const AddonsEdit = (props) => {
 										label={t('settings.addons.titleForPrice')}
 									>
 										<InputNumber
-											placeholderstyle={{ width: 100 }}
+											style={{ width: 100 }}
 											addonAfter='$'
 											max={1000}
 											min={0}
-											maxLength={3}
+											maxLength={4}
 										/>
 									</Form.Item>
 									<Form.Item>
