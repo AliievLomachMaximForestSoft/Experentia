@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import moment from 'moment'
 import {
 	Col,
 	Form,
@@ -13,7 +14,6 @@ import {
 	ConfigProvider,
 	message,
 } from 'antd'
-import moment from 'moment'
 import UploadFile from '../../UI Components/UploadFile/UploadFile'
 import 'moment/locale/es-us'
 import 'moment/locale/hi'

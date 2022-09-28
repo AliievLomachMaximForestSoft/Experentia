@@ -48,7 +48,6 @@ export const sendGalery = (galery) => async (dispatch) => {
 	let count = 0
 	let arrLink = []
 	let data = []
-	dispatch(loadImage(true))
 	galery.map(async (icon) => {
 		if (icon.originFileObj) {
 			data = new FormData()
@@ -67,18 +66,19 @@ export const sendGalery = (galery) => async (dispatch) => {
 			arrLink.push(link)
 		}
 		if (count === galery.length) {
-			dispatch(loadImage(false))
 			dispatch(isUploadGalery(arrLink))
 		}
 	})
 }
 
 export const sendLogo = (icon) => async (dispatch) => {
+	dispatch(loadImage(true))
 	const url = `${URL}/admin/property/images`
 	const data = new FormData()
 	data.append('file', icon)
 	const response = await postAxios(url, data, dispatch)
 	response && dispatch(setLogoURL(response.data))
+	dispatch(loadImage(false))
 }
 
 const setLogoURL = (url) => ({

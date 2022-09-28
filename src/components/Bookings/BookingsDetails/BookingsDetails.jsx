@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import moment from 'moment'
 import {
 	Button,
 	Col,
@@ -10,8 +12,6 @@ import {
 	ConfigProvider,
 	DatePicker,
 } from 'antd'
-import { useSelector } from 'react-redux'
-import moment from 'moment'
 const { RangePicker } = DatePicker
 const dateFormat = 'DD.MM.YYYY'
 

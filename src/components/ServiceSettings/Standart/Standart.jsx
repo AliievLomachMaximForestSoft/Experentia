@@ -15,7 +15,7 @@ const Standart = () => {
 	const { standartItems, isCreateStandartItems } = useSelector(
 		(state) => state.settingStandartType
 	)
-	console.log('standartItems', standartItems)
+
 	useEffect(() => {
 		dispatch(getAllStandartItems(id))
 	}, [])

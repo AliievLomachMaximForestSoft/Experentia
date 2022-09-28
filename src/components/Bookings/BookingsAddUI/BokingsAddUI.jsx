@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import _ from 'lodash'
-
+import moment from 'moment'
 import {
 	Button,
 	Col,
@@ -19,7 +19,6 @@ import {
 } from 'antd'
 import { Content } from 'antd/es/layout/layout'
 import { getUsersByPhone } from '../../../store/users'
-import moment from 'moment'
 import 'moment/locale/es-us'
 import 'moment/locale/hi'
 import { getAllRoomTypes } from '../../../store/roomTypes'
@@ -213,7 +212,7 @@ const BokingsAddUI = (props) => {
 	useEffect(() => {
 		if (accType || selectedRoomType) filterRoomsByData()
 	}, [accType, selectedRoomType])
-	console.log('roomsWithBookings', roomsWithBookings)
+
 	return rooms.items?.length > 0 ? (
 		<Content style={{ backgroundColor: '#F5F5F5' }}>
 			<Content style={{ margin: 24, backgroundColor: 'white' }}>

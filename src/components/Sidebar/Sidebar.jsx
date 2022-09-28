@@ -71,12 +71,10 @@ const Sider = () => {
 		})
 	socket &&
 		socket.on('error', (data) => {
-			console.log('error', data)
 			dispatch(setStatus(data.status))
 		})
 	socket &&
 		socket.on('exception', (data) => {
-			console.log('exception', data)
 			dispatch(setStatus(data.status))
 		})
 	socket &&

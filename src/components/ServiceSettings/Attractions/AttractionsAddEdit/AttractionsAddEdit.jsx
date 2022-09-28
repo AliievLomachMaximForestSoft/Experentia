@@ -70,7 +70,6 @@ const AttractionsAddEdit = () => {
 
 	useEffect(() => {
 		if (isUpdateAttractions || isCreateAttractions) {
-			console.log('asdasdasdas')
 			navigate(-1)
 		}
 	}, [isCreateAttractions, isUpdateAttractions])

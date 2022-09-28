@@ -16,7 +16,7 @@ const Bookings = () => {
 			socket.emit(
 				'createServiceOrder',
 				{
-					created: '2022-09-20T16:00:43.884Z',
+					created: '2022-09-27T20:00:43.884Z',
 					status: 'New',
 					comment: 'string',
 					attachment: ['string'],
@@ -28,55 +28,55 @@ const Bookings = () => {
 						ID: 211,
 					},
 					propertyService: {
-						ID: 178, //taxi
+						// ID: 178, //taxi
 						// ID: 176, //standart
-						// ID: 175,
+						ID: 175,
 					},
-					// foodOrderHeader: {
-					// 	orderTotal: 12,
-					// 	itemTotal: 1,
-					// 	totalTax: 2,
-					// 	serviceCharge: 0,
-					// 	tipAmount: 0,
-					// 	foodOrderDetails: [
-					// 		{
-					// 			quantity: 3,
-					// 			specialNotes: 'string',
-					// 			menuItem: {
-					// 				ID: 165,
-					// 			},
-					// 			foodOrderAddons: [
-					// 				// {
-					// 				// 	quantity: 1,
-					// 				// 	addon: {
-					// 				// 		ID: 102,
-					// 				// 	},
-					// 				// },
-					// 				// {
-					// 				// 	quantity: 3,
-					// 				// 	addon: {
-					// 				// 		ID: 102,
-					// 				// 	},
-					// 				// },
-					// 			],
-					// 		},
-					// 		{
-					// 			quantity: 6,
-					// 			specialNotes: 'string',
-					// 			menuItem: {
-					// 				ID: 165,
-					// 			},
-					// 			foodOrderAddons: [
-					// 				// {
-					// 				// 	quantity: 1,
-					// 				// 	addon: {
-					// 				// 		ID: 102,
-					// 				// 	},
-					// 				// },
-					// 			],
-					// 		},
-					// 	],
-					// },
+					foodOrderHeader: {
+						orderTotal: 12,
+						itemTotal: 1,
+						totalTax: 2,
+						serviceCharge: 0,
+						tipAmount: 0,
+						foodOrderDetails: [
+							{
+								quantity: 3,
+								specialNotes: 'string',
+								menuItem: {
+									ID: 165,
+								},
+								foodOrderAddons: [
+									// {
+									// 	quantity: 1,
+									// 	addon: {
+									// 		ID: 102,
+									// 	},
+									// },
+									// {
+									// 	quantity: 3,
+									// 	addon: {
+									// 		ID: 102,
+									// 	},
+									// },
+								],
+							},
+							{
+								quantity: 6,
+								specialNotes: 'string',
+								menuItem: {
+									ID: 165,
+								},
+								foodOrderAddons: [
+									// {
+									// 	quantity: 1,
+									// 	addon: {
+									// 		ID: 102,
+									// 	},
+									// },
+								],
+							},
+						],
+					},
 					// serviceStandarts: [
 					// 	{
 					// 		ID: 95,
@@ -85,20 +85,20 @@ const Bookings = () => {
 					// 		ID: 96,
 					// 	},
 					// ],
-					taxiOrder: {
-						created: '2022-09-20T16:00:43.884Z',
-						accepted: '2022-09-02T07:40:43.884Z',
-						completed: '2022-08-31T07:40:43.884Z',
-						location: 'Cherkasy, Ukraine',
-						lat: 49.444431,
-						lng: 32.059769,
+					// taxiOrder: {
+					// 	created: '2022-09-20T16:00:43.884Z',
+					// 	accepted: '2022-09-02T07:40:43.884Z',
+					// 	completed: '2022-08-31T07:40:43.884Z',
+					// 	location: 'Cherkasy, Ukraine',
+					// 	lat: 49.444431,
+					// 	lng: 32.059769,
 
-						time: '2022-08-31T07:40:43.884Z',
-						file: null,
-						guest: {
-							ID: 217,
-						},
-					},
+					// 	time: '2022-08-31T07:40:43.884Z',
+					// 	file: null,
+					// 	guest: {
+					// 		ID: 217,
+					// 	},
+					// },
 				},
 				(data) => {
 					console.log('data!!!!!!!!!!!!', data)
@@ -123,19 +123,19 @@ const Bookings = () => {
 			)
 	}
 
-	const update = () => {
-		socket.emit(
-			'updateMessage',
-			{
-				ID: 733,
-				isDelivered: true,
-				isReaded: true,
-			},
-			(data) => {
-				console.log('dataUpdate', data)
-			}
-		)
-	}
+	// const update = () => {
+	// 	socket.emit(
+	// 		'updateMessage',
+	// 		{
+	// 			ID: 733,
+	// 			isDelivered: true,
+	// 			isReaded: true,
+	// 		},
+	// 		(data) => {
+	// 			console.log('dataUpdate', data)
+	// 		}
+	// 	)
+	// }
 
 	return (
 		<>
@@ -149,9 +149,9 @@ const Bookings = () => {
 				extra={
 					<>
 						<AddButton navigate='/bookings/add' />
-						<Button onClick={onClick}>Create Request</Button>
+						{/* <Button onClick={onClick}>Create Request</Button>
 						<Button onClick={onSend}>Send Mess</Button>
-						<Button onClick={update}>Update Mess</Button>
+						<Button onClick={update}>Update Mess</Button> */}
 					</>
 				}
 			/>

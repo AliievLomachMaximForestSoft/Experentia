@@ -21,7 +21,7 @@ const Subscription = () => {
 	const { isSubscription, subscriptionDetails } = useSelector(
 		(state) => state.subscription
 	)
-	console.log('sub')
+
 	useEffect(() => {
 		dispatch(getProperty())
 		dispatch(getSubscription())
