@@ -147,6 +147,8 @@ export const propertiesReducer = (state = InitialState, action) => {
 	switch (action.type) {
 		case SET_PROPERTY:
 			return { ...state, property: action.payload }
+		case LOADING_PROPERTIES:
+			return { ...state, loading: action.payload }
 		case SET_NAME:
 			return { ...state, nameAdmin: action.payload }
 		case SET_GALERY_URL:

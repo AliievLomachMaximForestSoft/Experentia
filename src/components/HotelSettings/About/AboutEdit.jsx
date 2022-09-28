@@ -56,12 +56,11 @@ const AboutEdit = (props) => {
 		dispatch(getCountries())
 	}, [])
 
-	const { countries, property, loading, galeryArray } = useSelector(
-		(state) => state.properties
-	)
+	const { countries, property, loading, galeryArray, loadingImage } =
+		useSelector((state) => state.properties)
 
 	const { local } = useSelector((state) => state.local)
-
+	console.log('loading :>> ', loading)
 	const setIcon = (galery) => {
 		if (galery.length === 0) {
 			if (!property.gallery) {
@@ -219,9 +218,11 @@ const AboutEdit = (props) => {
 									label={`${t('settings.about.titleForLogo')} (250x100)`}
 								>
 									<UploadIcon
+										width={250}
 										onChange={(e) => {
 											setLogo(e)
 										}}
+										loadingIcon={loadingImage}
 										udate={true}
 										url={
 											property.logo && property.logo !== 'undefined'

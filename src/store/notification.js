@@ -8,7 +8,8 @@ const IS_ICON_UPLOAD = 'IS_ICON_UPLOAD'
 const LOADING_NOTIFICATIONS = 'LOADING_NOTIFICATIONS'
 const LOADING_ICON = 'LOADING_ICON'
 const LOADING_DETAILS_NOTIFICATION = 'LOADING_DETAILS_NOTIFICATION'
-const GET_DATE_PICKER = 'GET_DATE_PICKER'
+const GET_DATE_PICKER_START = 'GET_DATE_PICKER_START'
+const GET_DATE_PICKER_END = 'GET_DATE_PICKER_END'
 
 const URL = process.env.REACT_APP_URL
 
@@ -95,8 +96,13 @@ const isIconUpload = (boolean) => ({
 	payload: boolean,
 })
 
-export const getDatePicker = (date) => ({
-	type: GET_DATE_PICKER,
+export const getDatePickerStart = (date) => ({
+	type: GET_DATE_PICKER_START,
+	payload: date,
+})
+
+export const getDatePickerEnd = (date) => ({
+	type: GET_DATE_PICKER_END,
 	payload: date,
 })
 
@@ -108,7 +114,8 @@ const InitialState = {
 	loading: false,
 	loadingIcon: false,
 	isIconUpload: false,
-	datePicker: null,
+	datePickerStart: null,
+	datePickerEnd: null,
 }
 
 export const notificationReducer = (state = InitialState, action) => {
@@ -129,8 +136,10 @@ export const notificationReducer = (state = InitialState, action) => {
 			return { ...state, loadingIcon: action.payload }
 		case LOADING_DETAILS_NOTIFICATION:
 			return { ...state, loadingDetails: action.payload }
-		case GET_DATE_PICKER:
-			return { ...state, datePicker: action.payload }
+		case GET_DATE_PICKER_START:
+			return { ...state, datePickerStart: action.payload }
+		case GET_DATE_PICKER_END:
+			return { ...state, datePickerEnd: action.payload }
 		default:
 			return state
 	}

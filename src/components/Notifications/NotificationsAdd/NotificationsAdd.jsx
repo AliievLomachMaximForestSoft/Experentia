@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Breadcrumb, Button, Col, Form, Input, PageHeader, Row } from 'antd'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
 import { Content } from 'antd/lib/layout/layout'
 import TextArea from 'antd/lib/input/TextArea'
 import UploadIcon from '../../UI Components/UploadImage/UploadIcon'
@@ -13,7 +13,9 @@ const NotificationsAdd = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-	const { iconUrl, loading } = useSelector((state) => state.notifications)
+	const { iconUrl, loading, loadingIcon } = useSelector(
+		(state) => state.notifications
+	)
 
 	const onSubmit = (e) => {
 		let today = new Date()
@@ -57,6 +59,8 @@ const NotificationsAdd = () => {
 							>
 								<Form.Item label={`${t('notifications.titleForImage')}`}>
 									<UploadIcon
+										width={228}
+										loadingIcon={loadingIcon}
 										onChange={(e) => {
 											dispatch(sendIcon(e))
 										}}
@@ -101,6 +105,7 @@ const NotificationsAdd = () => {
 											htmlType='submit'
 											type='primary'
 											loading={loading}
+											disabled={loadingIcon}
 										>
 											{t('button.titleForSave')}
 										</Button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import {  Modal, Upload } from 'antd'
+import { Modal, Spin, Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 
 const UploadImage = (props) => {
@@ -42,6 +42,7 @@ const UploadImage = (props) => {
 				reader.onload = () => resolve(reader.result)
 			})
 		}
+
 		setPreviewImage(file.url || file.preview)
 		setPreviewVisible(true)
 	}
@@ -55,34 +56,37 @@ const UploadImage = (props) => {
 
 	return (
 		<>
-			<Upload
-				accept='.jpg, .jpeg, .png'
-				className='bgup'
-				listType='picture-card'
-				fileList={fileList}
-				onChange={onChange}
-				onPreview={onPreview}
-				customRequest={dummyRequest}
-				showUploadList={{ showPreviewIcon: props.udate ? true : false }}
-				style={{ width: 700 }}
-			>
-				{fileList.length < 1 && <UploadOutlined /> &&
-					t('services.placeholderForBgImg')}
-			</Upload>
-			<Modal
-				visible={previewVisible}
-				footer={null}
-				onCancel={handleCancel}
-				closable={false}
-			>
-				<img
-					alt='example'
-					style={{
-						width: '100%',
-					}}
-					src={previewImage}
-				/>
-			</Modal>
+			<Spin spinning={props.loadingBackground} size='large'>
+				<Upload
+					progress={{ type: 'line', strokeWidth: 2, showInfo: true }}
+					accept='.jpg, .jpeg, .png'
+					className='bgup'
+					listType='picture-card'
+					fileList={fileList}
+					onChange={onChange}
+					onPreview={onPreview}
+					customRequest={dummyRequest}
+					showUploadList={{ showPreviewIcon: props.udate ? true : false }}
+					style={{ width: 700 }}
+				>
+					{fileList.length < 1 && <UploadOutlined /> &&
+						t('services.placeholderForBgImg')}
+				</Upload>
+				<Modal
+					visible={previewVisible}
+					footer={null}
+					onCancel={handleCancel}
+					closable={false}
+				>
+					<img
+						alt='example'
+						style={{
+							width: '100%',
+						}}
+						src={previewImage}
+					/>
+				</Modal>
+			</Spin>
 		</>
 	)
 }

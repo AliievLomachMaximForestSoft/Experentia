@@ -21,6 +21,7 @@ import {
 	getAllAttractions,
 	updateIndexAttractionIndex,
 	isUpdateIndexAttractions,
+	setIndexDel,
 } from '../../../store/servicesAttractions'
 const URL = process.env.REACT_APP_URL
 
@@ -129,6 +130,7 @@ const AttractionsList = (props) => {
 							<ModalDelete
 								id={record.ID}
 								index={record.index}
+								setIndexDel={setIndexDel}
 								message={messageErr}
 								value='attractionWithIndex'
 								title={`${t('attractions.dellAttractionTitle')}`}

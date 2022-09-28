@@ -12,11 +12,13 @@ import {
 	Checkbox,
 	InputNumber,
 	Card,
+	Spin,
 } from 'antd'
 import { InfoCircleOutlined } from '@ant-design/icons'
 import { Content } from 'antd/es/layout/layout'
 import UploadIcon from '../../../UI Components/UploadImage/UploadIcon'
 import UploadBackground from '../../../UI Components/UploadImage/UploadBackground'
+import { useSelector } from 'react-redux'
 const { Text } = Typography
 const { TextArea } = Input
 
@@ -24,6 +26,10 @@ const ServicesAddUI = (props) => {
 	const { t } = useTranslation()
 	const [check, setCheck] = useState(false)
 	const [fields, setFields] = useState([])
+	const { loadingBackground, loading, loadingIcon } = useSelector(
+		(state) => state.services
+	)
+
 	useEffect(() => {
 		setFields([
 			{
@@ -48,7 +54,8 @@ const ServicesAddUI = (props) => {
 						>
 							<Form.Item label={`${t('services.titleForIcon')} (72x72)`}>
 								<UploadIcon
-									data='logo'
+									width={72}
+									loadingIcon={loadingIcon}
 									onChange={(e) => {
 										props.setIcon(e)
 									}}
@@ -259,6 +266,7 @@ const ServicesAddUI = (props) => {
 							</Form.Item>
 							<Form.Item name='background'>
 								<UploadBackground
+									loadingBackground={loadingBackground}
 									onChange={(e) => {
 										props.setBackground(e)
 									}}
@@ -270,7 +278,8 @@ const ServicesAddUI = (props) => {
 										style={{ width: 114 }}
 										htmlType='submit'
 										type='primary'
-										loading={props.isCreateService}
+										disabled={loadingBackground || loadingIcon}
+										loading={loading}
 									>
 										{t('button.titleForSave')}
 									</Button>
