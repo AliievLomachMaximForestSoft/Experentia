@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { UploadOutlined } from '@ant-design/icons'
-import { Upload } from 'antd'
+import { Spin, Upload } from 'antd'
 
 const UploadImage = (props) => {
 	const [fileList, setFileList] = useState([])
@@ -46,24 +46,26 @@ const UploadImage = (props) => {
 	}
 
 	return (
-		<Upload
-			className={
-				props.data === 'logo'
-					? 'logo-up'
-					: props.data === 'image'
-					? 'notification-up'
-					: ''
-			}
-			accept='.jpg, .jpeg, .png'
-			listType='picture-card'
-			fileList={fileList}
-			onChange={onChange}
-			onPreview={onPreview}
-			showUploadList={{ showPreviewIcon: false }}
-			customRequest={dummyRequest}
-		>
-			{fileList.length < 1 && <UploadOutlined />}
-		</Upload>
+		<Spin spinning={props.loadingIcon} style={{ width: props.width }}>
+			<Upload
+				className={
+					props.data === 'logo'
+						? 'logo-up'
+						: props.data === 'image'
+						? 'notification-up'
+						: ''
+				}
+				accept='.jpg, .jpeg, .png'
+				listType='picture-card'
+				fileList={fileList}
+				onChange={onChange}
+				onPreview={onPreview}
+				showUploadList={{ showPreviewIcon: false }}
+				customRequest={dummyRequest}
+			>
+				{fileList.length < 1 && <UploadOutlined />}
+			</Upload>
+		</Spin>
 	)
 }
 

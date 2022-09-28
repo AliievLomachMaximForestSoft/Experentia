@@ -19,7 +19,10 @@ import UploadGalery from '../../../UI Components/UploadImage/UploadGalery'
 import TextArea from 'antd/lib/input/TextArea'
 import { PlacesAutocomplete } from '../../../UI Components/MapContainer/Autocomplete'
 import MapContainer from '../../../UI Components/MapContainer/MapContainer'
-import { sendGaleryAttraction } from '../../../../store/servicesAttractions'
+import {
+	sendGaleryAttraction,
+	setIndexDel,
+} from '../../../../store/servicesAttractions'
 import ModalDelete from '../../../UI Components/Modal/ModalDelete'
 
 const KEY = process.env.REACT_APP_MAPS_KEY
@@ -35,7 +38,6 @@ const AttractionsAddEdit = () => {
 	const [lng, setLng] = useState()
 	const [galery, setGalery] = useState([])
 	const [attractionsItem, setAttractionsItem] = useState()
-	const [indexDel, setIndexDel] = useState(null)
 
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
@@ -184,7 +186,7 @@ const AttractionsAddEdit = () => {
 							{type === 'edit' ? (
 								<ModalDelete
 									id={Number(id)}
-									index={indexDel}
+									// index={indexDel}
 									setIndexDel={setIndexDel}
 									value='attractionWithIndexDetails'
 									title={`${t('attractions.dellAttractionTitle')}`}

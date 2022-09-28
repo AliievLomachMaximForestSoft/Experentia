@@ -24,8 +24,14 @@ const NotificationsList = () => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const { local } = useSelector((state) => state.local)
-	const { notifications, isCreateNotification, deleteNotification, loading } =
-		useSelector((state) => state.notifications)
+	const {
+		notifications,
+		datePickerStart,
+		datePickerEnd,
+		isCreateNotification,
+		deleteNotification,
+		loading,
+	} = useSelector((state) => state.notifications)
 
 	const columns = [
 		{
@@ -103,7 +109,9 @@ const NotificationsList = () => {
 	}, [deleteNotification, isCreateNotification])
 
 	const onChangePage = (page, pageSize) => {
-		dispatch(getAllNotifications(page, pageSize))
+		dispatch(
+			getAllNotifications(page, pageSize, datePickerStart, datePickerEnd)
+		)
 	}
 
 	return !loading ? (

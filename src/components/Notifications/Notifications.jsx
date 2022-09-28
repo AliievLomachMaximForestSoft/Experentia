@@ -12,7 +12,11 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import AddButton from '../UI Components/AddButton/AddButton'
 import NotificationsList from './NotificationsList'
-import { getAllNotifications, getDatePicker } from '../../store/notification'
+import {
+	getAllNotifications,
+	getDatePickerEnd,
+	getDatePickerStart,
+} from '../../store/notification'
 import moment from 'moment'
 const { RangePicker } = DatePicker
 
@@ -20,13 +24,15 @@ const Notifications = () => {
 	const { t } = useTranslation()
 	const { local } = useSelector((state) => state.local)
 	moment.locale(local.locale)
-	const { datePicker } = useSelector((state) => state.notifications)
+	const { datePickerStart, datePickerEnd } = useSelector(
+		(state) => state.notifications
+	)
 
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(getAllNotifications())
-	}, [])
+		dispatch(getAllNotifications(1, 30, datePickerStart, datePickerEnd))
+	}, [datePickerStart, datePickerEnd])
 
 	return (
 		<>
@@ -43,8 +49,30 @@ const Notifications = () => {
 							<ConfigProvider locale={local}>
 								<RangePicker
 									key={1}
-									onChange={(value, s) => {
-										dispatch(getDatePicker(value))
+									onChange={(value) => {
+										if (value) {
+											const start = moment(value[0])
+												.set({
+													hour: 0,
+													minute: 0,
+													second: 0,
+												})
+												.toISOString()
+
+											const end = moment(value[1])
+												.set({
+													hour: 0,
+													minute: 0,
+													second: 0,
+												})
+												.add(1, 'days')
+												.toISOString()
+											dispatch(getDatePickerStart(start))
+											dispatch(getDatePickerEnd(end))
+										} else {
+											dispatch(getDatePickerStart(null))
+											dispatch(getDatePickerEnd(null))
+										}
 									}}
 								/>
 							</ConfigProvider>

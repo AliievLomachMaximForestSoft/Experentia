@@ -197,9 +197,17 @@
 		"titleForAddons": "ऐड-ऑन",
 		"titleForAction": "गतिविधि",
 
+		"placeholderForAddonName": "नाम दर्ज",
 		"placeholderForDescription": "सामग्री का वर्णन करें",
 		"placeholderForName": "पकवान का नाम",
-		"placeholderForAddons": "नाम दर्ज"
+		"placeholderForAddons": "नाम दर्ज",
+
+		"dellDishTitle": "क्या आप वाकई इस मेनू आइटम को हटा रहे हैं?",
+		"dellDishContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
+		"dellDishSucces": "मेनू आइटम हटा दिया गया!",
+		"createdDishSucces": "एक नया मेनू आइटम बनाया!",
+		"updateDishSuccess": "मेनू आइटम अपडेट किया गया!",
+		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!"
 	},
 
 	"attractions": {
@@ -294,7 +302,8 @@
 			"dellWiFiSucces": "वाई-फ़ाई स्पॉट हटाया गया!",
 
 			"createdWiFiSucces": "एक नया वाई-फाई स्थान बनाया!",
-			"updateWiFiSuccess": "वाई-फ़ाई स्पॉट अपडेट किया गया!"
+			"updateWiFiSuccess": "वाई-फ़ाई स्पॉट अपडेट किया गया!",
+			"itemCannotBeDeleted": "इस तत्व को हटाया नहीं जा सकता क्योंकि इसका उपयोग अन्य तत्वों द्वारा किया जाता है।"
 		},
 		"rooms": {
 			"main": "कमरा",
@@ -322,7 +331,9 @@
 			"dellRoomContent": "सभी डेटा हटा दिया जाएगा और आप इसे पुनर्प्राप्त नहीं कर पाएंगे",
 			"dellRoomSucces": "कमरा हटा दिया गया!",
 			"createdRoomSucces": "एक नया कमरा बनाया!",
-			"updateRoomSuccess": "कमरा अपडेट किया गया!"
+			"updateRoomSuccess": "कमरा अपडेट किया गया!",
+
+			"maximumRooms": "खरीदे गए सदस्यता पैकेज के लिए आपके पास पहले से ही कमरों की अधिकतम संख्या है"
 		},
 
 		"usefulContacts": {
@@ -355,7 +366,9 @@
 			"dellAddonSucces": "ऐडऑन हटा दिया गया!",
 
 			"createdAddonSucces": "एक नया ऐडऑन बनाया!",
-			"updateAddonSuccess": "एडऑन अपडेट किया गया!"
+			"updateAddonSuccess": "एडऑन अपडेट किया गया!",
+
+			"itemCannotBeDeleted": "इस तत्व को हटाया नहीं जा सकता क्योंकि इसका उपयोग अन्य तत्वों द्वारा किया जाता है।"
 		},
 
 		"subscription": {
@@ -453,6 +466,8 @@
 		"created": "बनाया था",
 		"updateServicesSuccess": "सेवा अपडेट की गई!",
 		"updated": "अद्यतन",
+		"serviceCanNotBeChanged": "सेवा को बदला नहीं जा सकता",
+		"serviceCanNotBeCreated": "सेवा नहीं बनाई जा सकती",
 
 		"indexUpdateSucces": "अनुक्रमणिका सफलतापूर्वक अपडेट की गई!"
 	},
@@ -482,7 +497,8 @@
 	},
 	"supportChat": {
 		"writeMessage": "एक सन्देश लिखिए...",
-		"supportEmpty": "यह एक सहायता है जहां आप अपने मेहमानों के साथ चैट कर सकते हैं"
+		"supportEmpty": "यह एक सहायता है जहां आप अपने मेहमानों के साथ चैट कर सकते हैं",
+		"searchPlaceholderForChat": "User Name"
 	},
 
 	"message": {
@@ -541,7 +557,21 @@
 		"tooltipNo": "नहीं",
 		"tooltipNoText": "चुनने की संभावना नहीं"
 	},
-	"404": {
-		"text": "क्षमा करें, हमें वह पृष्ठ नहीं मिला।"
+	"errors": {
+		"404": {
+			"text": "क्षमा करें, हमें वह पृष्ठ नहीं मिला।"
+		},
+		"403": {
+			"text": "क्षमा करें, हमें वह पृष्ठ नहीं मिला।"
+		},
+		"401": {
+			"text": "तुम अधिकृत नहीं हो।"
+		},
+		"409": {
+			"text": "इस आइटम को हटाना असंभव है क्योंकि इसमें अन्य आइटम शामिल हैं"
+		},
+		"some": {
+			"text": "क्लाउड सर्वर कॉन्फ़िगरेशन में 1-5 मिनट लगते हैं, कृपया प्रतीक्षा करें"
+		}
 	}
 }

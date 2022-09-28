@@ -31,7 +31,9 @@ const ServicesEditUI = (props) => {
 	const [check, setCheck] = useState(
 		props.serviceDetails.tax > 0 ? true : false
 	)
-	const { loading } = useSelector((state) => state.services)
+	const { loading, loadingBackground, loadingIcon } = useSelector(
+		(state) => state.services
+	)
 	useEffect(() => {
 		props.setServiceDatails(props.serviceDetails)
 	}, [])
@@ -98,6 +100,8 @@ const ServicesEditUI = (props) => {
 						>
 							<Form.Item label={`${t('services.titleForIcon')} (72x72)`}>
 								<UploadIcon
+									width={72}
+									loadingIcon={loadingIcon}
 									onChange={(e) => {
 										props.setIcon(e)
 									}}
@@ -291,6 +295,7 @@ const ServicesEditUI = (props) => {
 							</Form.Item>
 							<Form.Item>
 								<UploadBackground
+									loadingBackground={loadingBackground}
 									onChange={(e) => {
 										props.setBackground(e)
 									}}
@@ -313,6 +318,7 @@ const ServicesEditUI = (props) => {
 										htmlType='submit'
 										type='primary'
 										loading={loading}
+										disabled={loadingBackground || loadingIcon}
 									>
 										{t('button.titleForSave')}
 									</Button>
